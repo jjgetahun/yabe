@@ -33,28 +33,29 @@
           </div>
       </div>
   </nav>
-
-  <div class="container centered">
-      <div class="row">
-          <div class="col-md-3 col-md-offset-4">
-              <div class="form-group label-floating">
-                  <label class="control-label">Username</label>
-                  <input type="text" class="form-control">
+  <form action="/login" method="POST">
+      <div class="container centered">
+          <form action="/login" method="POST" class="row">
+              <div class="col-md-3 col-md-offset-4">
+                  <div class="form-group label-floating">
+                      <label class="control-label">Username</label>
+                      <input name="username" type="text" class="form-control">
+                  </div>
               </div>
-          </div>
-          <div class="col-md-3 col-md-offset-4">
-              <div class="form-group label-floating">
-                  <label class="control-label">Password</label>
-                  <input type="password" class="form-control">
+              <div class="col-md-3 col-md-offset-4">
+                  <div class="form-group label-floating">
+                      <label class="control-label">Password</label>
+                      <input name="password" type="password" class="form-control">
+                  </div>
               </div>
-          </div>
-          <div class="col-md-3 col-md-offset-4">
-              <div class="form-group label-floating">
-                  <input class="btn btn-success" type="submit" value="Submit" />
+              <div class="col-md-3 col-md-offset-4">
+                  <div class="form-group label-floating">
+                      <input class="btn btn-success" type="submit" value="Submit" />
+                  </div>
               </div>
           </div>
       </div>
-  </div>
+  </form>
   <!--   Core JS Files   -->
   <script src="assets/js/jquery.min.js" type="text/javascript"></script>
   <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
