@@ -27,14 +27,6 @@ INSERT INTO Admin VALUES(1);
 INSERT INTO Admin VALUES(2);
 INSERT INTO Admin VALUES(3);
 
-CREATE TABLE Buyer(
-AccountID int(11) NOT NULL,
-PRIMARY KEY(AccountID),
-FOREIGN KEY(AccountID) references Account(AccountID)
-);
-
-INSERT INTO Buyer VALUES(4);
-
 CREATE TABLE Customer_Rep(
 AccountID int(11) NOT NULL,
 PRIMARY KEY(AccountID),
@@ -42,11 +34,3 @@ FOREIGN KEY(AccountID) references Account(AccountID)
 );
 
 INSERT INTO Customer_Rep Values(5);
-
-CREATE TABLE Seller(
-AccountID int(11) NOT NULL,
-PRIMARY KEY(AccountID),
-FOREIGN KEY(AccountID) references Account(AccountID)
-);
-
-INSERT INTO Seller Values(4);
