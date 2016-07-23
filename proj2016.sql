@@ -34,3 +34,62 @@ FOREIGN KEY(AccountID) references Account(AccountID)
 );
 
 INSERT INTO Customer_Rep Values(5);
+
+CREATE TABLE Item(
+SerialNumber int(11) NOT NULL,
+ModelNumber int(11) NOT NULL,
+PRIMARY KEY(SerialNumber)
+);
+
+CREATE TABLE Auction(
+AuctionID int(11) NOT NULL AUTO_INCREMENT,
+SellerID int(11) NOT NULL,
+ItemID int(11) NOT NULL,
+StartTime timestamp NOT NULL DEFAULT '1970-01-01 00:00:01',
+EndTime timestamp NOT NULL DEFAULT '2037-01-19 03:14:07',
+PRIMARY KEY(AuctionID),
+FOREIGN KEY(SellerID) references Account(AccountID),
+FOREIGN KEY(ItemID) references Item(SerialNumber)
+);
+
+CREATE INDEX ix_Model ON Item(ModelNumber);
+
+CREATE TABLE Alert(
+AccountID int(11) NOT NULL,
+ModelNumber int(11) NOT NULL,
+PRIMARY KEY(AccountID, ModelNumber),
+FOREIGN KEY(AccountID) references Account(AccountID),
+FOREIGN KEY(ModelNumber) references Item(ModelNumber)
+);
+
+CREATE TABLE Bid(
+Time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+Amount float(7, 2) NOT NULL,
+BidderID int(11) NOT NULL,
+AuctionID int(11) NOT NULL,
+IsAuto tinyint(1) NOT NULL,
+PRIMARY KEY(BidderID, AuctionID, Amount),
+FOREIGN KEY(BidderID) references Account(AccountID),
+FOREIGN KEY(AuctionID) references Auction(AuctionID)
+);
+
+CREATE TABLE ItemA(
+A1 varchar(200),
+A2 varchar(200),
+A3 varchar(200),
+SerialNumber int(11) references Item(SerialNumber)
+);
+
+CREATE TABLE ItemB(
+B1 varchar(200),
+B2 varchar(200),
+B3 varchar(200),
+SerialNumber int(11) references Item(SerialNumber)
+);
+
+CREATE TABLE ItemC(
+C1 varchar(200),
+C2 varchar(200),
+C3 varchar(200),
+SerialNumber int(11) references Item(SerialNumber)
+);
