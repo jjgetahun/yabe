@@ -24,13 +24,13 @@
                   <span class="icon-bar"></span>
                   <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#">YABE</a>
+              <a class="navbar-brand" href="index.jsp">YABE</a>
           </div>
 
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav">
-                  <li><a href="/index.jsp#">Login</a></li>
-                  <li><a href="/register.jsp">Register</a></li>
+                  <li><a href="index.jsp">Login</a></li>
+                  <li><a href="register.jsp">Register</a></li>
 
               </ul>
           </div>
@@ -58,14 +58,16 @@
       </form>
 
       <div class="col-md-3 col-md-offset-4">
-          <a href="/register.jsp">
+          <a href="register.jsp">
               <button class="btn" >Register</button>
           </a>
       </div>
   </div>
 
   <%  String message = "";
-      if(session.getAttribute("USER") != null && request.getParameter("logout").equals("true")) {
+      if(session.getAttribute("USER") != null &&
+              request.getParameter("logout") != null &&
+              request.getParameter("logout").equals("true")) {
           message = "Logout Successful.";
           session.setAttribute("USER", null);
       }else if( request.getParameter("register") != null && request.getParameter("register").equals("true")) {

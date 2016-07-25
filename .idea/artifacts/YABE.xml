@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="YABE">
+    <output-path>$PROJECT_DIR$/out/artifacts/YABE</output-path>
+    <root id="archive" name="YABE.war">
+      <element id="artifact" artifact-name="YABE:war exploded" />
+    </root>
+  </artifact>
+</component>
