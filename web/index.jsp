@@ -14,6 +14,7 @@
       <link href="assets/css/yabe.css" rel="stylesheet">
   </head>
   <body>
+
   <nav class="navbar navbar-success" role="navigation">
       <div class="container-fluid">
           <div class="navbar-header">
@@ -28,34 +29,51 @@
 
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav">
-                  <li class="active"><a href="#">Login</a></li>
+                  <li><a href="/index.jsp#">Login</a></li>
+                  <li><a href="/register.jsp">Register</a></li>
+
               </ul>
           </div>
       </div>
   </nav>
-  <form action="/login" method="POST">
-      <div class="container centered">
-          <form action="/login" method="POST" class="row">
-              <div class="col-md-3 col-md-offset-4">
-                  <div class="form-group label-floating">
-                      <label class="control-label">Username</label>
-                      <input name="username" type="text" class="form-control">
-                  </div>
-              </div>
-              <div class="col-md-3 col-md-offset-4">
-                  <div class="form-group label-floating">
-                      <label class="control-label">Password</label>
-                      <input name="password" type="password" class="form-control">
-                  </div>
-              </div>
-              <div class="col-md-3 col-md-offset-4">
-                  <div class="form-group label-floating">
-                      <input class="btn btn-success" type="submit" value="Submit" />
-                  </div>
+  <div class="container centered">
+      <form action="/auth.jsp" method="POST" class="row">
+          <div class="col-md-3 col-md-offset-4">
+              <div class="form-group label-floating">
+                  <label class="control-label">Username</label>
+                  <input name="username" type="text" class="form-control">
               </div>
           </div>
+          <div class="col-md-3 col-md-offset-4">
+              <div class="form-group label-floating">
+                  <label class="control-label">Password</label>
+                  <input name="password" type="password" class="form-control">
+              </div>
+          </div>
+          <div class="col-md-3 col-md-offset-4">
+              <div class="form-group label-floating">
+                  <input class="btn btn-success" type="submit" value="Submit" />
+              </div>
+          </div>
+      </form>
+
+      <div class="col-md-3 col-md-offset-4">
+          <a href="/register.jsp">
+              <button class="btn" >Register</button>
+          </a>
       </div>
-  </form>
+  </div>
+
+  <%  String message = "";
+      if(session.getAttribute("USER") != null && request.getParameter("logout").equals("true")) {
+          message = "Logout Successful.";
+          session.setAttribute("USER", null);
+      }else if( request.getParameter("register") != null && request.getParameter("register").equals("true")) {
+          message = "Registration successful";
+      }
+  %>
+
+  <h3><%=message%></h3>
   <!--   Core JS Files   -->
   <script src="assets/js/jquery.min.js" type="text/javascript"></script>
   <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
