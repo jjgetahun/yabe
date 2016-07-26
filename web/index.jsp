@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title>$Title$</title>
+    <title>Login</title>
       <link href="assets/css/bootstrap.min.css" rel="stylesheet">
       <link href="assets/css/material-kit.css" rel="stylesheet">
       <link href="assets/css/yabe.css" rel="stylesheet">
@@ -29,7 +29,7 @@
 
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav">
-                  <li><a href="index.jsp">Login</a></li>
+                  <li class="active"><a href="index.jsp">Login</a></li>
                   <li><a href="register.jsp">Register</a></li>
 
               </ul>
@@ -37,7 +37,7 @@
       </div>
   </nav>
   <div class="container centered">
-      <form action="/auth.jsp" method="POST" class="row">
+      <form action="auth.jsp" method="POST" class="row">
           <div class="col-md-3 col-md-offset-4">
               <div class="form-group label-floating">
                   <label class="control-label">Username</label>

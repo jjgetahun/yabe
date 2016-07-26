@@ -36,7 +36,7 @@ public class DB {
                 id = rs.getInt("AccountID");
             }
         }catch (SQLException e){
-
+            e.printStackTrace();
         }
 
         return id;
@@ -58,7 +58,7 @@ public class DB {
                 name = rs.getString("Name");
             }
         }catch (SQLException e){
-
+            e.printStackTrace();
         }
 
         return name;
@@ -80,7 +80,7 @@ public class DB {
                 id = rs.getInt("AccountID");
             }
         }catch (SQLException e){
-
+            e.printStackTrace();
         }
 
         return id;
@@ -94,9 +94,9 @@ public class DB {
             String sql = "INSERT INTO Account(UserName, Name, PassWord) VALUES('" + username + "', '" + name +
                     "', '" + password + "')";
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery(sql);
+            statement.executeUpdate(sql);
         }catch (SQLException e){
-
+            e.printStackTrace();
         }
     }
 }
