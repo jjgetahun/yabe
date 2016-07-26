@@ -1,4 +1,6 @@
+
 <%--
+
   Created by IntelliJ IDEA.
   User: elby
   Date: 7/21/16
@@ -42,10 +44,11 @@
         String password = request.getParameter("password");
 
         int id = database.DB.getUserID(username, password);
+        String name = database.DB.getName(username);
         String message = "";
         String button = "";
         if(id != -1){
-            message = "Login Successful! Welcome to YABE, " + id;
+            message = "Login Successful! Welcome to YABE, " + name +" ("+ id + ")";
             session.setAttribute("USER", id);
             button = "    <form action=\"index.jsp\" method=\"POST\">\n" +
                     "        <input type=\"hidden\" name=\"logout\" value=\"true\">\n" +

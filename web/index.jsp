@@ -71,7 +71,14 @@
           message = "Logout Successful.";
           session.setAttribute("USER", null);
       }else if( request.getParameter("register") != null && request.getParameter("register").equals("true")) {
-          message = "Registration successful";
+          String username = request.getParameter("username");
+          if (database.DB.checkUserExists(username) == -1){
+              String name = request.getParameter("name");
+              String password = request.getParameter("password");
+              database.DB.insertUser(username, name, password);
+              message = "Registration successful";
+          }
+          else message = "User already exists";
       }
   %>
 
