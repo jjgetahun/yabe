@@ -64,12 +64,10 @@ public class DB {
         return name;
     }
 
-    public static int checkUserExists(String username){
+    public static boolean insertUser(String username, String name, String password){
 
         if(!initialized) init();
-
         int id = -1;
-
         try {
             String sql = "SELECT * FROM Account where UserName = '" + username + "';";
             Statement statement = conn.createStatement();
@@ -79,24 +77,17 @@ public class DB {
             while (rs.next()) {
                 id = rs.getInt("AccountID");
             }
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
+            if (id != -1)
+                return false;
 
-        return id;
-    }
-
-    public static void insertUser(String username, String name, String password){
-
-        if(!initialized) init();
-
-        try {
-            String sql = "INSERT INTO Account(UserName, Name, PassWord) VALUES('" + username + "', '" + name +
+            sql = "INSERT INTO Account(UserName, Name, PassWord) VALUES('" + username + "', '" + name +
                     "', '" + password + "')";
-            Statement statement = conn.createStatement();
+            statement = conn.createStatement();
             statement.executeUpdate(sql);
+            return true;
         }catch (SQLException e){
             e.printStackTrace();
+            return false;
         }
     }
 }
