@@ -20,7 +20,7 @@ public class DB {
         }
     }
 
-    public static int getUserID(String username, String password){
+    public static int validateLogin(String username, String password){
 
         if(!initialized) init();
 
@@ -42,6 +42,27 @@ public class DB {
         return id;
     }
 
+    private static int getUserID(String username){
+
+        if(!initialized) init();
+
+        int id = -1;
+
+        try {
+            String sql = "SELECT * FROM Account where UserName = '" + username + ";";
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+
+            //Assuming only one or zero users comes back
+            while (rs.next()) {
+                id = rs.getInt("AccountID");
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return id;
+    }
     public static String getName(String username){
 
         if(!initialized) init();
@@ -86,6 +107,41 @@ public class DB {
             statement.executeUpdate(sql);
             return true;
         }catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean placeBid(String username, int auctionID, double amount, int isAuto){
+
+        if(!initialized) init();
+        double highestBid = 0.01;
+        int oldBidderID = -1;
+        try{
+            String sql = "SELECT MAX(B.Amount) as bid, B.BidderID FROM Auction A, Bid B WHERE A.AuctionID = B.AuctionID " +
+                    "GROUP BY B.BidderID";
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                highestBid = rs.getDouble("bid");
+                oldBidderID = rs.getInt("BidderID");
+            }
+
+            if (amount <= highestBid)
+                return false;
+
+            sql = "INSERT INTO Message(Contents, ReceiverID) VALUES('You have been outbid on auction #" + auctionID + ".', '" +
+                    oldBidderID + "')";
+            statement = conn.createStatement();
+            statement.executeUpdate(sql);
+
+            int newBidderID = getUserID(username);
+            sql = "INSERT INTO Bid(Amount, BidderID, AuctionID, IsAuto) VALUES('"+ amount + "','" + newBidderID + "','" +
+                    auctionID + "','" + isAuto + "')";
+            statement = conn.createStatement();
+            statement.executeUpdate(sql);
+            return true;
+        }catch(SQLException e){
             e.printStackTrace();
             return false;
         }
