@@ -146,4 +146,39 @@ public class DB {
             return false;
         }
     }
+
+    public static boolean createAuction(String sellerName, int itemID, int reserve, Date endTime) {
+        if(!initialized) init();
+
+        int sellerID = getUserID(sellerName);
+
+        int id = -1;
+
+        try {
+
+            String sql = "SELECT * FROM Item where ItemID = '"+itemID+"';";
+
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+
+            while (rs.next()) {
+                id = rs.getInt("ItemID");
+
+                if (id != -1)
+                    return false;
+            }
+
+            sql = "INSERT INTO AUCTION(SellerID, ItemID, Reserve EndTime) VALUES('" + sellerID + "', '" + itemID + "', '" + reserve + "', '" + endTime + "')";
+
+            statement = conn.createStatement();
+            rs = statement.executeUpdate(sql);
+            return true;
+        }
+        catch(SQLException se) {
+            se.printStackTrace();
+            return false;
+        }
+
+    }
+
 }
