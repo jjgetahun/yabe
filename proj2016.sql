@@ -36,9 +36,17 @@ FOREIGN KEY(AccountID) references Account(AccountID)
 INSERT INTO Customer_Rep Values(5);
 
 CREATE TABLE Item(
-SerialNumber int(11) NOT NULL,
 ModelNumber int(11) NOT NULL,
-PRIMARY KEY(SerialNumber)
+  A1 varchar(200),
+  A2 varchar(200),
+  A3 varchar(200),
+  B1 varchar(200),
+  B2 varchar(200),
+  B3 varchar(200),
+  C1 varchar(200),
+  C2 varchar(200),
+  C3 varchar(200),
+PRIMARY KEY(ModelNumber)
 );
 
 CREATE TABLE Auction(
@@ -47,9 +55,12 @@ SellerID int(11) NOT NULL,
 ItemID int(11) NOT NULL,
 StartTime timestamp NOT NULL DEFAULT '1970-01-01 00:00:01',
 EndTime timestamp NOT NULL DEFAULT '2037-01-19 03:14:07',
+StartingPrice float(7, 2) NOT NULL DEFAULT 0.01,
+Reserve float(7, 2),
+Description varchar(255),
 PRIMARY KEY(AuctionID),
 FOREIGN KEY(SellerID) references Account(AccountID),
-FOREIGN KEY(ItemID) references Item(SerialNumber)
+FOREIGN KEY(ItemID) references Item(ModelNumber)
 );
 
 CREATE INDEX ix_Model ON Item(ModelNumber);
@@ -73,23 +84,14 @@ FOREIGN KEY(BidderID) references Account(AccountID),
 FOREIGN KEY(AuctionID) references Auction(AuctionID)
 );
 
-CREATE TABLE ItemA(
-A1 varchar(200),
-A2 varchar(200),
-A3 varchar(200),
-SerialNumber int(11) references Item(SerialNumber)
-);
-
-CREATE TABLE ItemB(
-B1 varchar(200),
-B2 varchar(200),
-B3 varchar(200),
-SerialNumber int(11) references Item(SerialNumber)
-);
-
-CREATE TABLE ItemC(
-C1 varchar(200),
-C2 varchar(200),
-C3 varchar(200),
-SerialNumber int(11) references Item(SerialNumber)
+CREATE TABLE Messsage(
+MessageID int(15) NOT NULL AUTO_INCREMENT,
+SenderID int(11) NOT NULL DEFAULT -1,
+ReceiverID int(11) NOT NULL,
+Contents varchar(255) NOT NULL,
+ReadStatus tinyint(1) NOT NULL DEFAULT 0,
+TimeSent timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY(MessageID),
+FOREIGN KEY(SenderID) references Account(AccountID),
+FOREIGN KEY(ReceiverID) references Account(AccountID)
 );
