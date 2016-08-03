@@ -102,8 +102,7 @@ public class DB {
                 return false;
 
             sql = "INSERT INTO Account(UserName, Name, PassWord) VALUES('" + username + "', '" + name +
-                    "', '" + password + "')";
-            statement = conn.createStatement();
+                    "', '" + password + "');";
             statement.executeUpdate(sql);
             return true;
         }catch (SQLException e){
@@ -118,8 +117,9 @@ public class DB {
         double highestBid = 0.01;
         int oldBidderID = -1;
         try{
+            //find current highest bidder
             String sql = "SELECT MAX(B.Amount) as bid, B.BidderID FROM Auction A, Bid B WHERE A.AuctionID = B.AuctionID " +
-                    "GROUP BY B.BidderID";
+                    "GROUP BY B.BidderID;";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
@@ -130,15 +130,15 @@ public class DB {
             if (amount <= highestBid)
                 return false;
 
+            //notify outbid
             sql = "INSERT INTO Message(Contents, ReceiverID) VALUES('You have been outbid on auction #" + auctionID + ".', '" +
-                    oldBidderID + "')";
-            statement = conn.createStatement();
+                    oldBidderID + "');";
             statement.executeUpdate(sql);
 
+            //
             int newBidderID = getUserID(username);
             sql = "INSERT INTO Bid(Amount, BidderID, AuctionID, IsAuto) VALUES('"+ amount + "','" + newBidderID + "','" +
-                    auctionID + "','" + isAuto + "')";
-            statement = conn.createStatement();
+                    auctionID + "','" + isAuto + "');";
             statement.executeUpdate(sql);
             return true;
         }catch(SQLException e){
@@ -168,10 +168,8 @@ public class DB {
                     return false;
             }
 
-            sql = "INSERT INTO AUCTION(SellerID, ItemID, Reserve EndTime) VALUES('" + sellerID + "', '" + itemID + "', '" + reserve + "', '" + endTime + "')";
-
-            statement = conn.createStatement();
-            rs = statement.executeUpdate(sql);
+            sql = "INSERT INTO AUCTION(SellerID, ItemID, Reserve, EndTime) VALUES('" + sellerID + "', '" + itemID + "', '" + reserve + "', '" + endTime + "');";
+            statement.executeUpdate(sql);
             return true;
         }
         catch(SQLException se) {
