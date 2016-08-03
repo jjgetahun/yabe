@@ -156,13 +156,13 @@ public class DB {
 
         try {
 
-            String sql = "SELECT * FROM Item where ItemID = '"+itemID+"';";
+            String sql = "SELECT * FROM Item where ModelNumber = '"+itemID+"';";
 
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(sql);
 
             while (rs.next()) {
-                id = rs.getInt("ItemID");
+                id = rs.getInt("ModelNumber");
 
                 if (id != -1)
                     return false;
@@ -176,7 +176,32 @@ public class DB {
             se.printStackTrace();
             return false;
         }
-
     }
 
+    public static ArrayList getBidHistory(int auctionID) {
+        if(!initialized) init();
+        try {
+            Auction auction = new Auction(auctionID);
+            String sql = "SELECT Amount, BidderID, Time FROM Bid WHERE IsAuto = 0 and AuctionID = '" + auctionID + "' GROUP BY Amount;";
+
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            double amount = "";
+            int bidderID = -1;
+            String time = "";
+            ArrayList bids = new ArrayList();
+            while (rs.next()) {
+                amount = rs.getDouble("Amount");
+                bidderID = rs.getInt("BidderID");
+                time = rs.getString("Time");
+                //placeholder for bid class
+                bids.add(amount + " " + bidderID + " " + time);
+            }
+            return bids;
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
