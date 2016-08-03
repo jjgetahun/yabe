@@ -147,6 +147,58 @@ public class DB {
         }
     }
 
+    public static int getItem() {
+        
+    }
+
+    public static boolean createItem(int modelNumber, String type, String attr1, String attr2, String attr3) {
+        if (!initialized) init();
+
+        int num = -1;
+
+        try {
+
+            /*String sql = "SELECT * FROM Item where ModelNumber = '"+modelNumber+"';";
+
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+
+            while (rs.next()) {
+                num = rs.getInt("ModelNumber");
+
+                if (id != -1)
+                    return false;
+            }*/
+
+            String sql = "";
+
+            switch(type) {
+                case "A":
+                    sql = "INSERT INTO ITEM(ModelNumber, A1, A2, A3) VALUES('" + modelNumber + "', '" + attr1 + "', '" + attr2 + "', '" + attr3 + "');";
+
+                case "B":
+                    sql = "INSERT INTO ITEM(ModelNumber, B1, B2, B3) VALUES('" + modelNumber + "', '" + attr1 + "', '" + attr2 + "', '" + attr3 + "');";
+
+                case "C":
+                    sql = "INSERT INTO ITEM(ModelNumber, C1, C2, C3) VALUES('" + modelNumber + "', '" + attr1 + "', '" + attr2 + "', '" + attr3 + "');";
+
+                default:
+                    return false;
+            }
+
+            Statement statement = conn.createStatement();
+
+            statement.executeUpdate(sql);
+            return true;
+
+        }
+        catch (SQLException se ) {
+            se.printStackTrace();
+            return false;
+        }
+
+    }
+
     public static boolean createAuction(String sellerName, int itemID, int reserve, Date endTime) {
         if(!initialized) init();
 
