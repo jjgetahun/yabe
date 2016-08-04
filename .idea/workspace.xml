@@ -7,11 +7,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0dab8412-8e82-4c82-abbf-8db658d679af" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/YABE.war" afterPath="$PROJECT_DIR$/YABE.war" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/database/Auction.java" afterPath="$PROJECT_DIR$/src/database/Auction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/database/Bid.java" afterPath="$PROJECT_DIR$/src/database/Bid.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/database/DB.java" afterPath="$PROJECT_DIR$/src/database/DB.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/index.jsp" afterPath="$PROJECT_DIR$/web/index.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/register.jsp" afterPath="$PROJECT_DIR$/web/register.jsp" />
     </list>
     <ignored path="YABE.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -33,12 +32,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.jsp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/index.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="410">
-              <caret line="97" column="0" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="1275">
+              <caret line="75" column="22" selection-start-line="75" selection-start-column="22" selection-end-line="75" selection-end-column="22" />
+              <folding>
+                <marker date="1470337348425" expanded="true" signature="2423:3163" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -46,7 +47,7 @@
       <file leaf-file-name="register.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/register.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="558">
+            <state relative-caret-position="527">
               <caret line="31" column="39" selection-start-line="31" selection-start-column="39" selection-end-line="31" selection-end-column="39" />
               <folding />
             </state>
@@ -56,23 +57,65 @@
       <file leaf-file-name="auth.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/auth.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="13" column="17" selection-start-line="13" selection-start-column="17" selection-end-line="13" selection-end-column="17" />
+            <state relative-caret-position="374">
+              <caret line="34" column="54" selection-start-line="34" selection-start-column="53" selection-end-line="34" selection-end-column="54" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DB.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Auction.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/database/Auction.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" column="30" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Bid.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/database/Bid.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DB.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/database/DB.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="612">
-              <caret line="34" column="31" selection-start-line="34" selection-start-column="31" selection-end-line="34" selection-end-column="31" />
+            <state relative-caret-position="1020">
+              <caret line="187" column="35" selection-start-line="187" selection-start-column="22" selection-end-line="187" selection-end-column="35" />
               <folding>
-                <marker date="1469562794764" expanded="true" signature="752:843" ph="SELECT * FRO... Account" />
-                <marker date="1469562794764" expanded="true" signature="1366:1423" ph="SELECT * FRO... Account" />
-                <marker date="1469562794764" expanded="true" signature="1948:2005" ph="SELECT * FRO... Account" />
-                <marker date="1469562794764" expanded="true" signature="2532:2660" ph="INSERT INTO Account... " />
+                <element signature="imports" expanded="true" />
+                <element signature="method#init#0;class#DB#0" expanded="false" />
+                <element signature="method#validateLogin#0;class#DB#0" expanded="false" />
+                <element signature="method#getUserID#0;class#DB#0" expanded="false" />
+                <element signature="method#getName#0;class#DB#0" expanded="false" />
+                <element signature="method#insertUser#0;class#DB#0" expanded="false" />
+                <element signature="method#placeBid#0;class#DB#0" expanded="false" />
+                <element signature="e#4729#4730#0" expanded="true" />
+                <element signature="e#4753#4754#0" expanded="true" />
+                <element signature="method#createAuction#0;class#DB#0" expanded="false" />
+                <marker date="1470337869349" expanded="true" signature="785:876" ph="SELECT * FRO... Account" />
+                <marker date="1470337869349" expanded="true" signature="1394:1451" ph="SELECT * FRO... Account" />
+                <marker date="1470337869349" expanded="true" signature="1972:2029" ph="SELECT * FRO... Account" />
+                <marker date="1470337869349" expanded="true" signature="2581:2638" ph="SELECT * FRO... Account" />
+                <marker date="1470337869349" expanded="true" signature="2981:3109" ph="INSERT INTO Account... " />
+                <marker date="1470337869349" expanded="true" signature="3563:3701" ph="SELECT MAX(B... Auction" />
+                <marker date="1470337869349" expanded="true" signature="4085:4231" ph="INSERT INTO Message... " />
+                <marker date="1470337869349" expanded="true" signature="4363:4518" ph="INSERT INTO Bid... " />
+                <marker date="1470337869349" expanded="true" signature="5416:5538" ph="INSERT INTO ITEM... " />
+                <marker date="1470337869349" expanded="true" signature="5596:5718" ph="INSERT INTO ITEM... " />
+                <marker date="1470337869349" expanded="true" signature="5776:5898" ph="INSERT INTO ITEM... " />
+                <marker date="1470337869349" expanded="true" signature="6473:6524" ph="SELECT * FRO... Item" />
+                <marker date="1470337869349" expanded="true" signature="6822:6960" ph="INSERT INTO AUCTION... " />
+                <marker date="1470337869349" expanded="true" signature="7339:7446" ph="SELECT Amoun... " />
               </folding>
             </state>
           </provider>
@@ -81,8 +124,8 @@
       <file leaf-file-name="proj2016.sql" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/proj2016.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="17" column="34" selection-start-line="17" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+            <state relative-caret-position="289">
+              <caret line="28" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -91,7 +134,7 @@
       <file leaf-file-name="web.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/WEB-INF/web.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
+            <state relative-caret-position="68">
               <caret line="4" column="24" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
               <folding />
             </state>
@@ -101,7 +144,7 @@
       <file leaf-file-name="yabe.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/assets/css/yabe.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="36">
+            <state relative-caret-position="34">
               <caret line="2" column="1" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
               <folding />
             </state>
@@ -141,9 +184,11 @@
         <option value="$PROJECT_DIR$/src/DB.java" />
         <option value="$PROJECT_DIR$/web/WEB-INF/web.xml" />
         <option value="$PROJECT_DIR$/web/auth.jsp" />
-        <option value="$PROJECT_DIR$/src/database/DB.java" />
         <option value="$PROJECT_DIR$/web/register.jsp" />
         <option value="$PROJECT_DIR$/web/index.jsp" />
+        <option value="$PROJECT_DIR$/src/database/Bid.java" />
+        <option value="$PROJECT_DIR$/src/database/Auction.java" />
+        <option value="$PROJECT_DIR$/src/database/DB.java" />
       </list>
     </option>
   </component>
@@ -191,7 +236,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -212,20 +256,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="YABE" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="YABE" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="YABE" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="web" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -307,6 +337,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -340,8 +371,8 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="UPDATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/proj2016.sql</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/src/database/DB.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/web/auth.jsp</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/web/index.jsp</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
@@ -350,6 +381,8 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="CREATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/database/Auction.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/database/Bid.java</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Deleted" />
@@ -965,6 +998,9 @@
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
   </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="0dab8412-8e82-4c82-abbf-8db658d679af" name="Default" comment="" />
@@ -977,7 +1013,10 @@
       <workItem from="1469135075107" duration="10059000" />
       <workItem from="1469465567511" duration="4468000" />
       <workItem from="1469470546563" duration="9576000" />
-      <workItem from="1469561965233" duration="1557000" />
+      <workItem from="1469561965233" duration="4777000" />
+      <workItem from="1469880098628" duration="48000" />
+      <workItem from="1469974401729" duration="298000" />
+      <workItem from="1470337290518" duration="587000" />
     </task>
     <task id="LOCAL-00001" summary="Got a login form over to servlet using post. This should work for what we have to turn in on tuesday once I get DB class implemented. We should think about servlet endpoints and such as we move on.">
       <created>1469144698140</created>
@@ -1000,11 +1039,18 @@
       <option name="project" value="LOCAL" />
       <updated>1469477278511</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Good to go for the checkpoint - .war is deployed to server too.">
+      <created>1469563553916</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1469563553916</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29882000" />
+    <option name="totallyTimeSpent" value="34035000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="31" width="1922" height="973" extended-state="0" />
@@ -1012,14 +1058,13 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298122" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32942554" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298122" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32629108" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32629108" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298122" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1036,6 +1081,7 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298122" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298122" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1087,10 +1133,13 @@
     <MESSAGE value="Got a login form over to servlet using post. This should work for what we have to turn in on tuesday once I get DB class implemented. We should think about servlet endpoints and such as we move on." />
     <MESSAGE value="Register is the only thing to be done. Need to package as war and deploy on production to test further" />
     <MESSAGE value="War deploys from a safe context - WAR file added to root, rebuild and re-add the stablest version of the war" />
-    <option name="LAST_COMMIT_MESSAGE" value="War deploys from a safe context - WAR file added to root, rebuild and re-add the stablest version of the war" />
+    <MESSAGE value="Good to go for the checkpoint - .war is deployed to server too." />
+    <option name="LAST_COMMIT_MESSAGE" value="Good to go for the checkpoint - .war is deployed to server too." />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="antWorkspaceConfiguration">
@@ -1098,11 +1147,236 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/database/DB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="34" column="31" selection-start-line="34" selection-start-column="31" selection-end-line="34" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#init#0;class#DB#0" expanded="false" />
+            <element signature="method#validateLogin#0;class#DB#0" expanded="false" />
+            <element signature="method#getUserID#0;class#DB#0" expanded="false" />
+            <element signature="method#getName#0;class#DB#0" expanded="false" />
+            <element signature="method#insertUser#0;class#DB#0" expanded="false" />
+            <element signature="method#placeBid#0;class#DB#0" expanded="false" />
+            <element signature="e#4729#4730#0" expanded="true" />
+            <element signature="e#4753#4754#0" expanded="true" />
+            <element signature="method#createAuction#0;class#DB#0" expanded="false" />
+            <marker date="1470337869349" expanded="true" signature="785:876" ph="SELECT * FRO... Account" />
+            <marker date="1470337869349" expanded="true" signature="1394:1451" ph="SELECT * FRO... Account" />
+            <marker date="1470337869349" expanded="true" signature="1972:2029" ph="SELECT * FRO... Account" />
+            <marker date="1470337869349" expanded="true" signature="2581:2638" ph="SELECT * FRO... Account" />
+            <marker date="1470337869349" expanded="true" signature="2981:3109" ph="INSERT INTO Account... " />
+            <marker date="1470337869349" expanded="true" signature="3563:3701" ph="SELECT MAX(B... Auction" />
+            <marker date="1470337869349" expanded="true" signature="4085:4231" ph="INSERT INTO Message... " />
+            <marker date="1470337869349" expanded="true" signature="4363:4518" ph="INSERT INTO Bid... " />
+            <marker date="1470337869349" expanded="true" signature="5416:5538" ph="INSERT INTO ITEM... " />
+            <marker date="1470337869349" expanded="true" signature="5596:5718" ph="INSERT INTO ITEM... " />
+            <marker date="1470337869349" expanded="true" signature="5776:5898" ph="INSERT INTO ITEM... " />
+            <marker date="1470337869349" expanded="true" signature="6473:6524" ph="SELECT * FRO... Item" />
+            <marker date="1470337869349" expanded="true" signature="6822:6960" ph="INSERT INTO AUCTION... " />
+            <marker date="1470337869349" expanded="true" signature="7339:7446" ph="SELECT Amoun... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/proj2016.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="34" selection-start-line="17" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/web.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="24" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/css/yabe.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="1" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/index.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1309">
+          <caret line="77" column="22" selection-start-line="77" selection-start-column="14" selection-end-line="77" selection-end-column="22" />
+          <folding>
+            <marker date="1470337348425" expanded="true" signature="2423:3163" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/register.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="31" column="39" selection-start-line="31" selection-start-column="39" selection-end-line="31" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/auth.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/database/DB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="34" column="31" selection-start-line="34" selection-start-column="31" selection-end-line="34" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#init#0;class#DB#0" expanded="false" />
+            <element signature="method#validateLogin#0;class#DB#0" expanded="false" />
+            <element signature="method#getUserID#0;class#DB#0" expanded="false" />
+            <element signature="method#getName#0;class#DB#0" expanded="false" />
+            <element signature="method#insertUser#0;class#DB#0" expanded="false" />
+            <element signature="method#placeBid#0;class#DB#0" expanded="false" />
+            <element signature="e#4729#4730#0" expanded="true" />
+            <element signature="e#4753#4754#0" expanded="true" />
+            <element signature="method#createAuction#0;class#DB#0" expanded="false" />
+            <marker date="1470337869349" expanded="true" signature="785:876" ph="SELECT * FRO... Account" />
+            <marker date="1470337869349" expanded="true" signature="1394:1451" ph="SELECT * FRO... Account" />
+            <marker date="1470337869349" expanded="true" signature="1972:2029" ph="SELECT * FRO... Account" />
+            <marker date="1470337869349" expanded="true" signature="2581:2638" ph="SELECT * FRO... Account" />
+            <marker date="1470337869349" expanded="true" signature="2981:3109" ph="INSERT INTO Account... " />
+            <marker date="1470337869349" expanded="true" signature="3563:3701" ph="SELECT MAX(B... Auction" />
+            <marker date="1470337869349" expanded="true" signature="4085:4231" ph="INSERT INTO Message... " />
+            <marker date="1470337869349" expanded="true" signature="4363:4518" ph="INSERT INTO Bid... " />
+            <marker date="1470337869349" expanded="true" signature="5416:5538" ph="INSERT INTO ITEM... " />
+            <marker date="1470337869349" expanded="true" signature="5596:5718" ph="INSERT INTO ITEM... " />
+            <marker date="1470337869349" expanded="true" signature="5776:5898" ph="INSERT INTO ITEM... " />
+            <marker date="1470337869349" expanded="true" signature="6473:6524" ph="SELECT * FRO... Item" />
+            <marker date="1470337869349" expanded="true" signature="6822:6960" ph="INSERT INTO AUCTION... " />
+            <marker date="1470337869349" expanded="true" signature="7339:7446" ph="SELECT Amoun... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/proj2016.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="34" selection-start-line="17" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/web.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="24" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/css/yabe.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="1" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/index.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1386">
+          <caret line="77" column="22" selection-start-line="77" selection-start-column="14" selection-end-line="77" selection-end-column="22" />
+          <folding>
+            <marker date="1470337348425" expanded="true" signature="2423:3163" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/register.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="558">
+          <caret line="31" column="39" selection-start-line="31" selection-start-column="39" selection-end-line="31" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/auth.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/database/DB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="34" column="31" selection-start-line="34" selection-start-column="31" selection-end-line="34" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#init#0;class#DB#0" expanded="false" />
+            <element signature="method#validateLogin#0;class#DB#0" expanded="false" />
+            <element signature="method#getUserID#0;class#DB#0" expanded="false" />
+            <element signature="method#getName#0;class#DB#0" expanded="false" />
+            <element signature="method#insertUser#0;class#DB#0" expanded="false" />
+            <element signature="method#placeBid#0;class#DB#0" expanded="false" />
+            <element signature="e#4729#4730#0" expanded="true" />
+            <element signature="e#4753#4754#0" expanded="true" />
+            <element signature="method#createAuction#0;class#DB#0" expanded="false" />
+            <marker date="1470337869349" expanded="true" signature="785:876" ph="SELECT * FRO... Account" />
+            <marker date="1470337869349" expanded="true" signature="1394:1451" ph="SELECT * FRO... Account" />
+            <marker date="1470337869349" expanded="true" signature="1972:2029" ph="SELECT * FRO... Account" />
+            <marker date="1470337869349" expanded="true" signature="2581:2638" ph="SELECT * FRO... Account" />
+            <marker date="1470337869349" expanded="true" signature="2981:3109" ph="INSERT INTO Account... " />
+            <marker date="1470337869349" expanded="true" signature="3563:3701" ph="SELECT MAX(B... Auction" />
+            <marker date="1470337869349" expanded="true" signature="4085:4231" ph="INSERT INTO Message... " />
+            <marker date="1470337869349" expanded="true" signature="4363:4518" ph="INSERT INTO Bid... " />
+            <marker date="1470337869349" expanded="true" signature="5416:5538" ph="INSERT INTO ITEM... " />
+            <marker date="1470337869349" expanded="true" signature="5596:5718" ph="INSERT INTO ITEM... " />
+            <marker date="1470337869349" expanded="true" signature="5776:5898" ph="INSERT INTO ITEM... " />
+            <marker date="1470337869349" expanded="true" signature="6473:6524" ph="SELECT * FRO... Item" />
+            <marker date="1470337869349" expanded="true" signature="6822:6960" ph="INSERT INTO AUCTION... " />
+            <marker date="1470337869349" expanded="true" signature="7339:7446" ph="SELECT Amoun... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/proj2016.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="17" column="34" selection-start-line="17" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/web.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="24" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/assets/css/yabe.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="1" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/web/index.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="468">
           <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="35" selection-end-column="16" />
-          <folding />
+          <folding>
+            <marker date="1470337348425" expanded="true" signature="2423:3163" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1127,10 +1401,30 @@
         <state relative-caret-position="270">
           <caret line="15" column="58" selection-start-line="15" selection-start-column="58" selection-end-line="15" selection-end-column="58" />
           <folding>
-            <marker date="1469562794764" expanded="true" signature="752:843" ph="SELECT * FRO... Account" />
-            <marker date="1469562794764" expanded="true" signature="1366:1423" ph="SELECT * FRO... Account" />
-            <marker date="1469562794764" expanded="true" signature="1948:2005" ph="SELECT * FRO... Account" />
-            <marker date="1469562794764" expanded="true" signature="2532:2660" ph="INSERT INTO Account... " />
+            <element signature="imports" expanded="true" />
+            <element signature="method#init#0;class#DB#0" expanded="false" />
+            <element signature="method#validateLogin#0;class#DB#0" expanded="false" />
+            <element signature="method#getUserID#0;class#DB#0" expanded="false" />
+            <element signature="method#getName#0;class#DB#0" expanded="false" />
+            <element signature="method#insertUser#0;class#DB#0" expanded="false" />
+            <element signature="method#placeBid#0;class#DB#0" expanded="false" />
+            <element signature="e#4729#4730#0" expanded="true" />
+            <element signature="e#4753#4754#0" expanded="true" />
+            <element signature="method#createAuction#0;class#DB#0" expanded="false" />
+            <marker date="1470337869349" expanded="true" signature="785:876" ph="SELECT * FRO... Account" />
+            <marker date="1470337869349" expanded="true" signature="1394:1451" ph="SELECT * FRO... Account" />
+            <marker date="1470337869349" expanded="true" signature="1972:2029" ph="SELECT * FRO... Account" />
+            <marker date="1470337869349" expanded="true" signature="2581:2638" ph="SELECT * FRO... Account" />
+            <marker date="1470337869349" expanded="true" signature="2981:3109" ph="INSERT INTO Account... " />
+            <marker date="1470337869349" expanded="true" signature="3563:3701" ph="SELECT MAX(B... Auction" />
+            <marker date="1470337869349" expanded="true" signature="4085:4231" ph="INSERT INTO Message... " />
+            <marker date="1470337869349" expanded="true" signature="4363:4518" ph="INSERT INTO Bid... " />
+            <marker date="1470337869349" expanded="true" signature="5416:5538" ph="INSERT INTO ITEM... " />
+            <marker date="1470337869349" expanded="true" signature="5596:5718" ph="INSERT INTO ITEM... " />
+            <marker date="1470337869349" expanded="true" signature="5776:5898" ph="INSERT INTO ITEM... " />
+            <marker date="1470337869349" expanded="true" signature="6473:6524" ph="SELECT * FRO... Item" />
+            <marker date="1470337869349" expanded="true" signature="6822:6960" ph="INSERT INTO AUCTION... " />
+            <marker date="1470337869349" expanded="true" signature="7339:7446" ph="SELECT Amoun... " />
           </folding>
         </state>
       </provider>
@@ -1163,7 +1457,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
           <caret line="13" column="56" selection-start-line="13" selection-start-column="56" selection-end-line="13" selection-end-column="56" />
-          <folding />
+          <folding>
+            <marker date="1470337348425" expanded="true" signature="2423:3163" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1180,10 +1476,30 @@
         <state relative-caret-position="450">
           <caret line="25" column="32" selection-start-line="25" selection-start-column="32" selection-end-line="25" selection-end-column="32" />
           <folding>
-            <marker date="1469562794764" expanded="true" signature="752:843" ph="SELECT * FRO... Account" />
-            <marker date="1469562794764" expanded="true" signature="1366:1423" ph="SELECT * FRO... Account" />
-            <marker date="1469562794764" expanded="true" signature="1948:2005" ph="SELECT * FRO... Account" />
-            <marker date="1469562794764" expanded="true" signature="2532:2660" ph="INSERT INTO Account... " />
+            <element signature="imports" expanded="true" />
+            <element signature="method#init#0;class#DB#0" expanded="false" />
+            <element signature="method#validateLogin#0;class#DB#0" expanded="false" />
+            <element signature="method#getUserID#0;class#DB#0" expanded="false" />
+            <element signature="method#getName#0;class#DB#0" expanded="false" />
+            <element signature="method#insertUser#0;class#DB#0" expanded="false" />
+            <element signature="method#placeBid#0;class#DB#0" expanded="false" />
+            <element signature="e#4729#4730#0" expanded="true" />
+            <element signature="e#4753#4754#0" expanded="true" />
+            <element signature="method#createAuction#0;class#DB#0" expanded="false" />
+            <marker date="1470337869349" expanded="true" signature="785:876" ph="SELECT * FRO... Account" />
+            <marker date="1470337869349" expanded="true" signature="1394:1451" ph="SELECT * FRO... Account" />
+            <marker date="1470337869349" expanded="true" signature="1972:2029" ph="SELECT * FRO... Account" />
+            <marker date="1470337869349" expanded="true" signature="2581:2638" ph="SELECT * FRO... Account" />
+            <marker date="1470337869349" expanded="true" signature="2981:3109" ph="INSERT INTO Account... " />
+            <marker date="1470337869349" expanded="true" signature="3563:3701" ph="SELECT MAX(B... Auction" />
+            <marker date="1470337869349" expanded="true" signature="4085:4231" ph="INSERT INTO Message... " />
+            <marker date="1470337869349" expanded="true" signature="4363:4518" ph="INSERT INTO Bid... " />
+            <marker date="1470337869349" expanded="true" signature="5416:5538" ph="INSERT INTO ITEM... " />
+            <marker date="1470337869349" expanded="true" signature="5596:5718" ph="INSERT INTO ITEM... " />
+            <marker date="1470337869349" expanded="true" signature="5776:5898" ph="INSERT INTO ITEM... " />
+            <marker date="1470337869349" expanded="true" signature="6473:6524" ph="SELECT * FRO... Item" />
+            <marker date="1470337869349" expanded="true" signature="6822:6960" ph="INSERT INTO AUCTION... " />
+            <marker date="1470337869349" expanded="true" signature="7339:7446" ph="SELECT Amoun... " />
           </folding>
         </state>
       </provider>
@@ -1217,7 +1533,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="738">
           <caret line="41" column="43" selection-start-line="41" selection-start-column="35" selection-end-line="41" selection-end-column="43" />
-          <folding />
+          <folding>
+            <marker date="1470337348425" expanded="true" signature="2423:3163" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1234,10 +1552,30 @@
         <state relative-caret-position="252">
           <caret line="14" column="86" selection-start-line="14" selection-start-column="62" selection-end-line="14" selection-end-column="86" />
           <folding>
-            <marker date="1469562794764" expanded="true" signature="752:843" ph="SELECT * FRO... Account" />
-            <marker date="1469562794764" expanded="true" signature="1366:1423" ph="SELECT * FRO... Account" />
-            <marker date="1469562794764" expanded="true" signature="1948:2005" ph="SELECT * FRO... Account" />
-            <marker date="1469562794764" expanded="true" signature="2532:2660" ph="INSERT INTO Account... " />
+            <element signature="imports" expanded="true" />
+            <element signature="method#init#0;class#DB#0" expanded="false" />
+            <element signature="method#validateLogin#0;class#DB#0" expanded="false" />
+            <element signature="method#getUserID#0;class#DB#0" expanded="false" />
+            <element signature="method#getName#0;class#DB#0" expanded="false" />
+            <element signature="method#insertUser#0;class#DB#0" expanded="false" />
+            <element signature="method#placeBid#0;class#DB#0" expanded="false" />
+            <element signature="e#4729#4730#0" expanded="true" />
+            <element signature="e#4753#4754#0" expanded="true" />
+            <element signature="method#createAuction#0;class#DB#0" expanded="false" />
+            <marker date="1470337869349" expanded="true" signature="785:876" ph="SELECT * FRO... Account" />
+            <marker date="1470337869349" expanded="true" signature="1394:1451" ph="SELECT * FRO... Account" />
+            <marker date="1470337869349" expanded="true" signature="1972:2029" ph="SELECT * FRO... Account" />
+            <marker date="1470337869349" expanded="true" signature="2581:2638" ph="SELECT * FRO... Account" />
+            <marker date="1470337869349" expanded="true" signature="2981:3109" ph="INSERT INTO Account... " />
+            <marker date="1470337869349" expanded="true" signature="3563:3701" ph="SELECT MAX(B... Auction" />
+            <marker date="1470337869349" expanded="true" signature="4085:4231" ph="INSERT INTO Message... " />
+            <marker date="1470337869349" expanded="true" signature="4363:4518" ph="INSERT INTO Bid... " />
+            <marker date="1470337869349" expanded="true" signature="5416:5538" ph="INSERT INTO ITEM... " />
+            <marker date="1470337869349" expanded="true" signature="5596:5718" ph="INSERT INTO ITEM... " />
+            <marker date="1470337869349" expanded="true" signature="5776:5898" ph="INSERT INTO ITEM... " />
+            <marker date="1470337869349" expanded="true" signature="6473:6524" ph="SELECT * FRO... Item" />
+            <marker date="1470337869349" expanded="true" signature="6822:6960" ph="INSERT INTO AUCTION... " />
+            <marker date="1470337869349" expanded="true" signature="7339:7446" ph="SELECT Amoun... " />
           </folding>
         </state>
       </provider>
@@ -1263,7 +1601,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1008">
           <caret line="56" column="8" selection-start-line="56" selection-start-column="8" selection-end-line="56" selection-end-column="8" />
-          <folding />
+          <folding>
+            <marker date="1470337348425" expanded="true" signature="2423:3163" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1271,7 +1611,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <marker date="1470337348425" expanded="true" signature="2423:3163" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1285,7 +1627,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web/assets/css/yabe.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
+        <state relative-caret-position="34">
           <caret line="2" column="1" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
           <folding />
         </state>
@@ -1293,8 +1635,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/proj2016.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="17" column="34" selection-start-line="17" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+        <state relative-caret-position="289">
+          <caret line="28" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1302,46 +1644,86 @@
     <entry file="file://$PROJECT_DIR$/src/Servlet.java" />
     <entry file="file://$PROJECT_DIR$/web/WEB-INF/web.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
+        <state relative-caret-position="68">
           <caret line="4" column="24" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/database/DB.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="34" column="31" selection-start-line="34" selection-start-column="31" selection-end-line="34" selection-end-column="31" />
-          <folding>
-            <marker date="1469562794764" expanded="true" signature="752:843" ph="SELECT * FRO... Account" />
-            <marker date="1469562794764" expanded="true" signature="1366:1423" ph="SELECT * FRO... Account" />
-            <marker date="1469562794764" expanded="true" signature="1948:2005" ph="SELECT * FRO... Account" />
-            <marker date="1469562794764" expanded="true" signature="2532:2660" ph="INSERT INTO Account... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/register.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="558">
+        <state relative-caret-position="527">
           <caret line="31" column="39" selection-start-line="31" selection-start-column="39" selection-end-line="31" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/auth.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="13" column="17" selection-start-line="13" selection-start-column="17" selection-end-line="13" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/index.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="97" column="0" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
+        <state relative-caret-position="1275">
+          <caret line="75" column="22" selection-start-line="75" selection-start-column="22" selection-end-line="75" selection-end-column="22" />
+          <folding>
+            <marker date="1470337348425" expanded="true" signature="2423:3163" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/auth.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="34" column="54" selection-start-line="34" selection-start-column="53" selection-end-line="34" selection-end-column="54" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/database/Bid.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/database/Auction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="30" selection-start-line="10" selection-start-column="30" selection-end-line="10" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/database/DB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1020">
+          <caret line="187" column="35" selection-start-line="187" selection-start-column="22" selection-end-line="187" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#init#0;class#DB#0" expanded="false" />
+            <element signature="method#validateLogin#0;class#DB#0" expanded="false" />
+            <element signature="method#getUserID#0;class#DB#0" expanded="false" />
+            <element signature="method#getName#0;class#DB#0" expanded="false" />
+            <element signature="method#insertUser#0;class#DB#0" expanded="false" />
+            <element signature="method#placeBid#0;class#DB#0" expanded="false" />
+            <element signature="e#4729#4730#0" expanded="true" />
+            <element signature="e#4753#4754#0" expanded="true" />
+            <element signature="method#createAuction#0;class#DB#0" expanded="false" />
+            <marker date="1470337869349" expanded="true" signature="785:876" ph="SELECT * FRO... Account" />
+            <marker date="1470337869349" expanded="true" signature="1394:1451" ph="SELECT * FRO... Account" />
+            <marker date="1470337869349" expanded="true" signature="1972:2029" ph="SELECT * FRO... Account" />
+            <marker date="1470337869349" expanded="true" signature="2581:2638" ph="SELECT * FRO... Account" />
+            <marker date="1470337869349" expanded="true" signature="2981:3109" ph="INSERT INTO Account... " />
+            <marker date="1470337869349" expanded="true" signature="3563:3701" ph="SELECT MAX(B... Auction" />
+            <marker date="1470337869349" expanded="true" signature="4085:4231" ph="INSERT INTO Message... " />
+            <marker date="1470337869349" expanded="true" signature="4363:4518" ph="INSERT INTO Bid... " />
+            <marker date="1470337869349" expanded="true" signature="5416:5538" ph="INSERT INTO ITEM... " />
+            <marker date="1470337869349" expanded="true" signature="5596:5718" ph="INSERT INTO ITEM... " />
+            <marker date="1470337869349" expanded="true" signature="5776:5898" ph="INSERT INTO ITEM... " />
+            <marker date="1470337869349" expanded="true" signature="6473:6524" ph="SELECT * FRO... Item" />
+            <marker date="1470337869349" expanded="true" signature="6822:6960" ph="INSERT INTO AUCTION... " />
+            <marker date="1470337869349" expanded="true" signature="7339:7446" ph="SELECT Amoun... " />
+          </folding>
         </state>
       </provider>
     </entry>

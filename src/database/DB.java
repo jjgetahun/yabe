@@ -1,6 +1,8 @@
 package database;
 
 import java.sql.*;
+import java.util.ArrayList;
+
 /**
  * Created by elby on 7/20/16.
  */
@@ -148,7 +150,7 @@ public class DB {
     }
 
     public static int getItem() {
-        
+        return 0;
     }
 
     public static boolean createItem(int modelNumber, String type, String attr1, String attr2, String attr3) {
@@ -183,7 +185,7 @@ public class DB {
                     sql = "INSERT INTO ITEM(ModelNumber, C1, C2, C3) VALUES('" + modelNumber + "', '" + attr1 + "', '" + attr2 + "', '" + attr3 + "');";
 
                 default:
-                    return false;
+//                    return false;
             }
 
             Statement statement = conn.createStatement();
@@ -233,12 +235,12 @@ public class DB {
     public static ArrayList getBidHistory(int auctionID) {
         if(!initialized) init();
         try {
-            Auction auction = new Auction(auctionID);
+//            Auction auction = new Auction(auctionID);
             String sql = "SELECT Amount, BidderID, Time FROM Bid WHERE IsAuto = 0 and AuctionID = '" + auctionID + "' GROUP BY Amount;";
 
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(sql);
-            double amount = "";
+            double amount = 0;
             int bidderID = -1;
             String time = "";
             ArrayList bids = new ArrayList();
