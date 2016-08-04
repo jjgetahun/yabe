@@ -232,26 +232,42 @@ public class DB {
         }
     }
 
-    public static ArrayList getBidHistory(int auctionID) {
+    public static Auction getAuction(int auctionID) {
         if(!initialized) init();
         try {
-//            Auction auction = new Auction(auctionID);
-            String sql = "SELECT Amount, BidderID, Time FROM Bid WHERE IsAuto = 0 and AuctionID = '" + auctionID + "' GROUP BY Amount;";
 
+            String sql = "SELECT * FROM Auction WHERE AuctionID ='" + auctionID + "';";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(sql);
-            double amount = 0;
-            int bidderID = -1;
-            String time = "";
-            ArrayList bids = new ArrayList();
+            int sellerID = -1;
+            int itemID = -1;
+            float reserve = -1;
+            Date startTime = null;
+            Date endTime = null;
+
             while (rs.next()) {
-                amount = rs.getDouble("Amount");
-                bidderID = rs.getInt("BidderID");
-                time = rs.getString("Time");
-                //placeholder for bid class
-                bids.add(amount + " " + bidderID + " " + time);
+                sellerID = rs.getInt("SellerID");
+                itemID = rs.getInt("ItemID");
+                reserve = rs.getFloat("Reserve");
+                startTime = rs.getTimestamp("StartTime");
+                endTime = rs.getTimestamp("EndTime");
             }
-            return bids;
+
+            Auction auction = new Auction(sellerID, itemID, reserve, startTime, endTime);
+
+            sql = "SELECT Amount, BidderID, Time FROM Bid WHERE IsAuto = 0 and AuctionID = '" + auctionID + "' GROUP BY Amount;";
+            rs = statement.executeQuery(sql);
+            float amount = -1;
+            int bidderID = -1;
+            Date time = null;
+            while (rs.next()) {
+                amount = rs.getFloat("Amount");
+                bidderID = rs.get("BidderID");
+                time = rs.getTimestamp("Time");
+                auction.addBid(new Bid(bidderID, amount, time));
+            }
+
+            return auction;
         }
         catch(SQLException e){
             e.printStackTrace();
