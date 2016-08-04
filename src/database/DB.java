@@ -185,7 +185,7 @@ public class DB {
                     sql = "INSERT INTO ITEM(ModelNumber, C1, C2, C3) VALUES('" + modelNumber + "', '" + attr1 + "', '" + attr2 + "', '" + attr3 + "');";
 
                 default:
-//                    return false;
+                    return false;
             }
 
             Statement statement = conn.createStatement();

@@ -5,9 +5,10 @@ import java.util.Date;
 
 public class Auction {
 
-    private final String sellerID;
+    private final int sellerID;
     private final int itemID;
     private final int reserve;
+    private final Date startTime;
     private final Date endTime;
     private ArrayList<Bid> bidList = new ArrayList<Bid>();
 

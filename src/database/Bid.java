@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Bid {
 
-    int bidID;
+    private final int bidID;
     float amount;
     Date time;
 
