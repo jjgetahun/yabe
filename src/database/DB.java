@@ -242,8 +242,8 @@ public class DB {
             int sellerID = -1;
             int itemID = -1;
             float reserve = -1;
-            Date startTime = null;
-            Date endTime = null;
+            Timestamp startTime = null;
+            Timestamp endTime = null;
 
             while (rs.next()) {
                 sellerID = rs.getInt("SellerID");
