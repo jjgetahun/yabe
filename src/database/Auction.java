@@ -16,7 +16,7 @@ public class Auction {
         this.sellerID = sellerID;
         this.itemID = itemID;
         this.reserve = reserve;
-        this.startTime = startTime
+        this.startTime = startTime;
         this.endTime = endTime;
     }
 

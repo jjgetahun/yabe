@@ -262,7 +262,7 @@ public class DB {
             Date time = null;
             while (rs.next()) {
                 amount = rs.getFloat("Amount");
-                bidderID = rs.get("BidderID");
+                bidderID = rs.getInt("BidderID");
                 time = rs.getTimestamp("Time");
                 auction.addBid(new Bid(bidderID, amount, time));
             }
