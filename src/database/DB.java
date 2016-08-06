@@ -185,7 +185,7 @@ public class DB {
                     sql = "INSERT INTO ITEM(ModelNumber, C1, C2, C3) VALUES('" + modelNumber + "', '" + attr1 + "', '" + attr2 + "', '" + attr3 + "');";
 
                 default:
-                    return false;
+//                    return false;
             }
 
             Statement statement = conn.createStatement();
@@ -259,7 +259,7 @@ public class DB {
             rs = statement.executeQuery(sql);
             float amount = -1;
             int bidderID = -1;
-            Date time = null;
+            Timestamp time = null;
             while (rs.next()) {
                 amount = rs.getFloat("Amount");
                 bidderID = rs.getInt("BidderID");

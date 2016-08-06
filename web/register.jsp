@@ -16,8 +16,24 @@
 </head>
 <body>
 
+<!-- LOGIN MESSAGE HERE -->
+<%
+    String user = "";
+    String userID = "";
+
+    if(session.getAttribute("USER") != null){
+        userID = (String)session.getAttribute("USER");
+        user =  "<li><a href='login.jsp'>Logged in as " + userID + "</a></li>";
+        user += "<li><a href='auth.jsp'>Log Out</a></li>";
+
+    }else{
+        user = "<li><a href='login.jsp'>Not logged in</a></li>";
+    }
+
+%>
+
 <nav class="navbar navbar-success" role="navigation">
-    <div class="container-fluid">
+    <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
@@ -27,18 +43,21 @@
             </button>
             <a class="navbar-brand" href="index.jsp">YABE</a>
         </div>
-
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="index.jsp">Login</a></li>
-                <li class="active"><a href="register.jsp">Register</a></li>
+                <li><a href="index.jsp">Home</a></li>
+                <li><a href="login.jsp">Login</a></li>
+                <li><a href="register.jsp">Register</a></li>
+            </ul>
 
+            <ul class="nav navbar-nav navbar-right">
+                <%=user%>
             </ul>
         </div>
     </div>
 </nav>
 <div class="container centered">
-    <form action="index.jsp" method="POST" class="row">
+    <form action="auth.jsp" method="POST" class="row">
         <div class="col-md-3 col-md-offset-4">
             <div class="form-group label-floating">
                 <label class="control-label">Username</label>

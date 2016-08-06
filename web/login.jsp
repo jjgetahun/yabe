@@ -15,6 +15,29 @@
 </head>
 <body>
 
+<%
+    String message = "";
+    String user = "";
+    String userID = "";
+
+    if(session.getAttribute("register") != null){
+        if(session.getAttribute("register").equals("true"))
+            message = "Registration failed, please go back to registration page and try again.";
+        else
+            message = "Registration successful, please login below.";
+    }
+
+    if(session.getAttribute("USER") != null){
+        userID = (String)session.getAttribute("USER");
+        user =  "<li><a href='login.jsp'>Logged in as " + userID + "</a></li>";
+        user += "<li><a href='auth.jsp'>Log Out</a></li>";
+
+    }else{
+        user = "<li><a href='login.jsp'>Not logged in</a></li>";
+    }
+
+%>
+
 <nav class="navbar navbar-success" role="navigation">
     <div class="container">
         <div class="navbar-header">
@@ -32,9 +55,9 @@
                 <li><a href="login.jsp">Login</a></li>
                 <li><a href="register.jsp">Register</a></li>
             </ul>
-            <!-- LOGIN MESSAGE HERE -->
+
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="login.jsp">Not logged in</a></li>
+                <%=user%>
             </ul>
         </div>
     </div>
@@ -58,34 +81,16 @@
                 <input class="btn btn-success" type="submit" value="Submit" />
             </div>
         </div>
+        <input type="hidden" name="login" value="true"/>
     </form>
 
-    <div class="col-md-3 col-md-offset-4">
-        <a href="register.jsp">
-            <button class="btn" >Register</button>
-        </a>
-    </div>
+    <%--<div class="col-md-3 col-md-offset-4">--%>
+        <%--<a href="register.jsp">--%>
+            <%--<button class="btn" >Register</button>--%>
+        <%--</a>--%>
+    <%--</div>--%>
 </div>
 
-<%  String message = "";
-    if(session.getAttribute("USER") != null &&
-            request.getParameter("logout") != null &&
-            request.getParameter("logout").equals("true")) {
-        message = "Logout Successful.";
-        session.setAttribute("USER", null);
-    }else if( request.getParameter("register") != null && request.getParameter("register").equals("true")) {
-        String username = request.getParameter("username");
-        if (database.DB.checkUserExists(username) == -1){
-            String name = request.getParameter("name");
-            String password = request.getParameter("password");
-            database.DB.insertUser(username, name, password);
-            message = "Registration successful";
-        }
-        else message = "User already exists";
-    }
-%>
-
-<h3><%=message%></h3>
 <!--   Core JS Files   -->
 <script src="assets/js/jquery.min.js" type="text/javascript"></script>
 <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>

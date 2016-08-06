@@ -6,6 +6,23 @@
     <link href="assets/css/yabe.css" rel="stylesheet">
 </head>
 <body>
+<!-- LOGIN MESSAGE HERE -->
+<%
+    String user = "";
+    String userID = "";
+
+    if(session.getAttribute("USER") != null){
+        //CAN't Access this page!
+        userID = (String)session.getAttribute("USER");
+        user =  "<li><a href='login.jsp'>Logged in as " + userID + "</a></li>";
+        user += "<li><a href='auth.jsp'>Log Out</a></li>";
+
+    }else{
+        user = "<li><a href='login.jsp'>Not logged in</a></li>";
+    }
+
+%>
+
 <nav class="navbar navbar-success" role="navigation">
     <div class="container">
         <div class="navbar-header">
@@ -23,9 +40,9 @@
                 <li><a href="login.jsp">Login</a></li>
                 <li><a href="register.jsp">Register</a></li>
             </ul>
-            <!-- LOGIN MESSAGE HERE -->
+
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="login.jsp">Not logged in</a></li>
+                <%=user%>
             </ul>
         </div>
     </div>

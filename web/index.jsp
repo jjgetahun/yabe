@@ -15,6 +15,31 @@
 </head>
 <body>
 
+<!-- LOGIN MESSAGE HERE -->
+<%
+    String user = "";
+    String userID = "";
+    String message = "";
+
+    if(session.getAttribute("USER") != null){
+        userID = (String)session.getAttribute("USER");
+        user =  "<li><a href='login.jsp'>Logged in as " + userID + "</a></li>";
+        user += "<li><a href='auth.jsp'>Log Out</a></li>";
+
+    }else{
+        user = "<li><a href='login.jsp'>Not logged in</a></li>";
+    }
+
+    if(request.getParameter("login") != null){
+        if(request.getParameter("login").equals("true")){
+            message = "Login successful";
+        }else{
+            message = "Login failed";
+        }
+    }
+
+%>
+
 <nav class="navbar navbar-success" role="navigation">
     <div class="container">
         <div class="navbar-header">
@@ -32,17 +57,15 @@
                 <li><a href="login.jsp">Login</a></li>
                 <li><a href="register.jsp">Register</a></li>
             </ul>
-            <!-- LOGIN MESSAGE HERE -->
-
-            <
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="login.jsp">Not logged in</a></li>
+                <%=user%>
             </ul>
         </div>
     </div>
 </nav>
 <div class="container centered">
+    <h4><%=message%></h4>
     <div class="row">
         <div class="col-md-4">
             <div class="panel panel-default">
@@ -211,6 +234,9 @@
         </div>
     </div>
 </div>
+
+
+
 <h3></h3>
 <!--   Core JS Files   -->
 <script src="assets/js/jquery.min.js" type="text/javascript"></script>
