@@ -58,6 +58,7 @@ EndTime timestamp NOT NULL DEFAULT '2037-01-19 03:14:07',
 StartingPrice float(7, 2) NOT NULL DEFAULT 0.01,
 Reserve float(7, 2),
 Description varchar(255),
+HasEnded tinyint(1) DEFAULT 0,
 PRIMARY KEY(AuctionID),
 FOREIGN KEY(SellerID) references Account(AccountID),
 FOREIGN KEY(ItemID) references Item(ModelNumber)

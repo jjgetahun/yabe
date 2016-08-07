@@ -1,12 +1,71 @@
 package database;
 
 import java.sql.*;
-import java.util.ArrayList;
-
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.Date;
 /**
  * Created by elby on 7/20/16.
  */
 public class DB {
+    Timer timer;
+
+    public DB() {
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new checkAuctionWinners(), 5, 300000);
+    }
+
+    class checkAuctionWinners extends TimerTask {
+        public void run() {
+            if(!initialized) init();
+            try {
+                //check for ended auctions
+                Date date = new Date();
+                Timestamp currentTime = new Timestamp(date.getTime());
+                String sql = "SELECT A.AuctionID as aid, A.SellerID as sid, B.BidderID as bid, A.reserve as reserve, B.amount as amount" +
+                        " FROM Auction A, Bid B where A.AuctionID = B.AuctionID and A.EndTime <= '" + currentTime +
+                        "' and A.HasEnded = " + "0 GROUP BY B.AuctionId HAVING MAX(B.Amount);";
+                Statement statement = conn.createStatement();
+                ResultSet rs = statement.executeQuery(sql);
+                int aID;
+                int sID;
+                int bID;
+                float reserve;
+                float amount;
+                String sellerMessage;
+                String buyerMessage;
+                while (rs.next()) {
+                    //notify seller and winner
+                    aID = rs.getInt("aid");
+                    sID = rs.getInt("sid");
+                    bID = rs.getInt("bid");
+                    reserve = rs.getFloat("reserve");
+                    amount = rs.getFloat("amount");
+
+                    if (amount >= reserve) {
+                        sellerMessage = "'Auction #" + Integer.toString(aID) + " has sold for $" + Float.toString(amount) + ".'";
+                        buyerMessage = "'Congratulations! You have won auction #" + Integer.toString(aID) + ".'";
+                        sql = "INSERT INTO Message(ReceiverID, Contents) VALUES('" + sID + "', '" + sellerMessage + "');" +
+                                "INSERT INTO Message(ReceiverID, Contents) VALUES('" + bID + "', '" + buyerMessage + "');";
+                    }
+                    else{
+                        sellerMessage = "'Auction #" + Integer.toString(aID) + " has not met its reserve of " + Float.toString(amount) + ".'";
+                        buyerMessage = "'Your bid on auction #" + Integer.toString(aID) + " has not met the reserve.'";
+                        sql = "INSERT INTO Message(ReceiverID, Contents) VALUES('" + sID + "', '" + sellerMessage + "');" +
+                                "INSERT INTO Message(ReceiverID, Contents) VALUES('" + bID + "', '" + buyerMessage + "');";
+                    }
+                    statement.executeUpdate(sql);
+
+                    //mark auction as ended
+                    sql = "REPLACE INTO Auction(HasEnded) SELECT 1 FROM Auction WHERE AuctionID =" + aID + ";";
+                    statement.executeUpdate(sql);;
+                }
+
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+    }
 
     public static Connection conn;
     private static boolean initialized = false;
@@ -15,7 +74,8 @@ public class DB {
         //Load database.DB
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            conn = DriverManager.getConnection ("jdbc:mysql://classvm51.cs.rutgers.edu/proj2016","root","DigDagDug55");
+//            conn = DriverManager.getConnection ("jdbc:mysql://classvm51.cs.rutgers.edu/proj2016","root","DigDagDug55");
+            conn = DriverManager.getConnection ("jdbc:mysql://localhost/proj2016","root","themysql");
             initialized = true;
         } catch (Exception e) { //Generic exception, don't do this.
             e.printStackTrace();
