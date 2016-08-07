@@ -31,30 +31,4 @@ public class Auction {
         bidList.add(bid);
     }
 
-    public boolean isTimeUp() {
-        Calendar now = Calendar.getInstance();
-        Calendar timeToCheck = Calendar.getInstance();
-        timeToCheck.setTimeInMillis(endTime.getTime());
-        if (now.get(Calendar.YEAR) == timeToCheck.get(Calendar.YEAR) && now.get(Calendar.DAY_OF_YEAR) == timeToCheck.get(Calendar.DAY_OF_YEAR)) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
-    public Bid determineWinner() {
-        Calendar now = Calendar.getInstance();
-        Calendar timeToCheck = Calendar.getInstance();
-        timeToCheck.setTimeInMillis(endTime.getTime());
-        if (isTimeUp()) {
-            if (bidList.size() == 0 || bidList.get(bidList.size()-1).amount < reserve)
-                return null;
-            else
-                return bidList.get(bidList.size()-1);
-        }
-        else
-            return determineWinner();
-    }
-
 }
