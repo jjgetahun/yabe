@@ -2,13 +2,13 @@ DROP DATABASE IF EXISTS proj2016;
 CREATE DATABASE proj2016;
 USE proj2016;
 
-CREATE TABLE Account(
-AccountID int(11) NOT NULL AUTO_INCREMENT,
-Name varchar(255) NOT NULL,
-UserName varchar(255) NOT NULL,
-PassWord varchar(255) NOT NULL,
-DateCreated timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-PRIMARY KEY(AccountID)
+CREATE TABLE Account (
+  AccountID   INT(11)      NOT NULL AUTO_INCREMENT,
+  Name        VARCHAR(255) NOT NULL,
+  UserName    VARCHAR(255) NOT NULL,
+  PassWord    VARCHAR(255) NOT NULL,
+  DateCreated TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (AccountID)
 );
 
 INSERT INTO Account (Name, UserName, PassWord) VALUES('Elby Basolis', 'ebasolis', 'pass1');
@@ -17,92 +17,104 @@ INSERT INTO Account (Name, UserName, PassWord) VALUES('Jon Getahun', 'jget', 'pa
 INSERT INTO Account (Name, UserName, PassWord) VALUES('New User', 'nuser', 'pass4');
 INSERT INTO Account (Name, UserName, PassWord) Values('Customer Rep 1', 'crep1', 'pass5');
 
-CREATE TABLE Admin(
-AccountID int(11) NOT NULL,
-PRIMARY KEY(AccountID),
-FOREIGN KEY(AccountID) references Account(AccountID)
+CREATE TABLE Admin (
+  AccountID INT(11) NOT NULL,
+  PRIMARY KEY (AccountID),
+  FOREIGN KEY (AccountID) REFERENCES Account (AccountID)
 );
 
 INSERT INTO Admin VALUES(1);
 INSERT INTO Admin VALUES(2);
 INSERT INTO Admin VALUES(3);
 
-CREATE TABLE Customer_Rep(
-AccountID int(11) NOT NULL,
-PRIMARY KEY(AccountID),
-FOREIGN KEY(AccountID) references Account(AccountID)
+CREATE TABLE Customer_Rep (
+  AccountID INT(11) NOT NULL,
+  PRIMARY KEY (AccountID),
+  FOREIGN KEY (AccountID) REFERENCES Account (AccountID)
 );
 
 INSERT INTO Customer_Rep Values(5);
 
-CREATE TABLE Item(
-ModelNumber int(11) NOT NULL,
-  A1 varchar(200),
-  A2 varchar(200),
-  A3 varchar(200),
-  B1 varchar(200),
-  B2 varchar(200),
-  B3 varchar(200),
-  C1 varchar(200),
-  C2 varchar(200),
-  C3 varchar(200),
-PRIMARY KEY(ModelNumber)
+CREATE TABLE Item (
+  ModelNumber INT(11) NOT NULL,
+  A1          VARCHAR(200),
+  A2          VARCHAR(200),
+  A3          VARCHAR(200),
+  B1          VARCHAR(200),
+  B2          VARCHAR(200),
+  B3          VARCHAR(200),
+  C1          VARCHAR(200),
+  C2          VARCHAR(200),
+  C3          VARCHAR(200),
+  PRIMARY KEY (ModelNumber)
 );
 
-CREATE TABLE Auction(
-AuctionID int(11) NOT NULL AUTO_INCREMENT,
-SellerID int(11) NOT NULL,
-ItemID int(11) NOT NULL,
-StartTime timestamp NOT NULL DEFAULT '1970-01-01 00:00:01',
-EndTime timestamp NOT NULL DEFAULT '2037-01-19 03:14:07',
-StartingPrice float(7, 2) NOT NULL DEFAULT 0.01,
-Reserve float(7, 2),
-Description varchar(255),
-HasEnded tinyint(1) DEFAULT 0,
-PRIMARY KEY(AuctionID),
-FOREIGN KEY(SellerID) references Account(AccountID),
-FOREIGN KEY(ItemID) references Item(ModelNumber)
+CREATE TABLE Auction (
+  AuctionID     INT(11)     NOT NULL AUTO_INCREMENT,
+  SellerID      INT(11)     NOT NULL,
+  ItemID        INT(11)     NOT NULL,
+  StartTime     TIMESTAMP   NOT NULL DEFAULT '1970-01-01 00:00:01',
+  EndTime       TIMESTAMP   NOT NULL DEFAULT '2037-01-19 03:14:07',
+  StartingPrice FLOAT(7, 2) NOT NULL DEFAULT 0.01,
+  Reserve       FLOAT(7, 2),
+  Description   VARCHAR(255),
+  HasEnded      TINYINT(1)           DEFAULT 0,
+  PRIMARY KEY (AuctionID),
+  FOREIGN KEY (SellerID) REFERENCES Account (AccountID),
+  FOREIGN KEY (ItemID) REFERENCES Item (ModelNumber)
 );
 
 CREATE INDEX ix_Model ON Item(ModelNumber);
 
-CREATE TABLE Alert(
-AccountID int(11) NOT NULL,
-ModelNumber int(11) NOT NULL,
-PRIMARY KEY(AccountID, ModelNumber),
-FOREIGN KEY(AccountID) references Account(AccountID),
-FOREIGN KEY(ModelNumber) references Item(ModelNumber)
+CREATE TABLE Alert (
+  AccountID   INT(11) NOT NULL,
+  ModelNumber INT(11) NOT NULL,
+  PRIMARY KEY (AccountID, ModelNumber),
+  FOREIGN KEY (AccountID) REFERENCES Account (AccountID),
+  FOREIGN KEY (ModelNumber) REFERENCES Item (ModelNumber)
 );
 
-CREATE TABLE Bid(
-Time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-Amount float(7, 2) NOT NULL,
-BidderID int(11) NOT NULL,
-AuctionID int(11) NOT NULL,
-IsAuto tinyint(1) NOT NULL,
-PRIMARY KEY(BidderID, AuctionID, Amount),
-FOREIGN KEY(BidderID) references Account(AccountID),
-FOREIGN KEY(AuctionID) references Auction(AuctionID)
+CREATE TABLE Bid (
+  Time      TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  Amount    FLOAT(7, 2) NOT NULL,
+  BidderID  INT(11)     NOT NULL,
+  AuctionID INT(11)     NOT NULL,
+  IsAuto    TINYINT(1)  NOT NULL,
+  PRIMARY KEY (BidderID, AuctionID, Amount),
+  FOREIGN KEY (BidderID) REFERENCES Account (AccountID),
+  FOREIGN KEY (AuctionID) REFERENCES Auction (AuctionID)
 );
 
-CREATE TABLE Message(
-MessageID int(15) NOT NULL AUTO_INCREMENT,
-SenderID int(11) NOT NULL DEFAULT -1,
-ReceiverID int(11) NOT NULL,
-Contents varchar(255) NOT NULL,
-ReadStatus tinyint(1) NOT NULL DEFAULT 0,
-TimeSent timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-PRIMARY KEY(MessageID),
-FOREIGN KEY(SenderID) references Account(AccountID),
-FOREIGN KEY(ReceiverID) references Account(AccountID)
+CREATE TABLE Message (
+  MessageID  INT(15)      NOT NULL AUTO_INCREMENT,
+  SenderID   INT(11)      NOT NULL DEFAULT -1,
+  ReceiverID INT(11)      NOT NULL,
+  Contents   VARCHAR(255) NOT NULL,
+  ReadStatus TINYINT(1)   NOT NULL DEFAULT 0,
+  TimeSent   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (MessageID),
+  FOREIGN KEY (SenderID) REFERENCES Account (AccountID),
+  FOREIGN KEY (ReceiverID) REFERENCES Account (AccountID)
 );
 
-CREATE TABLE Question {
-QuestionID int(15) NOT NULL AUTO_INCREMENT,
-PosterID int(11) NOT NULL,
-AuctionID int(11) NOT NULL,
-TimePosted timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-PRIMARY KEY(QuestionID),
-FOREIGN KEY(PosterID) references Account(AccountID),
-FOREIGN KEY(AuctionID) references Auction(AuctionID)
-}
+CREATE TABLE Question (
+  QuestionID INT(15)      NOT NULL AUTO_INCREMENT,
+  PosterID   INT(11)      NOT NULL,
+  AuctionID  INT(11)      NOT NULL,
+  Contents   VARCHAR(255) NOT NULL,
+  TimePosted TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (QuestionID),
+  FOREIGN KEY (PosterID) REFERENCES Account (AccountID),
+  FOREIGN KEY (AuctionID) REFERENCES Auction (AuctionID)
+);
+
+CREATE TABLE Answer (
+  AnswerID INT(15)  NOT NULL AUTO_INCREMENT,
+  PosterID INT(11) NOT NULL,
+  QuestionID INT(15) NOT NULL,
+  Contents VARCHAR(255) NOT NULL,
+  TimePosted TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (AnswerID),
+  FOREIGN KEY (PosterID) REFERENCES Customer_Rep(AccountID),
+  FOREIGN KEY (QuestionID) REFERENCES Question(QuestionID)
+)
