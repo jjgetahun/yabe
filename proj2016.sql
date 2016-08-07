@@ -85,7 +85,7 @@ FOREIGN KEY(BidderID) references Account(AccountID),
 FOREIGN KEY(AuctionID) references Auction(AuctionID)
 );
 
-CREATE TABLE Messsage(
+CREATE TABLE Message(
 MessageID int(15) NOT NULL AUTO_INCREMENT,
 SenderID int(11) NOT NULL DEFAULT -1,
 ReceiverID int(11) NOT NULL,
@@ -96,3 +96,13 @@ PRIMARY KEY(MessageID),
 FOREIGN KEY(SenderID) references Account(AccountID),
 FOREIGN KEY(ReceiverID) references Account(AccountID)
 );
+
+CREATE TABLE Question {
+QuestionID int(15) NOT NULL AUTO_INCREMENT,
+PosterID int(11) NOT NULL,
+AuctionID int(11) NOT NULL,
+TimePosted timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY(QuestionID),
+FOREIGN KEY(PosterID) references Account(AccountID),
+FOREIGN KEY(AuctionID) references Auction(AuctionID)
+}
