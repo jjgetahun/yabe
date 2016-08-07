@@ -96,12 +96,11 @@
                         </span>
                         <input type="text" class="form-control" placeholder="Keywords (ex. 'Dell XPS 2014)'" id="keywords">
                     </div>
-                    <div class="row">
                         <div class="col-md-3">
                             <div class="checkbox">
                                 <label>
                                     <input type="checkbox" id="browse" checked>
-                                    Browse Mode (Excluedes category filters)
+                                    Browse Mode (Excludes category filters)
                                 </label>
                             </div>
                             <h4>Condition</h4>
@@ -117,31 +116,11 @@
                                 </label>
                             </div>
                             <h4>Auction Dates</h4>
-                            <input class="datepicker form-control" id="start" type="date" value="Start"/>
-                            <input class="datepicker form-control" id="end" type="date" value="End"/>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" id="browse" checked>
-                                    Browse Mode (Excluedes category filters)
-                                </label>
-                            </div>
-                            <h4>Condition</h4>
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" id="new" checked>
-                                    New
-                                </label>
-                                <br/>
-                                <label>
-                                    <input type="checkbox" id="used">
-                                    Used
-                                </label>
-                            </div>
-                            <h4>Auction Dates</h4>
-                            <input class="datepicker form-control" id="start" type="date" value="Start"/>
-                            <input class="datepicker form-control" id="end" type="date" value="End"/>
+                            <div>Start Date:</div>
+                            <input type="text" class="datepicker form-control" >
+
+                            <div>End Date:</div>
+                                <input type="text" class="datepicker form-control" >
                         </div>
                         <div class="col-md-6">
                             <ul class="nav nav-tabs">
@@ -164,7 +143,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="pockets">Material:</label>
+                                        <label for="material">Material:</label>
                                         <select class="form-control" id="material">
                                             <option>Nylon</option>
                                             <option>Canvas</option>
@@ -182,7 +161,7 @@
                                 <div id="tents" class="tab-pane fade">
                                     <div class="form-group">
                                         <div class="form-group">
-                                            <label for="pockets">Color:</label>
+                                            <label for="color">Color:</label>
                                             <select class="form-control" id="color">
                                                 <option>Red</option>
                                                 <option>Blue</option>
@@ -214,7 +193,7 @@
                                 </div>
                                 <div id="flashlights" class="tab-pane fade">
                                     <div class="form-group">
-                                        <label for="battery">Color:</label>
+                                        <label for="battery">Battery:</label>
                                         <select class="form-control" id="battery">
                                             <option>AA</option>
                                             <option>AAA</option>
@@ -222,10 +201,11 @@
                                             <option>D</option>
                                         </select>
                                     </div>
+                                    <div class="checkbox">
+                                        <label><input name="rechargeable" type="checkbox" value="">Rechargeable</label>
+                                    </div>
                                 </div>
-                                <div class="checkbox">
-                                    <label><input name="rechargeable" type="checkbox" value="">Rechargeable</label>
-                                </div>
+
                             </div>
                         </div>
                     </div>
