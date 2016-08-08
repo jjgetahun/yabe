@@ -425,7 +425,6 @@ public class DB {
 
             Question question = new Question(posterID, auctionID, header, contents, timePosted);
 
-            sql = "SELECT Amount, BidderID, Time FROM Bid WHERE IsAuto = 0 and AuctionID = '" + auctionID + "' GROUP BY Amount;";
             sql = "SELECT PosterID, Header, Contents FROM Answer WHERE QuestionID = '" + questionID + "';";
             rs = statement.executeQuery(sql);
 
