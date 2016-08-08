@@ -109,12 +109,12 @@ CREATE TABLE Question (
 );
 
 CREATE TABLE Answer (
-  AnswerID INT(15)  NOT NULL AUTO_INCREMENT,
-  PosterID INT(11) NOT NULL,
-  QuestionID INT(15) NOT NULL,
-  Contents VARCHAR(255) NOT NULL,
-  TimePosted TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  AnswerID   INT(15)      NOT NULL AUTO_INCREMENT,
+  PosterID   INT(11)      NOT NULL,
+  QuestionID INT(15)      NOT NULL,
+  Contents   VARCHAR(255) NOT NULL,
+  TimePosted TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (AnswerID),
-  FOREIGN KEY (PosterID) REFERENCES Customer_Rep(AccountID),
-  FOREIGN KEY (QuestionID) REFERENCES Question(QuestionID)
-)
+  FOREIGN KEY (PosterID) REFERENCES Customer_Rep (AccountID),
+  FOREIGN KEY (QuestionID) REFERENCES Question (QuestionID)
+);

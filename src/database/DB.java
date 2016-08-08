@@ -147,6 +147,28 @@ public class DB {
         return name;
     }
 
+    public static String getNameFromID(int id){
+
+        if(!initialized) init();
+
+        String name = "";
+
+        try {
+            String sql = "SELECT * FROM Account where AccountID = '" + id + "';";
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+
+            //Assuming only one or zero users comes back
+            while (rs.next()) {
+                name = rs.getString("Name");
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return name;
+    }
+
     public static boolean insertUser(String username, String name, String password){
 
         if(!initialized) init();
@@ -334,4 +356,38 @@ public class DB {
             return null;
         }
     }
+
+    public static boolean answerQuestion(int questionID){
+
+        if (!initialized)
+            init();
+
+        /*double highestBid = 0.01;
+        int oldBidderID = -1;*/
+        int qPosterID = -1;
+        String qPosterName = "";
+
+        try{
+            //Find the given question
+            String sql = "SELECT Q.QuestionID as question FROM Question Q WHERE Q.QuestionID = "+questionID+";";
+
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                qPosterID = rs.getInt("QuestionID");
+            }
+
+            //Get question poster's username
+            qPosterName = getNameFromID(qPosterID);
+
+            //Post answer
+            sql = "INSERT INTO Answer(Contents, QuestionID) VALUES('Answer to question poster #"+qPosterID+"("+qPosterName+").', '"+questionID+"');";
+            statement.executeUpdate(sql);
+            return true;
+        }catch(SQLException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }
