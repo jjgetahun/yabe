@@ -376,7 +376,7 @@ public class DB {
 
         try{
             //Find the given question
-            String sql = "SELECT Q.QuestionID FROM Question Q WHERE Q.QuestionID = "+questionID+";";
+            String sql = "SELECT Q.QuestionID FROM Question Q WHERE Q.QuestionID = '"+questionID+"';";
 
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(sql);
@@ -397,28 +397,55 @@ public class DB {
         }
     }
 
-    public static boolean searchQuestion(String questionHeader, int questionID){
+    public static Question searchQuestion(String questionHeader, int questionID){
 
         if (!initialized)
             init();
 
         try{
-            //Find the given question
-            String sql = "SELECT * FROM Question WHERE Header LIKE '"+questionHeader+"';";
 
+            //Find the given question
+            String sql = "SELECT * FROM Question WHERE Header LIKE '"+questionHeader+"' AND Q.QuestionID = '"+questionID+"';";
             Statement statement = conn.createStatement();
-            statement.executeQuery(sql);
             ResultSet rs = statement.executeQuery(sql);
 
-            sql = "SELECT Q.QuestionID FROM Question Q WHERE Q.QuestionID = "+questionID+";";
+            int posterID = -1;
+            int auctionID = -1;
+            String header = "";
+            String contents = "";
+            Timestamp timePosted = null;
 
-            statement = conn.createStatement();
+            while (rs.next()) {
+                posterID = rs.getInt("PosterID");
+                auctionID = rs.getInt("AuctionID");
+                header = rs.getString("Header");
+                contents = rs.getString("Contents");
+                timePosted = rs.getTimestamp("TimePosted");
+            }
+
+            Question question = new Question(posterID, auctionID, header, contents, timePosted);
+
+            sql = "SELECT Amount, BidderID, Time FROM Bid WHERE IsAuto = 0 and AuctionID = '" + auctionID + "' GROUP BY Amount;";
+            sql = "SELECT PosterID, Header, Contents FROM Answer WHERE QuestionID = '" + questionID + "';";
             rs = statement.executeQuery(sql);
 
-            return true;
+            int ansPosterID = -1;
+            int id = -1;
+            String ansContents = "";
+            Timestamp ansTimePosted = null;
+
+            while (rs.next()) {
+                ansPosterID = rs.getInt("PosterID");
+                id = rs.getInt("QuestionID");
+                ansContents = rs.getString("Contents");
+                ansTimePosted = rs.getTimestamp("TimePosted");
+                question.addAnswer(new Answer(ansPosterID, id, ansContents, ansTimePosted));
+            }
+
+            return question;
         }catch(SQLException e){
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
 
