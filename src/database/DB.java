@@ -238,36 +238,25 @@ public class DB {
     public static boolean createItem(int modelNumber, String type, String attr1, String attr2, String attr3) {
         if (!initialized) init();
 
-        int num = -1;
-
         try {
-
-            /*String sql = "SELECT * FROM Item where ModelNumber = '"+modelNumber+"';";
-
-            Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery(sql);
-
-            while (rs.next()) {
-                num = rs.getInt("ModelNumber");
-
-                if (id != -1)
-                    return false;
-            }*/
 
             String sql = "";
 
             switch(type) {
                 case "A":
                     sql = "INSERT INTO ITEM(ModelNumber, A1, A2, A3) VALUES('" + modelNumber + "', '" + attr1 + "', '" + attr2 + "', '" + attr3 + "');";
+                    break;
 
                 case "B":
                     sql = "INSERT INTO ITEM(ModelNumber, B1, B2, B3) VALUES('" + modelNumber + "', '" + attr1 + "', '" + attr2 + "', '" + attr3 + "');";
+                    break;
 
                 case "C":
                     sql = "INSERT INTO ITEM(ModelNumber, C1, C2, C3) VALUES('" + modelNumber + "', '" + attr1 + "', '" + attr2 + "', '" + attr3 + "');";
+                    break;
 
                 default:
-//                    return false;
+                    return false;
             }
 
             Statement statement = conn.createStatement();
@@ -276,8 +265,8 @@ public class DB {
             return true;
 
         }
-        catch (SQLException se ) {
-            se.printStackTrace();
+        catch (SQLException e ) {
+            e.printStackTrace();
             return false;
         }
 
@@ -308,8 +297,8 @@ public class DB {
             statement.executeUpdate(sql);
             return true;
         }
-        catch(SQLException se) {
-            se.printStackTrace();
+        catch(SQLException e) {
+            e.printStackTrace();
             return false;
         }
     }
@@ -357,6 +346,26 @@ public class DB {
         }
     }
 
+    public static boolean postQuestion(String posterName, int auctionID) {
+
+        if (!initialized)
+            init();
+
+        int posterID = getUserID(posterName);
+
+        try {
+            String sql = "INSERT INTO Question(Header, Contents, PosterID, AuctionID) VALUES('Question Header', 'Question Contents', '"+posterID+"', '"+auctionID+"');";
+            Statement statement = conn.createStatement();
+            statement.executeUpdate(sql);
+            return true;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
     public static boolean answerQuestion(int questionID){
 
         if (!initialized)
@@ -398,6 +407,7 @@ public class DB {
             String sql = "SELECT * FROM Question WHERE Header LIKE '"+questionHeader+"';";
 
             Statement statement = conn.createStatement();
+            statement.executeQuery(sql);
             ResultSet rs = statement.executeQuery(sql);
 
             sql = "SELECT Q.QuestionID FROM Question Q WHERE Q.QuestionID = "+questionID+";";
