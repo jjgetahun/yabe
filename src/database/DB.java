@@ -362,14 +362,12 @@ public class DB {
         if (!initialized)
             init();
 
-        /*double highestBid = 0.01;
-        int oldBidderID = -1;*/
         int qPosterID = -1;
         String qPosterName = "";
 
         try{
             //Find the given question
-            String sql = "SELECT Q.QuestionID as question FROM Question Q WHERE Q.QuestionID = "+questionID+";";
+            String sql = "SELECT Q.QuestionID FROM Question Q WHERE Q.QuestionID = "+questionID+";";
 
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(sql);
@@ -383,6 +381,25 @@ public class DB {
             //Post answer
             sql = "INSERT INTO Answer(Contents, QuestionID) VALUES('Answer to question poster #"+qPosterID+"("+qPosterName+").', '"+questionID+"');";
             statement.executeUpdate(sql);
+            return true;
+        }catch(SQLException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean searchQuestion(/*String questionHeader, */int questionID){
+
+        if (!initialized)
+            init();
+
+        try{
+            //Find the given question
+            String sql = "SELECT Q.QuestionID FROM Question Q WHERE Q.QuestionID = "+questionID+";";
+
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+
             return true;
         }catch(SQLException e){
             e.printStackTrace();

@@ -101,6 +101,7 @@ CREATE TABLE Question (
   QuestionID INT(15)      NOT NULL AUTO_INCREMENT,
   PosterID   INT(11)      NOT NULL,
   AuctionID  INT(11)      NOT NULL,
+  Header     VARCHAR(50)  NOT NULL,
   Contents   VARCHAR(255) NOT NULL,
   TimePosted TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (QuestionID),
