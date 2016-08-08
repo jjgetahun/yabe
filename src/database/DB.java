@@ -388,17 +388,22 @@ public class DB {
         }
     }
 
-    public static boolean searchQuestion(/*String questionHeader, */int questionID){
+    public static boolean searchQuestion(String questionHeader, int questionID){
 
         if (!initialized)
             init();
 
         try{
             //Find the given question
-            String sql = "SELECT Q.QuestionID FROM Question Q WHERE Q.QuestionID = "+questionID+";";
+            String sql = "SELECT * FROM Question WHERE Header LIKE '"+questionHeader+"';";
 
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(sql);
+
+            sql = "SELECT Q.QuestionID FROM Question Q WHERE Q.QuestionID = "+questionID+";";
+
+            statement = conn.createStatement();
+            rs = statement.executeQuery(sql);
 
             return true;
         }catch(SQLException e){
