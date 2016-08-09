@@ -345,15 +345,13 @@ public class DB {
         }
     }
 
-    public static boolean postQuestion(String posterName, int auctionID) {
+    public static boolean postQuestion(int posterID, int auctionID, String header, String contents) {
 
         if (!initialized)
             init();
 
-        int posterID = getUserID(posterName);
-
         try {
-            String sql = "INSERT INTO Question(Header, Contents, PosterID, AuctionID) VALUES('Question Header', 'Question Contents', '"+posterID+"', '"+auctionID+"');";
+            String sql = "INSERT INTO Question(Header, Contents, PosterID, AuctionID) VALUES('"+header+"', '"+contents+"', '"+posterID+"', '"+auctionID+"');";
             Statement statement = conn.createStatement();
             statement.executeUpdate(sql);
             return true;
@@ -365,13 +363,12 @@ public class DB {
 
     }
 
-    public static boolean answerQuestion(int questionID){
+    public static boolean answerQuestion(int questionID, String contents){
 
         if (!initialized)
             init();
 
         int qPosterID = -1;
-        String qPosterName = "";
 
         try{
             //Find the given question
@@ -383,13 +380,14 @@ public class DB {
                 qPosterID = rs.getInt("QuestionID");
             }
 
-            //Get question poster's username
-            qPosterName = getNameFromID(qPosterID);
-
-            //Post answer
-            sql = "INSERT INTO Answer(Contents, QuestionID) VALUES('Answer to question poster #"+qPosterID+"("+qPosterName+").', '"+questionID+"');";
-            statement.executeUpdate(sql);
-            return true;
+            if (qPosterID != -1) {
+                //Post answer
+                sql = "INSERT INTO Answer(Contents, QuestionID) VALUES('" + contents + "', '" + questionID + "');";
+                statement.executeUpdate(sql);
+                return true;
+            }
+            else
+                return false;
         }catch(SQLException e){
             e.printStackTrace();
             return false;
