@@ -3,37 +3,17 @@ CREATE DATABASE proj2016;
 USE proj2016;
 
 CREATE TABLE Account (
-  AccountID   INT(11)      NOT NULL AUTO_INCREMENT,
-  Name        VARCHAR(255) NOT NULL,
-  UserName    VARCHAR(255) NOT NULL,
-  PassWord    VARCHAR(255) NOT NULL,
-  DateCreated TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  AccountID     INT(11)      NOT NULL AUTO_INCREMENT,
+  Name          VARCHAR(255) NOT NULL,
+  UserName      VARCHAR(255) NOT NULL,
+  PassWord      VARCHAR(255) NOT NULL,
+  isAdmin       INT(1)       NOT NULL,
+  isCustomerRep INT(1)       NOT NULL,
+  DateCreated   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (AccountID)
 );
 
-INSERT INTO Account (Name, UserName, PassWord) VALUES('Elby Basolis', 'ebasolis', 'pass1');
-INSERT INTO Account (Name, UserName, PassWord) VALUES('Arnold Trakhtenberg', 'atrakh', 'pass2');
-INSERT INTO Account (Name, UserName, PassWord) VALUES('Jon Getahun', 'jget', 'pass3');
-INSERT INTO Account (Name, UserName, PassWord) VALUES('New User', 'nuser', 'pass4');
-INSERT INTO Account (Name, UserName, PassWord) Values('Customer Rep 1', 'crep1', 'pass5');
-
-CREATE TABLE Admin (
-  AccountID INT(11) NOT NULL,
-  PRIMARY KEY (AccountID),
-  FOREIGN KEY (AccountID) REFERENCES Account (AccountID)
-);
-
-INSERT INTO Admin VALUES(1);
-INSERT INTO Admin VALUES(2);
-INSERT INTO Admin VALUES(3);
-
-CREATE TABLE Customer_Rep (
-  AccountID INT(11) NOT NULL,
-  PRIMARY KEY (AccountID),
-  FOREIGN KEY (AccountID) REFERENCES Account (AccountID)
-);
-
-INSERT INTO Customer_Rep Values(5);
+INSERT INTO Account (Name, UserName, PassWord, isAdmin, isCustomerRep) VALUES('Admin', 'admin', 'password', '1', '0');
 
 CREATE TABLE Item (
   ModelNumber INT(11) NOT NULL,
@@ -116,6 +96,6 @@ CREATE TABLE Answer (
   Contents   VARCHAR(255) NOT NULL,
   TimePosted TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (AnswerID),
-  FOREIGN KEY (PosterID) REFERENCES Customer_Rep (AccountID),
+  FOREIGN KEY (PosterID) REFERENCES Account (AccountID),
   FOREIGN KEY (QuestionID) REFERENCES Question (QuestionID)
 );
