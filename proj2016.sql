@@ -7,8 +7,8 @@ CREATE TABLE Account (
   Name          VARCHAR(255) NOT NULL,
   UserName      VARCHAR(255) NOT NULL,
   PassWord      VARCHAR(255) NOT NULL,
-  isAdmin       INT(1)       NOT NULL,
-  isCustomerRep INT(1)       NOT NULL,
+  isAdmin       TINYINT(1)   NOT NULL DEFAULT 0,
+  isCustomerRep TINYINT(1)   NOT NULL DEFAULT 0,
   DateCreated   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (AccountID)
 );
