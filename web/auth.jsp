@@ -25,7 +25,7 @@
             response.sendRedirect("register.jsp");
             return;
         }
-        if (database.DB.insertUser(username, name, password))
+        if (database.DB.insertUser(username, name, password, 0, 0))
             request.setAttribute("register", "true");
         else
             request.setAttribute("register", "false");

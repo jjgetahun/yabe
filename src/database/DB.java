@@ -195,7 +195,34 @@ public class DB {
 
     }
 
-    public static boolean insertUser(String username, String name, String password){
+    public static boolean isCustomerRep(int accountID) {
+
+        if (!initialized)
+            init();
+
+        try {
+            String sql = "SELECT * FROM Account WHERE AccountID = '"+accountID+"';";
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+
+            int isCustomerRep = -1;
+
+            while (rs.next()) {
+                isCustomerRep = rs.getInt("isCustomerRep");
+            }
+
+            if (isCustomerRep == 1)
+                return true;
+            else
+                return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+    public static boolean insertUser(String username, String name, String password, int isAdmin, int isCustomerRep){
 
         if(!initialized) init();
         int id = -1;
@@ -211,8 +238,8 @@ public class DB {
             if (id != -1)
                 return false;
 
-            sql = "INSERT INTO Account(UserName, Name, PassWord) VALUES('" + username + "', '" + name +
-                    "', '" + password + "');";
+            sql = "INSERT INTO Account(UserName, Name, PassWord, isAdmin, isCustomerRep) VALUES('" + username + "', '" + name +
+                    "', '" + password + "', '"+isAdmin+"', '"+isCustomerRep+"');";
             statement.executeUpdate(sql);
             return true;
         }catch (SQLException e){
