@@ -1,3 +1,5 @@
+<%@ page import="java.sql.*" %>
+
 <html>
 <head>
     <title>User Page</title>
@@ -195,7 +197,25 @@
                                     <th>Action</th>
                                 </tr>
                                 </thead>
-                                <tbody></tbody>
+                                <tbody>
+                                <%
+                                ResultSet rs = database.DB.getAllQuestions();
+                                while (rs.next()) {
+                                %>
+                                <tr>
+                                    <td>
+                                        <%
+                                            rs.getInt("AuctionID");
+                                            rs.getInt("PosterID");
+                                            rs.getString("Header");
+                                            rs.getString("Contents");
+                                        %>
+                                    </td>
+                                </tr>
+                                <%
+                                    }
+                                %>
+                                </tbody>
                                 <!--Put stuff in here-->
                             </table>
                         </div>

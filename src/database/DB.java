@@ -168,6 +168,33 @@ public class DB {
         return name;
     }
 
+    public static boolean isAdmin(int accountID) {
+
+        if (!initialized)
+            init();
+
+        try {
+            String sql = "SELECT * FROM Account WHERE AccountID = '"+accountID+"';";
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+
+            int isAdmin = -1;
+
+            while (rs.next()) {
+                isAdmin = rs.getInt("isAdmin");
+            }
+
+            if (isAdmin == 1)
+                return true;
+            else
+                return false;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
     public static boolean insertUser(String username, String name, String password){
 
         if(!initialized) init();
@@ -507,6 +534,41 @@ public class DB {
             }
 
             return question;
+        }catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static ResultSet getAllQuestions(){
+
+        if (!initialized)
+            init();
+
+        try{
+
+            //Find the given question
+            String sql = "SELECT * FROM Question;";
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+
+            int posterID = -1;
+            int questionID = -1;
+            int auctionID = -1;
+            String header = "";
+            String contents = "";
+            Timestamp timePosted = null;
+
+            while (rs.next()) {
+                posterID = rs.getInt("PosterID");
+                questionID = rs.getInt("QuestionID");
+                auctionID = rs.getInt("AuctionID");
+                header = rs.getString("Header");
+                contents = rs.getString("Contents");
+                timePosted = rs.getTimestamp("TimePosted");
+            }
+
+            return rs;
         }catch(SQLException e){
             e.printStackTrace();
             return null;
