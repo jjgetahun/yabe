@@ -15,8 +15,8 @@
 
     if(session.getAttribute("USER") != null){
         userID = (String)session.getAttribute("USER");
-        user =  "<li><a href='login.jsp'>Logged in as " + database.DB.getNameFromID(Integer.parseInt(userID)) + "</a></li>";
-        user += "<li><a href ='user.jsp'>User Panel</a></li>";
+        user =  "<li><a>Logged in as " + database.DB.getNameFromID(Integer.parseInt(userID)) + "</a></li>";
+        user += "<li><a href='user.jsp'>User Panel</a></li>";
         user += "<li><a href='auth.jsp'>Log Out</a></li>";
 
     }else{
@@ -73,14 +73,8 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group label-floating">
-                                            <label class="control-label">First Name</label>
-                                            <input name="first" type="text" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group label-floating">
-                                            <label class="control-label">Last Name</label>
-                                            <input name="last" type="text" class="form-control">
+                                            <label class="control-label">Full Name</label>
+                                            <input name="name" type="text" class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -102,6 +96,7 @@
                                             </label>
                                         </div>
                                     </div>
+                                    <input type="hidden" name="admin_reg" value="true"/>
                                     <div class="col-md-6 ">
                                         <div class="form-group label-floating">
                                             <input class="btn btn-success" type="submit" value="Submit" />

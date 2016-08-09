@@ -12,7 +12,29 @@
 </head>
 <body>
 <%
-    if(session.getAttribute("USER") != null){
+    if(request.getParameter("admin_reg") != null && request.getParameter("admin_reg").equals("true")){
+        String username = request.getParameter("username");
+        String name = request.getParameter("name");
+        String password = request.getParameter("password");
+        int isAdmin = 0;
+        int isCustomerRep = 0;
+        if(request.getParameter("admin") != null)
+            isAdmin = 1;
+        if(request.getParameter("rep") != null)
+            isCustomerRep = 1;
+        if (username.length() == 0 || name.length() == 0 || password.length() == 0) {
+            //need a failed register page
+            response.sendRedirect("register.jsp");
+            return;
+        }
+        if (database.DB.insertUser(username, name, password, isAdmin, isCustomerRep))
+            request.setAttribute("register", "true");
+        else
+            request.setAttribute("register", "false");
+
+        response.sendRedirect("login.jsp");
+        return;
+    }else if(session.getAttribute("USER") != null){
         session.setAttribute("USER", null);
         response.sendRedirect("index.jsp");
         return;
@@ -20,12 +42,18 @@
         String username = request.getParameter("username");
         String name = request.getParameter("name");
         String password = request.getParameter("password");
+        int isAdmin = 0;
+        int isCustomerRep = 0;
+        if(request.getParameter("admin") != null)
+            isAdmin = 1;
+        if(request.getParameter("rep") != null)
+            isCustomerRep = 1;
         if (username.length() == 0 || name.length() == 0 || password.length() == 0) {
             //need a failed register page
             response.sendRedirect("register.jsp");
             return;
         }
-        if (database.DB.insertUser(username, name, password, 0, 0))
+        if (database.DB.insertUser(username, name, password, isAdmin, isCustomerRep))
             request.setAttribute("register", "true");
         else
             request.setAttribute("register", "false");
