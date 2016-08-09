@@ -61,20 +61,15 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <h4>Condition</h4>
-                    <div class="checkbox">
-                        <label>
-                            <input type="radio" id="new" checked>
-                            New
-                        </label>
-                        <br/>
-                        <label>
-                            <input type="radio" id="used">
-                            Used
-                        </label>
+                    <div class="form-group">
+                        <label for="condition">Condition:</label>
+                        <select class="form-control" name="condition" id="condition">
+                            <option>New</option>
+                            <option>Used</option>
+                        </select>
                     </div>
                     <h4>Auction End Date</h4>
-                    <input class="datepicker form-control" id="end" type="date" value="End"/>
+                    <input class="datepicker form-control" name="end" type="date"/>
                     <div class="form-group label-floating">
                         <label class="control-label">Starting Price</label>
                         <input type="number" class="form-control" name="price">
@@ -168,7 +163,7 @@
                 </div>
                 <div class="col-md-4">
                     <h4>Description</h4>
-                    <textarea class="form-control" placeholder="A description of the product and it's condition." rows="5"></textarea>
+                    <textarea class="form-control" name="description" placeholder="A description of the product and it's condition." rows="5"></textarea>
                 </div>
             </div>
         </form>

@@ -98,7 +98,7 @@
                         </span>
                         <input type="text" class="form-control" placeholder="Keywords (ex. 'Dell XPS 2014)'" id="keywords">
                     </div>
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <div class="checkbox">
                                 <label>
                                     <input type="checkbox" id="browse" checked>

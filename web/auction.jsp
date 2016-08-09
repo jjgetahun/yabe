@@ -1,3 +1,7 @@
+<%@ page import="java.util.Date" %>
+<%@ page import="database.DB" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.text.DateFormat" %>
 <html>
 <head>
     <title>Login</title>
@@ -11,6 +15,22 @@
     String user = "";
     String userID = "";
 
+    String modelNumber = "";
+    String auctionName = "";
+    String cond = "";
+    String type = "";
+    String a = "";
+    String b = "";
+    String c = "";
+
+    String sellerName = "";
+    String endDate = "";
+    String highestBid = "";
+    String highestBidder = "";
+    String reserve = "";
+    String description = "";
+
+
     if(session.getAttribute("USER") != null){
         //CAN't Access this page!
         userID = (String)session.getAttribute("USER");
@@ -23,39 +43,53 @@
     }
 
     if(request.getParameter("newAuction") != null && request.getParameter("newAuction").equals("newAuction")){
-        String cat = request.getParameter("category");
-        String a = "";
-        String b = "";
-        String c = "";
+        type = request.getParameter("category");
 
         //Not protected
-        String name = request.getParameter("name");
-        String model = request.getParameter("model");
+        auctionName = request.getParameter("name");
+        modelNumber = request.getParameter("model");
 
-//        request.getParameterV
+        endDate = request.getParameter("end");
+        reserve = request.getParameter("price");
+        cond = request.getParameter("condition");
+        description = request.getParameter("description");
 
-        String cond = "";
+        int modelNo = Integer.parseInt(modelNumber);
+
+
         if(request.getParameter("category").equals("backpacks")){
             a = request.getParameter("pockets");
             b = request.getParameter("material");
-            c = request.getParameter("waterproof");
+
+            if(request.getParameter("waterproof") != null) c = "true";
+            else c = "false";
         }else if(request.getParameter("category").equals("tents")){
             a = request.getParameter("color");
             b = request.getParameter("capacity");
+
             if(request.getParameter("spare") != null) c = "true";
             else c = "false";
         }else{
             a = request.getParameter("battery");
-            b = request.getParameter("rechargeable");
-            c = request.getParameter("led");
+
+            if(request.getParameter("rechargeable") != null) b = "true";
+            else b = "false";
+
+            if(request.getParameter("led") != null) c = "true";
+            else c = "false";
         }
 
-        System.out.println("name: " + name);
-        System.out.println("model: " + model);
-        System.out.println("category: " + cat);
-        System.out.println("a: " + a);
-        System.out.println("b: " + b);
-        System.out.println("c: " + c);
+        DateFormat df = new SimpleDateFormat("mm/dd/yyyy");
+        Date startDate = df.parse(endDate);
+
+        int aID = DB.createAuction(Integer.parseInt(userID), modelNo, type, new String[] {a, b, c}, Float.parseFloat(reserve), startDate);
+
+        if(aID != -1){
+            //Successful
+            System.out.println(aID);
+        }else{
+            System.out.println("FUCK");
+        }
 
     }
 
@@ -86,127 +120,42 @@
 <div class="container centered">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="panel-title">New Auction</h3>
+            <h3 class="panel-title"><%=auctionName%> Details</h3>
         </div>
-        <form class="panel-body">
-            <div class="input-group">
-                  <span class="input-group-btn">
-                  <button class="btn btn-success" type="submit">Create</button>
-                  </span>
-                <input type="text" class="form-control" placeholder="Item Name" id="name">
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Auction Name: <%=auctionName%></h3>
+                <h3>Model Number: <%=modelNumber%></h3>
+                <h3>Condition: <%=cond%></h3>
+                <h4>Type: <%=type%></h4>
+                <h4><%=a%></h4>
+                <h4><%=b%></h4>
+                <h4><%=c%></h4>
             </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <h4>Condition</h4>
-                    <div class="checkbox">
-                        <label>
-                            <input type="radio" id="new" checked>
-                            New
-                        </label>
-                        <br/>
-                        <label>
-                            <input type="radio" id="used">
-                            Used
-                        </label>
-                    </div>
-                    <h4>Auction End Date</h4>
-                    <input class="datepicker form-control" id="end" type="date" value="End"/>
-                    <div class="form-group label-floating">
-                        <label class="control-label">Starting Price</label>
-                        <input type="number" class="form-control" name="price">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <ul class="nav nav-tabs">
-                        <li class="active"><a data-toggle="tab" href="#backpacks">Backpack</a></li>
-                        <li><a data-toggle="tab" href="#tents">Tent</a></li>
-                        <li><a data-toggle="tab" href="#flashlights">Flashlight</a></li>
-                    </ul>
-                    <div class="tab-content">
-                        <div id="backpacks" class="tab-pane fade in active">
-                            <div class="form-group">
-                                <label for="pockets">Number of pockets:</label>
-                                <select class="form-control" id="pockets">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    <option>6</option>
-                                    <option>7</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="material">Material:</label>
-                                <select class="form-control" id="material">
-                                    <option>Nylon</option>
-                                    <option>Canvas</option>
-                                    <option>Leather</option>
-                                    <option>Mixed</option>
-                                </select>
-                            </div>
-                            <div class="checkbox">
-                                <label><input name="waterproof" type="checkbox" value="">Waterproof</label>
-                            </div>
-                        </div>
-                        <div id="tents" class="tab-pane fade">
-                            <div class="form-group">
-                                <div class="form-group">
-                                    <label for="pockets">Color:</label>
-                                    <select class="form-control" id="color">
-                                        <option>Red</option>
-                                        <option>Blue</option>
-                                        <option>Yellow</option>
-                                        <option>White</option>
-                                        <option>Black</option>
-                                        <option>Green</option>
-                                        <option>Purple</option>
-                                        <option>Orange</option>
-                                    </select>
-                                </div>
-                                <label for="capacity">Capacity</label>
-                                <select class="form-control" id="capacity">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    <option>6</option>
-                                    <option>7</option>
-                                    <option>8</option>
-                                    <option>9</option>
-                                    <option>10</option>
-                                </select>
-                                <div class="checkbox">
-                                    <label><input type="checkbox" value="">Spare Parts</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="flashlights" class="tab-pane fade">
-                            <div class="form-group">
-                                <label for="battery">Color:</label>
-                                <select class="form-control" id="battery">
-                                    <option>AA</option>
-                                    <option>AAA</option>
-                                    <option>C</option>
-                                    <option>D</option>
-                                </select>
-                            </div>
-                            <div class="checkbox">
-                                <label><input name="rechargeable" type="checkbox" value="">Rechargeable</label>
-                            </div>
-                            <div class="checkbox">
-                                <label><input name="led" type="checkbox" value="">LED</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <h4>Description</h4>
-                    <textarea class="form-control" placeholder="A description of the product and it's condition." rows="5"></textarea>
-                </div>
+            <div class="col-md-6">
+                <h3>Auction Name: <%=sellerName%></h3>
+                <h3>End Date: <%=endDate%></h3>
+                <h3>Reserve: <%=reserve%></h3>
+                <h4>Highest Bid: <%=highestBid%></h4>
+                <h4>Highest Bidder: <%=highestBidder%></h4>
             </div>
-        </form>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Bids</h3>
+        </div>
+        <div class="row">
+
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Questions</h3>
+        </div>
+
     </div>
 </div>
 <h3></h3>
