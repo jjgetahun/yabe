@@ -16,8 +16,26 @@ public class Admin extends Account {
         return customerRep;
     }
 
-    public String generateSalesReport() {
-        return "";
+    public String generateSalesReport(String type) {
+        switch(type) {
+            case "Total Earnings":
+                return "Total Earnings sales report";
+
+            case "Earnings per Item":
+                return "Earnings per Item sales report";
+
+            case "Earnings per Item Type":
+                return "Earnings per Item Type sales report";
+
+            case "Best-Selling Items":
+                return "Earnings per Best-Selling Items sales report";
+
+            case "Best Buyers":
+                return "Earnings per Best Buyers sales report";
+
+            default:
+                return "";
+        }
     }
 
 }
