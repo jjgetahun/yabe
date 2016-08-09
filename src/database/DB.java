@@ -242,16 +242,16 @@ public class DB {
             String sql = "";
 
             switch(type) {
-                case "A":
-                    sql = "INSERT INTO ITEM(ModelNumber, A1, A2, A3) VALUES('" + modelNumber + "', '" + attr1 + "', '" + attr2 + "', '" + attr3 + "');";
+                case "Backpack":
+                    sql = "INSERT INTO ITEM(ModelNumber, Pockets, Material, Waterproof) VALUES('" + modelNumber + "', '" + attr1 + "', '" + attr2 + "', '" + attr3 + "');";
                     break;
 
-                case "B":
-                    sql = "INSERT INTO ITEM(ModelNumber, B1, B2, B3) VALUES('" + modelNumber + "', '" + attr1 + "', '" + attr2 + "', '" + attr3 + "');";
+                case "Tent":
+                    sql = "INSERT INTO ITEM(ModelNumber, Color, Capacity, SpareParts) VALUES('" + modelNumber + "', '" + attr1 + "', '" + attr2 + "', '" + attr3 + "');";
                     break;
 
-                case "C":
-                    sql = "INSERT INTO ITEM(ModelNumber, C1, C2, C3) VALUES('" + modelNumber + "', '" + attr1 + "', '" + attr2 + "', '" + attr3 + "');";
+                case "Flashlight":
+                    sql = "INSERT INTO ITEM(ModelNumber, Battery, Rechargable, LED) VALUES('" + modelNumber + "', '" + attr1 + "', '" + attr2 + "', '" + attr3 + "');";
                     break;
 
                 default:

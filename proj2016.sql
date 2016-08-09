@@ -17,15 +17,15 @@ INSERT INTO Account (Name, UserName, PassWord, isAdmin, isCustomerRep) VALUES('A
 
 CREATE TABLE Item (
   ModelNumber INT(11) NOT NULL,
-  A1          VARCHAR(200),
-  A2          VARCHAR(200),
-  A3          VARCHAR(200),
-  B1          VARCHAR(200),
-  B2          VARCHAR(200),
-  B3          VARCHAR(200),
-  C1          VARCHAR(200),
-  C2          VARCHAR(200),
-  C3          VARCHAR(200),
+  Pockets        VARCHAR(200),
+  Material       VARCHAR(200),
+  Waterproof     VARCHAR(200),
+  Color          VARCHAR(200),
+  Capacity       VARCHAR(200),
+  SpareParts     VARCHAR(200),
+  Battery        VARCHAR(200),
+  Rechargable    VARCHAR(200),
+  LED            VARCHAR(200),
   PRIMARY KEY (ModelNumber)
 );
 
