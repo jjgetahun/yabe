@@ -153,7 +153,7 @@ public class DB {
         String name = "";
 
         try {
-            String sql = "SELECT * FROM Account where AccountID = '" + id + "';";
+            String sql = "SELECT Name FROM Account where AccountID = '" + id + "';";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(sql);
 

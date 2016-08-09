@@ -20,7 +20,11 @@
         String username = request.getParameter("username");
         String name = request.getParameter("name");
         String password = request.getParameter("password");
-
+        if (username.length() == 0 || name.length() == 0 || password.length() == 0) {
+            //need a failed register page
+            response.sendRedirect("register.jsp");
+            return;
+        }
         if (database.DB.insertUser(username, name, password))
             request.setAttribute("register", "true");
         else
@@ -34,10 +38,10 @@
         int uid = database.DB.validateLogin(username, password);
         if(uid != -1){
             session.setAttribute("USER", Integer.toString(uid));
-            response.sendRedirect("index.jsp");
-
-            return;
         }
+        //we need a failed login page
+        response.sendRedirect("index.jsp");
+        return;
     }
 
 %>
