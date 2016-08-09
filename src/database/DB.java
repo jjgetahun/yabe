@@ -234,7 +234,7 @@ public class DB {
         return 0;
     }
 
-    public static boolean createItem(int modelNumber, String type, String attr1, String attr2, String attr3) {
+    private static boolean createItem(int modelNumber, String type, String[] attr) {
         if (!initialized) init();
 
         try {
@@ -243,15 +243,15 @@ public class DB {
 
             switch(type) {
                 case "Backpack":
-                    sql = "INSERT INTO ITEM(ModelNumber, Pockets, Material, Waterproof) VALUES('" + modelNumber + "', '" + attr1 + "', '" + attr2 + "', '" + attr3 + "');";
+                    sql = "INSERT INTO ITEM(ModelNumber, Pockets, Material, Waterproof) VALUES('" + modelNumber + "', '" + attr[0] + "', '" + attr[1] + "', '" + attr[2] + "');";
                     break;
 
                 case "Tent":
-                    sql = "INSERT INTO ITEM(ModelNumber, Color, Capacity, SpareParts) VALUES('" + modelNumber + "', '" + attr1 + "', '" + attr2 + "', '" + attr3 + "');";
+                    sql = "INSERT INTO ITEM(ModelNumber, Color, Capacity, SpareParts) VALUES('" + modelNumber + "', '" + attr[0] + "', '" + attr[1] + "', '" + attr[2] + "');";
                     break;
 
                 case "Flashlight":
-                    sql = "INSERT INTO ITEM(ModelNumber, Battery, Rechargable, LED) VALUES('" + modelNumber + "', '" + attr1 + "', '" + attr2 + "', '" + attr3 + "');";
+                    sql = "INSERT INTO ITEM(ModelNumber, Battery, Rechargable, LED) VALUES('" + modelNumber + "', '" + attr[0] + "', '" + attr[1] + "', '" + attr[2] + "');";
                     break;
 
                 default:
@@ -271,7 +271,7 @@ public class DB {
 
     }
 
-    public static boolean createAuction(String sellerName, int itemID, int reserve, Date endTime) {
+    public static boolean createAuction(String sellerName, int itemID, String type, String[] attr, int reserve, Date endTime) {
         if(!initialized) init();
 
         int sellerID = getUserID(sellerName);
@@ -289,7 +289,7 @@ public class DB {
                 id = rs.getInt("ModelNumber");
 
                 if (id != -1)
-                    return false;
+                    createItem(itemID, type, attr);
             }
 
             sql = "INSERT INTO AUCTION(SellerID, ItemID, Reserve, EndTime) VALUES('" + sellerID + "', '" + itemID + "', '" + reserve + "', '" + endTime + "');";
