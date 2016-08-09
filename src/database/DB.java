@@ -230,8 +230,23 @@ public class DB {
         }
     }
 
-    public static int getItem() {
-        return 0;
+    public static Item getItem(int modelNumber) {
+        if (!initialized) init();
+
+        try {
+            String sql = "SELECT * FROM Item WHERE ModelNumber = ModelNumber";
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {
+
+            }
+            return null;
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
     private static boolean createItem(int modelNumber, String type, String[] attr) {

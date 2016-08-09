@@ -30,6 +30,7 @@
     if(session.getAttribute("USER") != null){
         userID = (String)session.getAttribute("USER");
         user =  "<li><a>Logged in as " + database.DB.getNameFromID(Integer.parseInt(userID)) + "</a></li>";
+        user += "<li><a href ='user.jsp'>User Panel</a></li>";
         user += "<li><a href='auth.jsp'>Log Out</a></li>";
 
     }else{
