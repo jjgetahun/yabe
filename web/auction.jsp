@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>New Auction</title>
+    <title>Login</title>
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/material-kit.css" rel="stylesheet">
     <link href="assets/css/yabe.css" rel="stylesheet">
@@ -19,6 +19,43 @@
 
     }else{
         user = "<li><a href='login.jsp'>Not logged in</a></li>";
+    }
+
+    if(request.getParameter("newAuction") != null && request.getParameter("newAuction").equals("newAuction")){
+        String cat = request.getParameter("category");
+        String a = "";
+        String b = "";
+        String c = "";
+
+        //Not protected
+        String name = request.getParameter("name");
+        String model = request.getParameter("model");
+
+//        request.getParameterV
+
+        String cond = "";
+        if(request.getParameter("category").equals("backpacks")){
+            a = request.getParameter("pockets");
+            b = request.getParameter("material");
+            c = request.getParameter("waterproof");
+        }else if(request.getParameter("category").equals("tents")){
+            a = request.getParameter("color");
+            b = request.getParameter("capacity");
+            if(request.getParameter("spare") != null) c = "true";
+            else c = "false";
+        }else{
+            a = request.getParameter("battery");
+            b = request.getParameter("rechargeable");
+            c = request.getParameter("led");
+        }
+
+        System.out.println("name: " + name);
+        System.out.println("model: " + model);
+        System.out.println("category: " + cat);
+        System.out.println("a: " + a);
+        System.out.println("b: " + b);
+        System.out.println("c: " + c);
+
     }
 
 %>
@@ -50,14 +87,12 @@
         <div class="panel-heading">
             <h3 class="panel-title">New Auction</h3>
         </div>
-        <form action="auction.jsp" method="POST" class="panel-body">
-            <input type="hidden" name="newAuction" value="newAuction">
+        <form class="panel-body">
             <div class="input-group">
                   <span class="input-group-btn">
                   <button class="btn btn-success" type="submit">Create</button>
                   </span>
-                <input type="text" class="form-control" placeholder="Item Name" name="name">
-                <input type="text" class="form-control" placeholder="Model Number" name="model">
+                <input type="text" class="form-control" placeholder="Item Name" id="name">
             </div>
             <div class="row">
                 <div class="col-md-4">
@@ -82,16 +117,15 @@
                 </div>
                 <div class="col-md-4">
                     <ul class="nav nav-tabs">
-                        <li id="b" class="active"><a data-toggle="tab" href="#backpacks">Backpack</a></li>
-                        <li id="t"><a data-toggle="tab" href="#tents">Tent</a></li>
-                        <li id="f"><a data-toggle="tab" href="#flashlights">Flashlight</a></li>
+                        <li class="active"><a data-toggle="tab" href="#backpacks">Backpack</a></li>
+                        <li><a data-toggle="tab" href="#tents">Tent</a></li>
+                        <li><a data-toggle="tab" href="#flashlights">Flashlight</a></li>
                     </ul>
                     <div class="tab-content">
-                        <input type="hidden" name="category" id="category" value="backpacks">
                         <div id="backpacks" class="tab-pane fade in active">
                             <div class="form-group">
                                 <label for="pockets">Number of pockets:</label>
-                                <select class="form-control" name="pockets" id="pockets">
+                                <select class="form-control" id="pockets">
                                     <option>1</option>
                                     <option>2</option>
                                     <option>3</option>
@@ -103,7 +137,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="material">Material:</label>
-                                <select class="form-control" name="material" id="material">
+                                <select class="form-control" id="material">
                                     <option>Nylon</option>
                                     <option>Canvas</option>
                                     <option>Leather</option>
@@ -118,7 +152,7 @@
                             <div class="form-group">
                                 <div class="form-group">
                                     <label for="pockets">Color:</label>
-                                    <select class="form-control" name="color" id="color">
+                                    <select class="form-control" id="color">
                                         <option>Red</option>
                                         <option>Blue</option>
                                         <option>Yellow</option>
@@ -130,7 +164,7 @@
                                     </select>
                                 </div>
                                 <label for="capacity">Capacity</label>
-                                <select class="form-control" name="capacity" id="capacity">
+                                <select class="form-control" id="capacity">
                                     <option>1</option>
                                     <option>2</option>
                                     <option>3</option>
@@ -143,14 +177,14 @@
                                     <option>10</option>
                                 </select>
                                 <div class="checkbox">
-                                    <label><input type="checkbox" name="spare" value="">Spare Parts</label>
+                                    <label><input type="checkbox" value="">Spare Parts</label>
                                 </div>
                             </div>
                         </div>
                         <div id="flashlights" class="tab-pane fade">
                             <div class="form-group">
                                 <label for="battery">Color:</label>
-                                <select class="form-control" name="battery" id="battery">
+                                <select class="form-control" id="battery">
                                     <option>AA</option>
                                     <option>AAA</option>
                                     <option>C</option>
@@ -189,19 +223,6 @@
     $('.datepicker').datepicker({
         weekStart:1
     });
-
-    $('#b').click(function(){
-        $('#category').val("backpacks");
-    });
-
-    $('#t').click(function(){
-        $('#category').val("tents");
-    });
-
-    $('#f').click(function(){
-        $('#category').val("flashlights");
-    });
-
 </script>
 </body>
 </html>

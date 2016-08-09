@@ -72,11 +72,13 @@
                     <h3 class="panel-title">Actions</h3>
                 </div>
                 <div class="panel-body">
-                    <button class="btn btn-" type="button">Create Auction</button>
+                    <a href="newAuction.jsp">
+                        <button class="btn btn-success" type="button">Create Auction</button>
+                    </a>
                     <h5>Search auctions by user</h5>
                     <div class="input-group">
                         <span class="input-group-btn">
-                        <button class="btn btn-" type="button">Search</button>
+                        <button class="btn btn-success" type="button">Search</button>
                         </span>
                         <input type="text" class="form-control" placeholder="'Leaf Erikson'">
                     </div>
@@ -91,7 +93,7 @@
                 <form class="panel-body">
                     <div class="input-group">
                         <span class="input-group-btn">
-                        <button class="btn btn-" type="submit">Search</button>
+                        <button class="btn btn-success" type="submit">Search</button>
                         </span>
                         <input type="text" class="form-control" placeholder="Keywords (ex. 'Dell XPS 2014)'" id="keywords">
                     </div>
@@ -128,6 +130,7 @@
                                 <li><a data-toggle="tab" href="#flashlights">Flashlights</a></li>
                             </ul>
                             <div class="tab-content">
+                                <input type="hidden" name="category" id="category" value="backpacks">
                                 <div id="backpacks" class="tab-pane fade in active">
                                     <div class="form-group">
                                         <label for="pockets">Number of pockets:</label>
@@ -149,9 +152,6 @@
                                             <option>Leather</option>
                                             <option>Mixed</option>
                                         </select>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label><input name="hydration" type="checkbox" value="">Hydration</label>
                                     </div>
                                     <div class="checkbox">
                                         <label><input name="waterproof" type="checkbox" value="">Waterproof</label>
@@ -203,6 +203,9 @@
                                     <div class="checkbox">
                                         <label><input name="rechargeable" type="checkbox" value="">Rechargeable</label>
                                     </div>
+                                    <div class="checkbox">
+                                        <label><input name="led" type="checkbox" value="">LED</label>
+                                    </div>
                                 </div>
 
                             </div>
@@ -231,6 +234,20 @@
     $('.datepicker').datepicker({
         weekStart:1
     });
+
+    $('#backpacks').click(function(){
+        $('#category').val("backpacks");
+    });
+
+    $('#tents').click(function(){
+        $('#category').val("tents");
+    });
+
+    $('#flashlights').click(function(){
+        $('#category').val("flashlights");
+    });
+
+
 </script>
 </body>
 </html>

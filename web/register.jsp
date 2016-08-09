@@ -30,6 +30,8 @@
         user = "<li><a href='login.jsp'>Not logged in</a></li>";
     }
 
+    request.get
+
 %>
 
 <nav class="navbar navbar-success" role="navigation">
