@@ -1,0 +1,43 @@
+<> The functionality of the system can be naturally divided into
+ (0) account handling (end-users (buyers & sellers), customer representatives, admin staff)
+ (I) auction functionality
+ (II) browsing and advanced search functionality
+ (III) customer representatives & admin functions
+ (IV) history of auctions and auction similarity
+
+As a group of 3, you could divide the final programming work into (0)(II), 
+(I) and  (III), (IV).
+
+	[*] with automatic bidding
+	    [*] set a secret upper limit
+	    [*] put in a higher bid automatically for the user in case someone bids higher
+	    [*] alert the buyer in case someone bids more than your upper limit
+
+2 Browsing and advanced search functionality
+    [] let people browse on the items and see the status of the current bidding
+    [] sort by different criteria (by type, bidding price etc.)
+    [] search the list of items by various criteria.
+    [] let user set an alert for specific items s/he is interested
+    [] user can post questions
+    [] user can search and browse questions/answers
+
+3 Customer representatives and admin functions
+    [] Admin (create an admin account ahead of time)
+    	[] generates sales reports for:
+		[] total earnings
+		[] earnings per:
+	    		[] item
+	    		[] item type
+	    		[] end-user
+    		[] best-selling items
+   		[] best buyers
+    [] Customer representative:
+	[] answers to questions of users
+	[] modifies any information (if this is reasonable)
+	[] removes bids (that abide to specific rules)
+	[] removes illegal auctions
+	
+4 History of auctions and auction similarity
+    [] a user should be able to:
+    	[] view the list of all auctions a specific buyer or seller has participated in
+	[] view the list of "similar" items on auctions in the preceding month (and auction information about them)

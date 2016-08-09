@@ -74,8 +74,8 @@ public class DB {
         //Load database.DB
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            conn = DriverManager.getConnection ("jdbc:mysql://classvm51.cs.rutgers.edu/proj2016","root","DigDagDug55");
-//            conn = DriverManager.getConnection ("jdbc:mysql://localhost/proj2016","root","themysql");
+//            conn = DriverManager.getConnection ("jdbc:mysql://classvm51.cs.rutgers.edu/proj2016","root","DigDagDug55");
+            conn = DriverManager.getConnection ("jdbc:mysql://localhost/proj2016","root","themysql");
             initialized = true;
         } catch (Exception e) { //Generic exception, don't do this.
             e.printStackTrace();
@@ -362,7 +362,7 @@ public class DB {
             sql = "INSERT INTO AUCTION(SellerID, ItemID, Reserve, EndTime) VALUES('" + sellerID + "', '" + modelNumber + "', '" + reserve + "', '" + endTime + "');";
             statement.executeUpdate(sql);
 
-            int auctionID = 0;
+            int auctionID = -1;
             sql = "SELECT MAX(AuctionID) FROM Auction;";
             rs = statement.executeQuery(sql);
             while (rs.next()) {
@@ -374,7 +374,7 @@ public class DB {
         }
         catch(SQLException e) {
             e.printStackTrace();
-            return 0;
+            return -1;
         }
     }
 
@@ -421,6 +421,35 @@ public class DB {
         }
     }
 
+    public static ResultSet salesReportItem(){
+
+        if (!initialized)
+            init();
+        try {
+            String sql = "SELECT A.ItemID, SUM(MAX(B.Amount)) FROM Auction A, Bid B WHERE A.AuctionID = B.AuctionID GROUP BY A.ItemID;";
+            Statement statement = conn.createStatement();
+            return statement.executeQuery(sql);
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+//    public static ResultSet salesReportCategory(string "Category"){
+//
+//        if (!initialized)
+//            init();
+//        try {
+//            String sql = "SELECT A.ItemID, SUM(MAX(B.Amount)) FROM Auction A, Bid B WHERE A.AuctionID = B.AuctionID GROUP BY A.ItemID;";
+//            Statement statement = conn.createStatement();
+//            return statement.executeQuery(sql);
+//        }
+//        catch(SQLException e){
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
     public static boolean postQuestion(int posterID, int auctionID, String header, String contents) {
 
         if (!initialized)
