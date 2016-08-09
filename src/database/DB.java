@@ -445,7 +445,7 @@ public class DB {
         }
     }
 
-    public static Question searchAllQuestions(String questionHeader, int questionID){
+    public static Question searchAllQuestions(String questionHeader){
 
         if (!initialized)
             init();
@@ -453,11 +453,12 @@ public class DB {
         try{
 
             //Find the given question
-            String sql = "SELECT * FROM Question WHERE Header LIKE '%"+questionHeader+"%' AND QuestionID = '"+questionID+"';";
+            String sql = "SELECT * FROM Question WHERE Header LIKE '%"+questionHeader+"%';";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(sql);
 
             int posterID = -1;
+            int questionID = -1;
             int auctionID = -1;
             String header = "";
             String contents = "";
@@ -465,6 +466,7 @@ public class DB {
 
             while (rs.next()) {
                 posterID = rs.getInt("PosterID");
+                questionID = rs.getInt("QuestionID");
                 auctionID = rs.getInt("AuctionID");
                 header = rs.getString("Header");
                 contents = rs.getString("Contents");
