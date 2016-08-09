@@ -75,6 +75,7 @@ public class DB {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             conn = DriverManager.getConnection ("jdbc:mysql://classvm51.cs.rutgers.edu/proj2016","root","DigDagDug55");
+//            conn = DriverManager.getConnection ("jdbc:mysql://localhost/proj2016","root","themysql");
             initialized = true;
         } catch (Exception e) { //Generic exception, don't do this.
             e.printStackTrace();
@@ -339,17 +340,14 @@ public class DB {
         }
 
     }
-
-    public static boolean createAuction(String sellerName, int itemID, String type, String[] attr, int reserve, Date endTime) {
+    //int
+    public static int createAuction(int sellerID, int modelNumber, String type, String[] attr, float reserve, Date endTime) {
         if(!initialized) init();
-
-        int sellerID = getUserID(sellerName);
-
         int id = -1;
 
         try {
 
-            String sql = "SELECT * FROM Item where ModelNumber = '"+itemID+"';";
+            String sql = "SELECT * FROM Item where ModelNumber = '" + modelNumber + "';";
 
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(sql);
@@ -358,16 +356,25 @@ public class DB {
                 id = rs.getInt("ModelNumber");
 
                 if (id != -1)
-                    createItem(itemID, type, attr);
+                    createItem(modelNumber, type, attr);
             }
 
-            sql = "INSERT INTO AUCTION(SellerID, ItemID, Reserve, EndTime) VALUES('" + sellerID + "', '" + itemID + "', '" + reserve + "', '" + endTime + "');";
+            sql = "INSERT INTO AUCTION(SellerID, ItemID, Reserve, EndTime) VALUES('" + sellerID + "', '" + modelNumber + "', '" + reserve + "', '" + endTime + "');";
             statement.executeUpdate(sql);
-            return true;
+
+            int auctionID = 0;
+            sql = "SELECT MAX(AuctionID) FROM Auction;";
+            rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                auctionID = rs.getInt("AuctionID");
+            }
+            if (id != -1)
+                createItem(modelNumber, type, attr);
+            return auctionID;
         }
         catch(SQLException e) {
             e.printStackTrace();
-            return false;
+            return 0;
         }
     }
 
