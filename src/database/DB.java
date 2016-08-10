@@ -23,6 +23,7 @@ public class DB {
                 //check for ended auctions
                 Date date = new Date();
                 Timestamp currentTime = new Timestamp(date.getTime());
+
                 String sql = "SELECT A.AuctionID as aid, A.SellerID as sid, B.BidderID as bid, A.reserve as reserve, B.amount as amount" +
                         " FROM Auction A, Bid B where A.AuctionID = B.AuctionID and A.EndTime <= '" + currentTime +
                         "' and A.HasEnded = " + "0 GROUP BY B.AuctionId HAVING MAX(B.Amount);";
@@ -342,7 +343,7 @@ public class DB {
 
     }
     //int
-    public static int createAuction(int sellerID, int modelNumber, String type, String[] attr, float reserve, Date endTime) {
+    public static int createAuction(int sellerID, int modelNumber, String type, String[] attr, float reserve, Date endTime, String condition) {
         if(!initialized) init();
         int id = -1;
 
@@ -360,7 +361,7 @@ public class DB {
                     createItem(modelNumber, type, attr);
             }
 
-            sql = "INSERT INTO AUCTION(SellerID, ItemID, Reserve, EndTime) VALUES('" + sellerID + "', '" + modelNumber + "', '" + reserve + "', '" + endTime + "');";
+            sql = "INSERT INTO AUCTION(SellerID, ItemID, Reserve, EndTime, Condition) VALUES(" + sellerID + ", " + modelNumber + ", " + reserve + ", '" + endTime + "', '" + condition + "');";
             statement.executeUpdate(sql);
 
             int auctionID = -1;

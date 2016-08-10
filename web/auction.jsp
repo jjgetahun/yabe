@@ -2,6 +2,7 @@
 <%@ page import="database.DB" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.text.DateFormat" %>
+<%@ page import="java.sql.Timestamp" %>
 <html>
 <head>
     <title>Login</title>
@@ -24,7 +25,7 @@
     String c = "";
 
     String sellerName = "";
-    String endDate = "";
+    String endDates = "";
     String highestBid = "";
     String highestBidder = "";
     String reserve = "";
@@ -49,7 +50,7 @@
         auctionName = request.getParameter("name");
         modelNumber = request.getParameter("model");
 
-        endDate = request.getParameter("end");
+        endDates = request.getParameter("end");
         reserve = request.getParameter("price");
         cond = request.getParameter("condition");
         description = request.getParameter("description");
@@ -79,16 +80,16 @@
             else c = "false";
         }
 
-        DateFormat df = new SimpleDateFormat("mm/dd/yyyy");
-        Date startDate = df.parse(endDate);
+        DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+        Date endDate = df.parse(endDates);
+        Timestamp endTime = new Timestamp(endDate.getTime());
 
-        int aID = DB.createAuction(Integer.parseInt(userID), modelNo, type, new String[] {a, b, c}, Float.parseFloat(reserve), startDate);
+        int aID = DB.createAuction(Integer.parseInt(userID), modelNo, type, new String[] {a, b, c}, Float.parseFloat(reserve), endTime, cond);
 
         if(aID != -1){
             //Successful
             System.out.println(aID);
         }else{
-            System.out.println("FUCK");
         }
 
     }
@@ -133,8 +134,7 @@
                 <h4><%=c%></h4>
             </div>
             <div class="col-md-6">
-                <h3>Auction Name: <%=sellerName%></h3>
-                <h3>End Date: <%=endDate%></h3>
+                <h3>End Date: <%=endDates%></h3>
                 <h3>Reserve: <%=reserve%></h3>
                 <h4>Highest Bid: <%=highestBid%></h4>
                 <h4>Highest Bidder: <%=highestBidder%></h4>

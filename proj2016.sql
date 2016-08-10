@@ -38,7 +38,8 @@ CREATE TABLE Auction (
   StartingPrice FLOAT(7, 2) NOT NULL DEFAULT 0.01,
   Reserve       FLOAT(7, 2),
   Description   VARCHAR(255),
-  HasEnded      TINYINT(1)           DEFAULT 0,
+  HasEnded      TINYINT(1) DEFAULT 0,
+  Condition     VARCHAR(255),
   PRIMARY KEY (AuctionID),
   FOREIGN KEY (SellerID) REFERENCES Account (AccountID),
   FOREIGN KEY (ItemID) REFERENCES Item (ModelNumber)
