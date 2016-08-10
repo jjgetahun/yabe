@@ -287,6 +287,33 @@ public class DB {
         }
     }
 
+    public static boolean removeBid(int bidderID, int auctionID, float amount) {
+
+        if(!initialized) init();
+
+        try {
+            String sql = "DELETE FROM Bid WHERE BidderID = " + bidderID + " AND AuctionID = " + auctionID + " AND Amount = + " + amount + ";";
+            Statement statement = conn.createStatement();
+            statement.executeUpdate(sql);
+
+            Auction a = getAuction(auctionID);
+            ArrayList<Bid> bidList = a.getBidList();
+
+            for (int i = 0; i < bidList.size(); i++) {
+                if (bidList.get(i).getBidderID() == bidderID && bidList.get(i).amount == amount) {
+                    bidList.remove(bidList.get(i));
+                    break;
+                }
+            }
+
+            return true;
+        } catch(SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
     public static Item getItem(int modelNumber) {
         if (!initialized) init();
 
@@ -420,6 +447,24 @@ public class DB {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static boolean removeAuction(int auctionID) {
+
+        if(!initialized) init();
+
+        try {
+            String sql = "DELETE FROM Auction WHERE AuctionID = " + auctionID + ";";
+            Statement statement = conn.createStatement();
+            statement.executeUpdate(sql);
+            Auction a = getAuction(auctionID);
+            a = null;
+            return true;
+        } catch(SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
     }
 
     /*public static ResultSet salesReportItem(){

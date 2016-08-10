@@ -4,14 +4,18 @@ import java.util.Date;
 
 public class Bid {
 
-    private final int bidID;
+    private final int bidderID;
     float amount;
     Date time;
 
-    public Bid(int bidID, float amount, Date time) {
-        this.bidID = bidID;
+    public Bid(int bidderID, float amount, Date time) {
+        this.bidderID = bidderID;
         this.amount = amount;
         this.time = time;
+    }
+
+    public int getBidderID() {
+        return bidderID;
     }
 
 }

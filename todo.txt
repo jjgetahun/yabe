@@ -25,5 +25,3 @@ ITEMS NOT YET IMPLEMENTED ON BACKEND
    		[] best buyers
     [] Customer representative:
 	    [] modifies any information (if this is reasonable)
-	    [] removes bids (that abide to specific rules)
-	    [] removes illegal auctions
