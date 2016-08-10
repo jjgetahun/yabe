@@ -37,12 +37,6 @@
             <a class="navbar-brand" href="index.jsp">YABE</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li><a href="index.jsp">Home</a></li>
-                <li><a href="login.jsp">Login</a></li>
-                <li><a href="register.jsp">Register</a></li>
-            </ul>
-
             <ul class="nav navbar-nav navbar-right">
                 <%=user%>
             </ul>

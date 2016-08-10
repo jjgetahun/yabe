@@ -12,9 +12,9 @@
     String userID = "";
 
     if(session.getAttribute("USER") != null){
-        //CAN't Access this page!
         userID = (String)session.getAttribute("USER");
-        user =  "<li><a href='login.jsp'>Logged in as " + userID + "</a></li>";
+        user =  "<li><a>Logged in as " + database.DB.getNameFromID(Integer.parseInt(userID)) + "</a></li>";
+        user += "<li><a href ='user.jsp'>User Panel</a></li>";
         user += "<li><a href='auth.jsp'>Log Out</a></li>";
 
     }else{
@@ -34,11 +34,6 @@
             <a class="navbar-brand" href="index.jsp">YABE</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li><a href="index.jsp">Home</a></li>
-                <li><a href="login.jsp">Login</a></li>
-                <li><a href="register.jsp">Register</a></li>
-            </ul>
             <ul class="nav navbar-nav navbar-right">
                 <%=user%>
             </ul>
@@ -163,7 +158,7 @@
                 </div>
                 <div class="col-md-4">
                     <h4>Description</h4>
-                    <textarea class="form-control" name="description" placeholder="A description of the product and it's condition." rows="5"></textarea>
+                    <textarea class="form-control" name="description" placeholder="A description of the product and its condition." rows="5"></textarea>
                 </div>
             </div>
         </form>
