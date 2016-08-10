@@ -16,16 +16,17 @@ CREATE TABLE Account (
 INSERT INTO Account (Name, UserName, PassWord, isAdmin, isCustomerRep) VALUES('Admin', 'admin', 'password', '1', '0');
 
 CREATE TABLE Item (
-  ModelNumber INT(11) NOT NULL,
-  Pockets        VARCHAR(200),
-  Material       VARCHAR(200),
-  Waterproof     VARCHAR(200),
-  Color          VARCHAR(200),
-  Capacity       VARCHAR(200),
-  SpareParts     VARCHAR(200),
-  Battery        VARCHAR(200),
-  Rechargeable    VARCHAR(200),
-  LED            VARCHAR(200),
+  ModelNumber  INT(11)      NOT NULL,
+  Type         VARCHAR(200) NOT NULL,
+  Pockets      VARCHAR(200),
+  Material     VARCHAR(200),
+  Waterproof   VARCHAR(200),
+  Color        VARCHAR(200),
+  Capacity     VARCHAR(200),
+  SpareParts   VARCHAR(200),
+  Battery      VARCHAR(200),
+  Rechargeable VARCHAR(200),
+  LED          VARCHAR(200),
   PRIMARY KEY (ModelNumber)
 );
 
@@ -38,8 +39,8 @@ CREATE TABLE Auction (
   StartingPrice FLOAT(7, 2) NOT NULL DEFAULT 0.01,
   Reserve       FLOAT(7, 2),
   Description   VARCHAR(255),
-  HasEnded      TINYINT(1) DEFAULT 0,
-  Cond     VARCHAR(255),
+  HasEnded      TINYINT(1)           DEFAULT 0,
+  Cond          VARCHAR(255),
   PRIMARY KEY (AuctionID),
   FOREIGN KEY (SellerID) REFERENCES Account (AccountID)
 );

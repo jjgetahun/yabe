@@ -315,16 +315,16 @@ public class DB {
             System.out.println("STEP 1");
             switch(type) {
                 case "backpacks":
-                    sql = "INSERT INTO Item(ModelNumber, Pockets, Material, Waterproof) VALUES(" + modelNumber + ", '" + attr[0] + "', '" + attr[1] + "', '" + attr[2] + "');";
+                    sql = "INSERT INTO Item(ModelNumber, Type, Pockets, Material, Waterproof) VALUES(" + modelNumber + ", 'Backpack', '" + attr[0] + "', '" + attr[1] + "', '" + attr[2] + "');";
                     System.out.println("STEP 2");
                     break;
 
                 case "tents":
-                    sql = "INSERT INTO Item(ModelNumber, Color, Capacity, SpareParts) VALUES(" + modelNumber + ", '" + attr[0] + "', '" + attr[1] + "', '" + attr[2] + "');";
+                    sql = "INSERT INTO Item(ModelNumber, Type, Color, Capacity, SpareParts) VALUES(" + modelNumber + ", 'Tent', '" + attr[0] + "', '" + attr[1] + "', '" + attr[2] + "');";
                     break;
 
                 case "flashlights":
-                    sql = "INSERT INTO Item(ModelNumber, Battery, Rechargable, LED) VALUES(" + modelNumber + ", '" + attr[0] + "', '" + attr[1] + "', '" + attr[2] + "');";
+                    sql = "INSERT INTO Item(ModelNumber, Type, Battery, Rechargable, LED) VALUES(" + modelNumber + ", 'Flashlight', '" + attr[0] + "', '" + attr[1] + "', '" + attr[2] + "');";
                     break;
 
                 default:
@@ -422,7 +422,7 @@ public class DB {
         }
     }
 
-    public static ResultSet salesReportItem(){
+    /*public static ResultSet salesReportItem(){
 
         if (!initialized)
             init();
@@ -435,7 +435,7 @@ public class DB {
             e.printStackTrace();
             return null;
         }
-    }
+    }*/
 
 //    public static ResultSet salesReportCategory(String Category){
 //
@@ -678,6 +678,127 @@ public class DB {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static ResultSet generateSalesReport(String type) {
+        switch(type) {
+            case "Total Earnings":
+                return getTotalEarningsReport();
+
+            case "Earnings per Item":
+                return getEarningsPerItemReport();
+
+            case "Earnings per Item Type":
+                return getEarningsPerItemTypeReport();
+
+            case "Earnings per End-User":
+                return getEarningsPerEndUserReport();
+
+            case "Best-Selling Items":
+                return getBestSellingItemsReport();
+
+            case "Best Buyers":
+                return getBestBuyersReport();
+
+            default:
+                return null;
+        }
+    }
+
+    public static ResultSet getTotalEarningsReport() {
+        if (!initialized)
+            init();
+
+        try {
+            String sql = "SELECT SUM(MAX(B.Amount)) FROM Auction A, Bid B WHERE A.AuctionID = B.AuctionID;";
+            Statement statement = conn.createStatement();
+            return statement.executeQuery(sql);
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    public static ResultSet getEarningsPerItemReport() {
+        if (!initialized)
+            init();
+
+        try {
+            String sql = "SELECT A.ItemID, SUM(MAX(B.Amount)) FROM Auction A, Bid B WHERE A.AuctionID = B.AuctionID GROUP BY A.ItemID;";
+            Statement statement = conn.createStatement();
+            return statement.executeQuery(sql);
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    public static ResultSet getEarningsPerItemTypeReport() {
+        if (!initialized)
+            init();
+
+        try {
+            String sql = "SELECT I.Type, SUM(MAX(B.Amount)) FROM Auction A, Bid B, Item I WHERE A.AuctionID = B.AuctionID AND A.ItemID = I.ModelNumber GROUP BY I.Type;";
+            Statement statement = conn.createStatement();
+            return statement.executeQuery(sql);
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    public static ResultSet getEarningsPerEndUserReport() {
+        if (!initialized)
+            init();
+
+        try {
+            String sql = "SELECT A.SellerID, SUM(MAX(B.Amount)) FROM Auction A, Bid B WHERE A.AuctionID = B.AuctionID GROUP BY A.SellerID;";
+            Statement statement = conn.createStatement();
+            return statement.executeQuery(sql);
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    public static ResultSet getBestSellingItemsReport() {
+        if (!initialized)
+            init();
+
+        try {
+            String sql = "SELECT A.ItemID, MAX(B.Amount) FROM Auction A, Bid B WHERE A.AuctionID = B.AuctionID GROUP BY A.ItemID DESC LIMIT 5;";
+            Statement statement = conn.createStatement();
+            return statement.executeQuery(sql);
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    public static ResultSet getBestBuyersReport() {
+        if (!initialized)
+            init();
+
+        try {
+            String sql = "SELECT B.BidderID, MAX(B.Amount) FROM Auction A, Bid B WHERE A.AuctionID = B.AuctionID GROUP BY B.BidderID DESC LIMIT 5;";
+            Statement statement = conn.createStatement();
+            return statement.executeQuery(sql);
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+
     }
 
 }
