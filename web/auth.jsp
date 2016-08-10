@@ -24,7 +24,7 @@
             isCustomerRep = 1;
         if (username.length() == 0 || name.length() == 0 || password.length() == 0) {
             //need a failed register page
-            response.sendRedirect("register.jsp");
+            response.sendRedirect("user.jsp");
             return;
         }
         if (database.DB.insertUser(username, name, password, isAdmin, isCustomerRep))
@@ -32,7 +32,7 @@
         else
             request.setAttribute("register", "false");
 
-        response.sendRedirect("login.jsp");
+        response.sendRedirect("user.jsp");
         return;
     }else if(session.getAttribute("USER") != null){
         session.setAttribute("USER", null);

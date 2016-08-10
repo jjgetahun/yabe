@@ -85,7 +85,7 @@
                                     <div class="col-md-6">
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" name="admin" checked>
+                                                <input type="checkbox" name="admin">
                                                 Admin
                                             </label>
                                             <br/>
@@ -182,10 +182,6 @@
                             <h3 class="panel-title">Questions unanswered</h3>
                         </div>
                         <div class="panel-body">
-                            <%
-                                ResultSet rs = database.DB.getAllQuestions();
-                                while (rs.next()) {
-                            %>
                             <!--Div wrap and overflow auto for scroll-->
 
                             <table class="table table-striped">
@@ -196,8 +192,13 @@
                                     <th>User</th>
                                     <th>Header</th>
                                     <th>Contents</th>
+                                    <th>Action</th>
                                 </tr>
                                 </thead>
+                                <%
+                                    ResultSet rs = database.DB.getAllQuestions();
+                                    while (rs.next()) {
+                                %>
                                 <tbody>
                                 <tr>
                                     <td> <%=rs.getInt("QuestionID")%></td>
@@ -205,13 +206,14 @@
                                     <td> <%=rs.getInt("PosterID")%> </td>
                                     <td> <%=rs.getString("Header")%> </td>
                                     <td> <%=rs.getString("Contents")%> </td>
+                                    <td> <button class="btn btn-success" type="button">Answer</button> </td>
                                 </tr>
                                 </tbody>
+                                <%
+                                    }
+                                %>
                                 <!--Put stuff in here-->
                             </table>
-                            <%
-                                }
-                            %>
                         </div>
 
                     </div>
