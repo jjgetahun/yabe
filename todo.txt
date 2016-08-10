@@ -14,7 +14,7 @@ ITEMS NOT YET IMPLEMENTED ON BACKEND
     [] let user set an alert for specific items s/he is interested
 
 3. Customer representatives and admin functions
-    [] Admin (create an admin account ahead of time)
+    [] Admin (create an admin account ahead of time) - Possibly done.
     	[] generates sales reports for:
 		[] total earnings
 		[] earnings per:
