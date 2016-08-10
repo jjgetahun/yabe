@@ -73,9 +73,15 @@
                     <h3 class="panel-title">Actions</h3>
                 </div>
                 <div class="panel-body">
+                    <%
+                        if(session.getAttribute("USER") != null){
+                    %>
                     <a href="newAuction.jsp">
                         <button class="btn btn-success" type="button">Create Auction</button>
                     </a>
+                    <%
+                        }
+                    %>
                     <h5>Search auctions by user</h5>
                     <div class="input-group">
                         <span class="input-group-btn">

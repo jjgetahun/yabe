@@ -49,8 +49,13 @@
         </div>
     </div>
 </nav>
+
 <div class="container centered">
     <div class="row">
+        <%
+
+            if(database.DB.isAdmin(Integer.parseInt(userID))){
+        %>
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -167,7 +172,10 @@
                 </div>
             </div>
         </div>
+<%
+    } if (database.DB.isCustomerRep(Integer.parseInt(userID))){
 
+%>
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -180,6 +188,10 @@
                             <h3 class="panel-title">Questions unanswered</h3>
                         </div>
                         <div class="panel-body">
+                            <%
+                                ResultSet rs = database.DB.getAllQuestions();
+                                while (rs.next()) {
+                            %>
                             <!--Div wrap and overflow auto for scroll-->
 
                             <table class="table table-striped">
@@ -188,31 +200,24 @@
                                     <th>#</th>
                                     <th>Auction</th>
                                     <th>User</th>
-                                    <th>Question</th>
-                                    <th>Action</th>
+                                    <th>Header</th>
+                                    <th>Contents</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <%
-                                ResultSet rs = database.DB.getAllQuestions();
-                                while (rs.next()) {
-                                %>
                                 <tr>
-                                    <td>
-                                        <%
-                                            rs.getInt("AuctionID");
-                                            rs.getInt("PosterID");
-                                            rs.getString("Header");
-                                            rs.getString("Contents");
-                                        %>
-                                    </td>
+                                    <td> <%=rs.getInt("QuestionID")%></td>
+                                    <td> <%=rs.getInt("AuctionID")%> </td>
+                                    <td> <%=rs.getInt("PosterID")%> </td>
+                                    <td> <%=rs.getString("Header")%> </td>
+                                    <td> <%=rs.getString("Contents")%> </td>
                                 </tr>
-                                <%
-                                    }
-                                %>
                                 </tbody>
                                 <!--Put stuff in here-->
                             </table>
+                            <%
+                                }
+                            %>
                         </div>
 
                     </div>
@@ -221,6 +226,11 @@
             </div>
         </div>
 
+        <%
+
+    }
+
+        %>
     </div>
 </div>
 <script>

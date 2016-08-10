@@ -669,25 +669,9 @@ public class DB {
         try{
 
             //Find the given question
-            String sql = "SELECT * FROM Question;";
+            String sql = "SELECT * FROM Question Q WHERE NOT EXISTS (SELECT * FROM Answer A WHERE Q.QuestionID = A.QuestionID);";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(sql);
-
-            int posterID = -1;
-            int questionID = -1;
-            int auctionID = -1;
-            String header = "";
-            String contents = "";
-            Timestamp timePosted = null;
-
-            while (rs.next()) {
-                posterID = rs.getInt("PosterID");
-                questionID = rs.getInt("QuestionID");
-                auctionID = rs.getInt("AuctionID");
-                header = rs.getString("Header");
-                contents = rs.getString("Contents");
-                timePosted = rs.getTimestamp("TimePosted");
-            }
 
             return rs;
         }catch(SQLException e){
