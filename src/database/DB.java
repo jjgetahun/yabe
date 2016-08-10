@@ -74,8 +74,8 @@ public class DB {
         //Load database.DB
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-//            conn = DriverManager.getConnection ("jdbc:mysql://classvm51.cs.rutgers.edu/proj2016","root","DigDagDug55");
-            conn = DriverManager.getConnection ("jdbc:mysql://localhost/proj2016","root","themysql");
+            conn = DriverManager.getConnection ("jdbc:mysql://classvm51.cs.rutgers.edu/proj2016","root","DigDagDug55");
+//            conn = DriverManager.getConnection ("jdbc:mysql://localhost/proj2016","root","themysql");
             initialized = true;
         } catch (Exception e) { //Generic exception, don't do this.
             e.printStackTrace();
@@ -436,7 +436,7 @@ public class DB {
         }
     }
 
-//    public static ResultSet salesReportCategory(string "Category"){
+//    public static ResultSet salesReportCategory(String Category){
 //
 //        if (!initialized)
 //            init();
@@ -450,6 +450,21 @@ public class DB {
 //            return null;
 //        }
 //    }
+
+    public static ResultSet getAuctionsParticipatedIn(int userID) {
+        if (!initialized)
+            init();
+        try {
+            String sql = "SELECT DISTINCT A.AuctionID FROM Auction A, Bid B WHERE (A.AuctionID = B.AuctionID and B.UserID = " + userID + ") or A.SellerID = " + userID + ";";
+            Statement statement = conn.createStatement();
+            return statement.executeQuery(sql);
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+
+    }
     public static boolean postQuestion(int posterID, int auctionID, String header, String contents) {
 
         if (!initialized)
