@@ -71,7 +71,7 @@
                     <h4>Auction End Date</h4>
                     <input class="datepicker form-control" name="end" type="date"/>
                     <div class="form-group label-floating">
-                        <label class="control-label">Starting Price</label>
+                        <label class="control-label">Reserve</label>
                         <input type="number" class="form-control" name="price">
                     </div>
                 </div>

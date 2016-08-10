@@ -76,8 +76,8 @@ public class DB {
         //Load database.DB
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            conn = DriverManager.getConnection ("jdbc:mysql://classvm51.cs.rutgers.edu/proj2016","root","DigDagDug55");
-//            conn = DriverManager.getConnection ("jdbc:mysql://localhost/proj2016","root","themysql");
+//            conn = DriverManager.getConnection ("jdbc:mysql://classvm51.cs.rutgers.edu/proj2016","root","DigDagDug55");
+            conn = DriverManager.getConnection ("jdbc:mysql://localhost/proj2016","root","themysql");
             initialized = true;
         } catch (Exception e) { //Generic exception, don't do this.
             e.printStackTrace();
@@ -312,18 +312,19 @@ public class DB {
         try {
 
             String sql = "";
-
+            System.out.println("STEP 1");
             switch(type) {
-                case "Backpack":
-                    sql = "INSERT INTO ITEM(ModelNumber, Pockets, Material, Waterproof) VALUES('" + modelNumber + "', '" + attr[0] + "', '" + attr[1] + "', '" + attr[2] + "');";
+                case "backpacks":
+                    sql = "INSERT INTO Item(ModelNumber, Pockets, Material, Waterproof) VALUES('" + modelNumber + "', '" + attr[0] + "', '" + attr[1] + "', '" + attr[2] + "');";
+                    System.out.println("STEP 2");
                     break;
 
-                case "Tent":
-                    sql = "INSERT INTO ITEM(ModelNumber, Color, Capacity, SpareParts) VALUES('" + modelNumber + "', '" + attr[0] + "', '" + attr[1] + "', '" + attr[2] + "');";
+                case "tents":
+                    sql = "INSERT INTO Item(ModelNumber, Color, Capacity, SpareParts) VALUES('" + modelNumber + "', '" + attr[0] + "', '" + attr[1] + "', '" + attr[2] + "');";
                     break;
 
-                case "Flashlight":
-                    sql = "INSERT INTO ITEM(ModelNumber, Battery, Rechargable, LED) VALUES('" + modelNumber + "', '" + attr[0] + "', '" + attr[1] + "', '" + attr[2] + "');";
+                case "flashlights":
+                    sql = "INSERT INTO Item(ModelNumber, Battery, Rechargable, LED) VALUES('" + modelNumber + "', '" + attr[0] + "', '" + attr[1] + "', '" + attr[2] + "');";
                     break;
 
                 default:
@@ -349,26 +350,24 @@ public class DB {
 
         try {
 
-            String sql = "SELECT * FROM Item where ModelNumber = '" + modelNumber + "';";
+            String sql = "SELECT * FROM Item where ModelNumber = " + modelNumber + ";";
 
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(sql);
 
             while (rs.next()) {
                 id = rs.getInt("ModelNumber");
-
-                if (id != -1)
-                    createItem(modelNumber, type, attr);
             }
-
-            sql = "INSERT INTO AUCTION(SellerID, ItemID, Reserve, EndTime, Condition) VALUES(" + sellerID + ", " + modelNumber + ", " + reserve + ", '" + endTime + "', '" + condition + "');";
+            if (id != modelNumber)
+                createItem(modelNumber, type, attr);
+            sql = "INSERT INTO Auction(SellerID, ItemID, Reserve, EndTime, Cond) VALUES(" + sellerID + ", " + modelNumber + ", " + reserve + ", '" + endTime + "', '" + condition + "');";
             statement.executeUpdate(sql);
 
             int auctionID = -1;
-            sql = "SELECT MAX(AuctionID) FROM Auction;";
+            sql = "SELECT MAX(AuctionID) as aid FROM Auction;";
             rs = statement.executeQuery(sql);
             while (rs.next()) {
-                auctionID = rs.getInt("AuctionID");
+                auctionID = rs.getInt("aid");
             }
             if (id != -1)
                 createItem(modelNumber, type, attr);
@@ -474,12 +473,12 @@ public class DB {
         try {
             Item item = getItem(modelNumber);
             String attr1, attr2, attr3;
-            if (item.category.equals("Backpack")) {
+            if (item.category.equals("backpacks")) {
                 attr1 = "Pockets";
                 attr2 = "Material";
                 attr3 = "Waterproof";
             }
-            else if (item.category.equals("Tent")){
+            else if (item.category.equals("tents")){
                 attr1 = "Capacity";
                 attr2 = "Color";
                 attr3 = "SpareParts";
