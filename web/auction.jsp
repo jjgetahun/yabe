@@ -35,7 +35,7 @@
     if(session.getAttribute("USER") != null){
         //CAN't Access this page!
         userID = (String)session.getAttribute("USER");
-        user =  "<li><a href='login.jsp'>Logged in as " + database.DB.getNameFromID(Integer.parseInt(userID)) + "</a></li>";
+        user =  "<li><a>Logged in as " + database.DB.getNameFromID(Integer.parseInt(userID)) + "</a></li>";
         user += "<li><a href ='user.jsp'>User Panel</a></li>";
         user += "<li><a href='auth.jsp'>Log Out</a></li>";
 
@@ -108,8 +108,10 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
+                <% if(session.getAttribute("USER") == null){ %>
                 <li><a href="login.jsp">Login</a></li>
                 <li><a href="register.jsp">Register</a></li>
+                <% } %>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <%=user%>
