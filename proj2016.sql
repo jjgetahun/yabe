@@ -24,7 +24,7 @@ CREATE TABLE Item (
   Capacity       VARCHAR(200),
   SpareParts     VARCHAR(200),
   Battery        VARCHAR(200),
-  Rechargable    VARCHAR(200),
+  Rechargeable    VARCHAR(200),
   LED            VARCHAR(200),
   PRIMARY KEY (ModelNumber)
 );

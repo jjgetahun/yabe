@@ -2,12 +2,12 @@ package database;
 
 public class Item {
 
-    private final int modelNumber;
-    private final String itemName;
-    private String category;
-    private String attr1;
-    private String attr2;
-    private String attr3;
+    public final int modelNumber;
+    public final String itemName;
+    public String category;
+    public String attr1;
+    public String attr2;
+    public String attr3;
 
     public Item (int modelNumber, String itemName, String category, String attr1, String attr2, String attr3) {
         this.modelNumber = modelNumber;

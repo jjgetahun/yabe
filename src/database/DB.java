@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Date;
+import java.util.ArrayList;
 /**
  * Created by elby on 7/20/16.
  */
@@ -464,6 +465,48 @@ public class DB {
             return null;
         }
 
+    }
+
+    public static ArrayList<ResultSet> getSimilarAuctions(int modelNumber){
+        if (!initialized)
+            init();
+        try {
+            Item item = getItem(modelNumber);
+            String attr1, attr2, attr3;
+            if (item.category.equals("Backpack")) {
+                attr1 = "Pockets";
+                attr2 = "Material";
+                attr3 = "Waterproof";
+            }
+            else if (item.category.equals("Tent")){
+                attr1 = "Capacity";
+                attr2 = "Color";
+                attr3 = "SpareParts";
+            }
+            else {
+                attr1 = "Battery";
+                attr2 = "Rechargeable";
+                attr3 = "LED";
+            }
+            String sql = "SELECT ModelNumber FROM Item WHERE Item.ModelNumber <> '" + modelNumber + "' and (" +
+                    attr1 + " = '" + item.attr1 + "' or " + attr2 + " = '" + item.attr2 + "' or " + attr3 + " = '" + item.attr3 +
+                    "');";
+            ArrayList<ResultSet> similarAuctions = new ArrayList();
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            int similarModel = -1;
+            while(rs.next()){
+                similarModel = rs.getInt("ModelNumber");
+                sql = "SELECT AuctionID FROM Auction WHERE ItemID = " + similarModel + ";";
+                ResultSet newRS = statement.executeQuery(sql);
+                similarAuctions.add(newRS);
+            }
+            return similarAuctions;
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }
     }
     public static boolean postQuestion(int posterID, int auctionID, String header, String contents) {
 

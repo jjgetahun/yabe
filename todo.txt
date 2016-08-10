@@ -1,12 +1,4 @@
-<> The functionality of the system can be naturally divided into
- (0) account handling (end-users (buyers & sellers), customer representatives, admin staff)
- (I) auction functionality
- (II) browsing and advanced search functionality
- (III) customer representatives & admin functions
- (IV) history of auctions and auction similarity
-
-As a group of 3, you could divide the final programming work into (0)(II), 
-(I) and  (III), (IV).
+ITEMS NOT YET IMPLEMENTED ON BACKEND
 
 	[*] with automatic bidding
 	    [*] set a secret upper limit
@@ -36,8 +28,3 @@ As a group of 3, you could divide the final programming work into (0)(II),
 	[] modifies any information (if this is reasonable)
 	[] removes bids (that abide to specific rules)
 	[] removes illegal auctions
-	
-4 History of auctions and auction similarity
-    [] a user should be able to:
-    	[] view the list of all auctions a specific buyer or seller has participated in
-	[] view the list of "similar" items on auctions in the preceding month (and auction information about them)
