@@ -467,6 +467,34 @@ public class DB {
 
     }
 
+    public static void sortAuctionSearchByType () {
+
+        if(!initialized) init();
+
+        try {
+            String sql = "SELECT * FROM Auction A, Item I WHERE A.AuctionID = I.AuctionID ORDER BY I.Type;";
+            Statement statement = conn.createStatement();
+            statement.executeUpdate(sql);
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void sortAuctionSearchByPrice () {
+
+        if(!initialized) init();
+
+        try {
+            String sql = "SELECT * FROM Auction A, Bid B WHERE A.AuctionID = B.AuctionID ORDER BY MAX(B.Amount);";
+            Statement statement = conn.createStatement();
+            statement.executeUpdate(sql);
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     /*public static ResultSet salesReportItem(){
 
         if (!initialized)
