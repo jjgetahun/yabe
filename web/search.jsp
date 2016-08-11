@@ -13,6 +13,24 @@
     String user = "";
     String userID = "";
 
+
+    String keyword = "";
+    String cond = "";
+    String type = "";
+    String a = "";
+    String b = "";
+    String c = "";
+
+    String sellerName = "";
+    String endDate = "";
+    String highestBid = "";
+    String highestBidder = "";
+    String reserve = "";
+    String price = "";
+
+
+    String message = "";
+
     if(session.getAttribute("USER") != null){
         userID = (String)session.getAttribute("USER");
         user =  "<li><a>Logged in as " + database.DB.getNameFromID(Integer.parseInt(userID)) + "</a></li>";
@@ -23,6 +41,24 @@
         user = "<li><a href='login.jsp'>Not logged in</a></li>";
     }
 
+    if(request.getParameter("search") != null){
+
+        if(request.getParameter("browse") != null){
+            if(request.getParameter("keyword") != null){
+                System.out.println("Default keyword: " + keyword);
+//                DB.searchAuction()
+            }
+
+        }
+
+        if(request.getParameter("category") == null ||
+                request.getParameter("name") == null ||
+                request.getParameter("model") == null ||
+                request.getParameter("end") == null ||
+                request.getParameter("price") == null){
+            message = "Name, Model, End date and start price  and description required. Please try again.";
+
+    }
 //    if(request.getParameter(""))
 
 %>
@@ -56,67 +92,30 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Auctions</h3>
+                    <h3 class="panel-title">Search Results</h3>
                 </div>
                 <div class="panel-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Model Number</th>
+                                <th>Seller</th>
+                                <th>Current Bid</th>
+                                <th>End Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
+                        </tbody>
+                        <!--Put stuff in here-->
+                    </table>
                 </div>
+
             </div>
         </div>
-
-        <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Customer Rep. Panel</h3>
-                </div>
-                <div class="panel-body">
-
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Questions unanswered</h3>
-                        </div>
-                        <div class="panel-body">
-                            <!--Div wrap and overflow auto for scroll-->
-
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Auction</th>
-                                    <th>User</th>
-                                    <th>Question</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <%
-                                    ResultSet rs = database.DB.getAllQuestions();
-                                    while (rs.next()) {
-                                %>
-                                <tr>
-                                    <td>
-                                        <%
-                                            rs.getInt("AuctionID");
-                                            rs.getInt("PosterID");
-                                            rs.getString("Header");
-                                            rs.getString("Contents");
-                                        %>
-                                    </td>
-                                </tr>
-                                <%
-                                    }
-                                %>
-                                </tbody>
-                                <!--Put stuff in here-->
-                            </table>
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
     </div>
 </div>
 <script>

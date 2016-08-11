@@ -107,37 +107,27 @@
                     <h3 class="panel-title">Search - Filter by class attributes</h3>
                 </div>
                 <form class="panel-body">
+                    <input type="hidden" name="search" value="search">
                     <div class="input-group">
                         <span class="input-group-btn">
                         <button class="btn btn-success" type="submit">Search</button>
                         </span>
-                        <input type="text" class="form-control" placeholder="Keywords (ex. 'Dell XPS 2014)'" id="keywords">
+                        <input type="text" class="form-control" placeholder="Keywords (ex. 'Dell XPS 2014)'" name="keywords">
                     </div>
                         <div class="col-md-6">
                             <div class="checkbox">
                                 <label>
                                     <input type="checkbox" id="browse">
-                                    Browse Mode (Excludes category filters)
+                                    Browse Mode (Only searches by keyword)
                                 </label>
                             </div>
-                            <h4>Condition</h4>
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" id="new">
-                                    New
-                                </label>
-                                <br/>
-                                <label>
-                                    <input type="checkbox" id="used">
-                                    Used
-                                </label>
-                            </div>
-                            <h4>Auction Dates</h4>
-                            <div>Start Date:</div>
-                            <input type="text" class="datepicker form-control" >
-
+                            <label for="condition">Condition:</label>
+                            <select class="form-control" name="condition" id="condition">
+                                <option>New</option>
+                                <option>Used</option>
+                            </select>
                             <div>End Date:</div>
-                                <input type="text" class="datepicker form-control" >
+                                <input type="text" class="datepicker form-control" name="end">
                         </div>
                         <div class="col-md-6">
                             <ul class="nav nav-tabs">
@@ -150,7 +140,7 @@
                                 <div id="backpacks" class="tab-pane fade in active">
                                     <div class="form-group">
                                         <label for="pockets">Number of pockets:</label>
-                                        <select class="form-control" id="pockets">
+                                        <select class="form-control" id="pockets" name="pockets">
                                             <option>1</option>
                                             <option>2</option>
                                             <option>3</option>
@@ -162,7 +152,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="material">Material:</label>
-                                        <select class="form-control" id="material">
+                                        <select class="form-control" id="material" name="material">
                                             <option>Nylon</option>
                                             <option>Canvas</option>
                                             <option>Leather</option>
@@ -177,7 +167,7 @@
                                     <div class="form-group">
                                         <div class="form-group">
                                             <label for="color">Color:</label>
-                                            <select class="form-control" id="color">
+                                            <select class="form-control" id="color" name="color">
                                                 <option>Red</option>
                                                 <option>Blue</option>
                                                 <option>Yellow</option>
@@ -189,7 +179,7 @@
                                             </select>
                                         </div>
                                         <label for="capacity">Capacity</label>
-                                        <select class="form-control" id="capacity">
+                                        <select class="form-control" id="capacity" name="capacity">
                                             <option>1</option>
                                             <option>2</option>
                                             <option>3</option>
@@ -202,14 +192,14 @@
                                             <option>10</option>
                                         </select>
                                         <div class="checkbox">
-                                            <label><input type="checkbox" value="">Spare Parts</label>
+                                            <label><input type="checkbox" name="spare" value="">Spare Parts</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div id="flashlights" class="tab-pane fade">
                                     <div class="form-group">
                                         <label for="battery">Battery:</label>
-                                        <select class="form-control" id="battery">
+                                        <select class="form-control" id="battery" name="battery">
                                             <option>AA</option>
                                             <option>AAA</option>
                                             <option>C</option>
