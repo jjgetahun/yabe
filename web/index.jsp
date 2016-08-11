@@ -108,14 +108,14 @@
                         <div class="col-md-6">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" id="browse" checked>
+                                    <input type="checkbox" id="browse">
                                     Browse Mode (Excludes category filters)
                                 </label>
                             </div>
                             <h4>Condition</h4>
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" id="new" checked>
+                                    <input type="checkbox" id="new">
                                     New
                                 </label>
                                 <br/>

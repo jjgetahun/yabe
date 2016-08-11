@@ -491,8 +491,22 @@ public class DB {
         }
     }
 
-    public static ResultSet searchAuction(int modelNumber, String type, String[] attr, String keywords, Date startTime, Date endTime, String condition) {
-        return null;
+    public static ResultSet searchAuction(String keywords, String type, String[] attr, Date startTime, Date endTime, String browseMode, String condition) {
+
+        if (browseMode != null) {
+
+            //String sql = "SELECT * ";
+
+            return null;
+
+        }
+
+        else {
+
+            return null;
+
+        }
+
     }
 
     public static boolean removeAuction(int auctionID) {
