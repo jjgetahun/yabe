@@ -489,12 +489,12 @@ public class DB {
         }
     }
 
-    public static ResultSet searchAuction(String keywords, String type, String[] attr, Date endTime, String browseMode, String condition) {
+    public static ResultSet searchAuction(String keywords, String type, String[] attr, Date endTime, boolean browseMode, String condition) {
 
         if (!initialized)
             init();
 
-        if (browseMode != null) {
+        if (browseMode) {
 
             try {
 
