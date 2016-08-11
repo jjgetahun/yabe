@@ -206,7 +206,17 @@
                                     <td> <%=rs.getInt("PosterID")%> </td>
                                     <td> <%=rs.getString("Header")%> </td>
                                     <td> <%=rs.getString("Contents")%> </td>
-                                    <td> <button class="btn btn-success" type="button">Answer</button> </td>
+                                    <td>
+                                        <form action="answer.jsp" method="POST" class="row">
+                                            <div class="input-group">
+                                                <input type="hidden" name="qid" value="<%=rs.getInt("QuestionID")%>">
+                                                <input type="text" class="form-control" placeholder="'Answer'" name="answer">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-success" type="submit">Answer</button>
+                                                </span>
+                                            </div>
+                                        </form>
+                                         </td>
                                 </tr>
                                 </tbody>
                                 <%
