@@ -17,7 +17,7 @@
 
 
 
-    String keywords = "";
+    String modelNumber = "";
     String cond = "";
     String type = "";
     String a = "";
@@ -47,9 +47,9 @@
 
     if(request.getParameter("search") != null){
         if(request.getParameter("browse") != null){
-            if(request.getParameter("keywords") != null){
-                System.out.println("Default keyword: " + keywords);
-                rs = DB.searchAuction(keywords, null, null, null, true, keywords);
+            if(request.getParameter("modelNumber") != null){
+                System.out.println("Default keyword: " + modelNumber);
+                rs = DB.searchAuction(modelNumber, null, null, null, true, modelNumber);
             }
         }else {
             System.out.println("No browse");

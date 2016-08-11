@@ -115,7 +115,7 @@
                         <span class="input-group-btn">
                         <button class="btn btn-success" type="submit">Search</button>
                         </span>
-                        <input type="text" class="form-control" placeholder="Keywords (ex. 'Dell XPS 2014)'" name="keywords">
+                        <input type="number" class="form-control" placeholder="Model Number" name="modelNumber">
                     </div>
                         <div class="col-md-6">
                             <div class="checkbox">
