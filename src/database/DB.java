@@ -403,7 +403,7 @@ public class DB {
             if (id != modelNumber)
                 createItem(modelNumber, type, attr);
 
-            sql = "INSERT INTO Auction(SellerID, Name, ItemID, Reserve, EndTime, Cond) VALUES(" + sellerID + ", " + name + ", " + modelNumber + ", " + reserve + ", '" + endTime + "', '" + condition + "');";
+            sql = "INSERT INTO Auction(SellerID, Name, ItemID, Reserve, EndTime, Cond) VALUES(" + sellerID + ", '" + name + "', " + modelNumber + ", " + reserve + ", '" + endTime + "', '" + condition + "');";
             statement.executeUpdate(sql);
 
             int auctionID = -1;
