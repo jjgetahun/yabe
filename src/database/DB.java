@@ -127,27 +127,6 @@ public class DB {
 
         return id;
     }
-    public static String getName(String username){
-
-        if(!initialized) init();
-
-        String name = "";
-
-        try {
-            String sql = "SELECT * FROM Account where UserName = '" + username + "';";
-            Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery(sql);
-
-            //Assuming only one or zero users comes back
-            while (rs.next()) {
-                name = rs.getString("Name");
-            }
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-
-        return name;
-    }
 
     public static String getNameFromID(int id){
 
@@ -214,10 +193,7 @@ public class DB {
                 isCustomerRep = rs.getInt("isCustomerRep");
             }
 
-            if (isCustomerRep == 1)
-                return true;
-            else
-                return false;
+            return(isCustomerRep == 1);
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -580,36 +556,6 @@ public class DB {
         }
     }
 
-    /*public static ResultSet salesReportItem(){
-
-        if (!initialized)
-            init();
-        try {
-            String sql = "SELECT A.ItemID, SUM(MAX(B.Amount)) FROM Auction A, Bid B WHERE A.AuctionID = B.AuctionID GROUP BY A.ItemID;";
-            Statement statement = conn.createStatement();
-            return statement.executeQuery(sql);
-        }
-        catch(SQLException e){
-            e.printStackTrace();
-            return null;
-        }
-    }*/
-
-//    public static ResultSet salesReportCategory(String Category){
-//
-//        if (!initialized)
-//            init();
-//        try {
-//            String sql = "SELECT A.ItemID, SUM(MAX(B.Amount)) FROM Auction A, Bid B WHERE A.AuctionID = B.AuctionID GROUP BY A.ItemID;";
-//            Statement statement = conn.createStatement();
-//            return statement.executeQuery(sql);
-//        }
-//        catch(SQLException e){
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
-
     public static ResultSet getAuctionsParticipatedIn(int userID) {
         if (!initialized)
             init();
@@ -871,7 +817,7 @@ public class DB {
         }
     }
 
-    public static ResultSet getTotalEarningsReport() {
+    private static ResultSet getTotalEarningsReport() {
         if (!initialized)
             init();
 
@@ -887,7 +833,7 @@ public class DB {
 
     }
 
-    public static ResultSet getEarningsPerItemReport() {
+    private static ResultSet getEarningsPerItemReport() {
         if (!initialized)
             init();
 
@@ -903,7 +849,7 @@ public class DB {
 
     }
 
-    public static ResultSet getEarningsPerItemTypeReport() {
+    private static ResultSet getEarningsPerItemTypeReport() {
         if (!initialized)
             init();
 
@@ -919,7 +865,7 @@ public class DB {
 
     }
 
-    public static ResultSet getEarningsPerEndUserReport() {
+    private static ResultSet getEarningsPerEndUserReport() {
         if (!initialized)
             init();
 
@@ -935,7 +881,7 @@ public class DB {
 
     }
 
-    public static ResultSet getBestSellingItemsReport() {
+    private static ResultSet getBestSellingItemsReport() {
         if (!initialized)
             init();
 
@@ -951,7 +897,7 @@ public class DB {
 
     }
 
-    public static ResultSet getBestBuyersReport() {
+    private static ResultSet getBestBuyersReport() {
         if (!initialized)
             init();
 
