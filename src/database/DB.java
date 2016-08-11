@@ -323,11 +323,9 @@ public class DB {
         try {
 
             String sql = "";
-            System.out.println("STEP 1");
             switch(type) {
                 case "backpacks":
                     sql = "INSERT INTO Item(ModelNumber, Type, Pockets, Material, Waterproof) VALUES(" + modelNumber + ", 'Backpacks', '" + attr[0] + "', '" + attr[1] + "', '" + attr[2] + "');";
-                    System.out.println("STEP 2");
                     break;
 
                 case "tents":
@@ -371,7 +369,7 @@ public class DB {
 
     private static void resolveAlerts(int modelNumber) {
         try {
-            String sql = "SELECT * FROM Item where ModelNumber = " + modelNumber + ";";
+            String sql = "SELECT * FROM Alert where ModelNumber = " + modelNumber + ";";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(sql);
             int id = -1;

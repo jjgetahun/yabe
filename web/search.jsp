@@ -12,6 +12,7 @@
 <body>
 <!-- LOGIN MESSAGE HERE -->
 <%
+
     String user = "";
     String userID = "";
 

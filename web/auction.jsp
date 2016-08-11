@@ -101,7 +101,7 @@
 
             aID = DB.createAuction(Integer.parseInt(userID), auctionName, modelNo, type, new String[]{a, b, c}, Float.parseFloat(reserve), endTime, cond);
 
-            if (aID != -1) {
+            if (aID == -1) {
                 message = "Could not create auction. Please try again.";
             } else {
                 message = "Auction successfully created!";

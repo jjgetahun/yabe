@@ -95,13 +95,15 @@
                     <%
                         }
                     %>
-                    <div class="input-group">
-                        <span class="input-group-btn">
-                        <button class="btn btn-success" type="button">Search User</button>
-                        </span>
-                        <input type="text" class="form-control" placeholder="'Leaf Erikson'">
+                    <form action="search.jsp" method="POST" class="row">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                            <button class="btn btn-success" type="button">Search User</button>
+                            </span>
+                            <input type="text" class="form-control" placeholder="'Leaf Erikson'" name="username">
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
         <div class="col-md-8">
