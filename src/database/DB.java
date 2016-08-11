@@ -1,6 +1,9 @@
 package database;
 
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Date;
@@ -465,76 +468,62 @@ public class DB {
         }
     }
 
-    public static ResultSet searchAuction(String modelNumber, String type, String[] attr, Date endTime, boolean browseMode, String condition) {
+    public static ResultSet searchAuction(String modelNumber, String type, String[] attr, String endTime, boolean browseMode, String condition) {
 
         if (!initialized)
             init();
 
         String query = "";
+        try {
 
-        if (browseMode) {
-            try {
-                if(modelNumber.equals("")){
+            if (browseMode) {
+
+                if (modelNumber.equals("")) {
                     query = "SELECT * FROM Auction;";
-                }else{
-                    query = "SELECT * FROM Auction WHERE ItemID = "+Integer.parseInt(modelNumber)+";";
+                } else {
+                    query = "SELECT * FROM Auction WHERE ItemID = " + Integer.parseInt(modelNumber) + ";";
                 }
 
                 Statement statement = conn.createStatement();
                 ResultSet rs = statement.executeQuery(query);
                 return rs;
 
-            } catch(SQLException e) {
-                e.printStackTrace();
-                return null;
-            }
+            } else {
 
-        }
-        else {
-            try {
+                query = "SELECT * FROM Auction A, Item I WHERE I.Type = '" + type + "' AND A.Cond = '" + condition + "' AND ";
 
-                query = "SELECT * FROM Auction A, Item I WHERE I.Type = '"+type+"' AND A.Cond = '"+condition+"' AND A.ItemID = I.ModelNumber AND ";
+                if (endTime != null && !endTime.equals("")) {
 
-                if(!endTime.equals("")){
+                    DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+                    Date endDate = df.parse(endTime);
+                    Timestamp end = new Timestamp(endDate.getTime());
 
-//                    Timestamp time = new Timestamp()
-//
-//                            query += "A."
+                    System.out.println(end.toString());
+
+                    query += "A.EndTime < " + end.toString() + " AND ";
                 }
 
-                String b = "";
-                String c = "";
-
-                if(type.equals("backpacks")){
-                    if(attr[2] != null) c = "true";
-                    else c = "false";
-
-                    query += "(I.Pockets = '"+attr[0]+"' AND I.Material = '"+attr[1]+"' AND I.Waterproof = '"+c+"');";
-                }else if(type.equals("tents")){
-                    if(attr[2] != null) c = "true";
-                    else c = "false";
-
-                    query += "(I.Color = '"+attr[0]+"' AND I.Capacity = '"+attr[1]+"' AND I.SpareParts = '"+c+"');";
-                }else if(type.equals("flashlights")){
-
-                    if(attr[1] != null) b = "true";
-                    else b = "false";
-                    if(attr[2] != null) c = "true";
-                    else c = "false";
-                    query += "(I.Battery = '"+attr[0]+"' AND I.Rechargeable = '"+b+"' AND I.LED = '"+c+"');";
+                if(modelNumber != null){
+                    query += "I.ModelNumber = " + modelNumber + " AND ";
                 }
 
+                if (type.equals("backpacks")) {
+                    query += "(I.Pockets = '" + attr[0] + "' AND I.Material = '" + attr[1] + "' AND I.Waterproof = '" + attr[2] + "');";
+                } else if (type.equals("tents")) {
+                    query += "(I.Color = '" + attr[0] + "' AND I.Capacity = '" + attr[1] + "' AND I.SpareParts = '" + attr[2] + "');";
+                } else if (type.equals("flashlights")) {
+                    query += "(I.Battery = '" + attr[0] + "' AND I.Rechargeable = '" + attr[1] + "' AND I.LED = '" + attr[2] + "');";
+                }
+
+                System.out.println(query);
                 Statement statement = conn.createStatement();
                 ResultSet rs = statement.executeQuery(query);
                 return rs;
-
-            } catch(SQLException e) {
-                e.printStackTrace();
-                return null;
             }
-
+        }catch (Exception e){
+            e.printStackTrace();
         }
-
+        return null;
     }
 
     public static boolean removeAuction(int auctionID) {

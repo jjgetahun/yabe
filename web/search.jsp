@@ -18,18 +18,7 @@
 
 
     String modelNumber = "";
-    String cond = "";
     String type = "";
-    String a = "";
-    String b = "";
-    String c = "";
-
-    String sellerName = "";
-    String endDate = "";
-    String highestBid = "";
-    String highestBidder = "";
-    String reserve = "";
-    String price = "";
 
 
     ResultSet rs = null;
@@ -46,23 +35,47 @@
     }
 
     if(request.getParameter("search") != null){
-        if(request.getParameter("modelNumber") != null) {
+        if(request.getParameter("modelNumber") != null)
             modelNumber = request.getParameter("modelNumber");
-        }
+        else
+            modelNumber = null;
+
         if(request.getParameter("browse") != null){
             System.out.println("Default keyword: " + modelNumber);
             rs = DB.searchAuction(modelNumber, null, null, null, true, modelNumber);
-        }
         }else{
-            System.out.println("No browse");
-
             if (request.getParameter("category") == null ||
                     request.getParameter("condition") == null ||
                     request.getParameter("end") == null) {
-                        message = "Model, End date and start price required. Please try again.";
+                        message = "End date and start price required. Please try again.";
             }else{
 
-                rs = DB.searchAuction(, type, null, null, true, modelNumber);
+                String[] attr = new String[3];
+
+                if (request.getParameter("category").equals("backpacks")) {
+                    attr[0] = request.getParameter("pockets");
+                    attr[1] = request.getParameter("material");
+
+                    if (request.getParameter("waterproof") != null) attr[3] = "true";
+                    else attr[3] = "false";
+                } else if (request.getParameter("category").equals("tents")) {
+                    attr[0] = request.getParameter("color");
+                    attr[1] = request.getParameter("capacity");
+
+                    if (request.getParameter("spare") != null) attr[2] = "true";
+                    else attr[2] = "false";
+                } else {
+                    attr[0] = request.getParameter("battery");
+
+                    if (request.getParameter("rechargeable") != null) attr[1] = "true";
+                    else attr[1] = "false";
+
+                    if (request.getParameter("led") != null) attr[2] = "true";
+                    else attr[2] = "false";
+                }
+                String date = request.getParameter("end");
+
+                rs = DB.searchAuction(modelNumber, request.getParameter("category"), attr, date, false, request.getParameter("condition"));
             }
         }
 
@@ -136,7 +149,6 @@
                                     <button class="btn btn-success" type="submit">View</button>
                                  </form>
                             </td>
-                            <td> <button class="btn btn-success" type="button">Answer</button> </td>
                         </tr>
                         <%
                                 }
