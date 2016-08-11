@@ -192,6 +192,7 @@
                                     <th>User</th>
                                     <th>Header</th>
                                     <th>Contents</th>
+                                    <th>Time Posted</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -206,6 +207,7 @@
                                     <td> <%=rs.getInt("PosterID")%> </td>
                                     <td> <%=rs.getString("Header")%> </td>
                                     <td> <%=rs.getString("Contents")%> </td>
+                                    <td> <%=rs.getString("TimePosted")%> </td>
                                     <td>
                                         <form action="answer.jsp" method="POST" class="row">
                                             <div class="input-group">
@@ -216,7 +218,7 @@
                                                 </span>
                                             </div>
                                         </form>
-                                         </td>
+                                    </td>
                                 </tr>
                                 </tbody>
                                 <%

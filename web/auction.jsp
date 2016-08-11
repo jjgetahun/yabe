@@ -3,6 +3,7 @@
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.text.DateFormat" %>
 <%@ page import="java.sql.Timestamp" %>
+<%@ page import="java.sql.ResultSet" %>
 <html>
 <head>
     <title>Login</title>
@@ -34,6 +35,9 @@
 
     String message = "";
     int aID;
+
+    ResultSet qRS = null;
+    ResultSet bRS = null;
 
     if(session.getAttribute("USER") != null){
         //CAN't Access this page!
@@ -106,6 +110,8 @@
     }else{
         if(request.getParameter("auctionID") != null){
             aID = Integer.parseInt(request.getParameter("auctionID"));
+            qRS = database.DB.getAuctionQuestions(aID);
+            bRS = database.DB.getAuctionBids(aID);
         }
     }
 
@@ -165,14 +171,102 @@
         <div class="panel-heading">
             <h3 class="panel-title">Bids</h3>
         </div>
-        <div class="row">
+        <div class="panel-body">
+            <!--Div wrap and overflow auto for scroll-->
 
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Time</th>
+                    <th>Bidder</th>
+                    <th>Amount</th>
+                    <% if (session.getAttribute("USER") != null && database.DB.isCustomerRep(Integer.parseInt(userID))) { %>
+                    <th>Action</th>
+                    <% } %>
+                </tr>
+                </thead>
+                <%
+                    while (bRS != null && bRS.next()) {
+                %>
+                <tbody>
+                <tr>
+                    <td> <%=bRS.getTimestamp("Time")%></td>
+                    <td> <%=bRS.getInt("BidderID")%> </td>
+                    <td> <%=bRS.getFloat("Amount")%> </td>
+                    <td> <%=bRS.getString("Header")%> </td>
+                    <% if (session.getAttribute("USER") != null && database.DB.isCustomerRep(Integer.parseInt(userID))) { %>
+                    <td>
+                        <form action="index.jsp" method="POST" class="row">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="'Remove'" name="remove">
+                                <span class="input-group-btn">
+                                                    <button class="btn btn-success" type="submit">Remove</button>
+                                                </span>
+                            </div>
+                        </form>
+                    </td>
+                    <% } %>
+                </tr>
+                </tbody>
+                <%
+                    }
+                %>
+                <!--Put stuff in here-->
+            </table>
         </div>
     </div>
 
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">Questions</h3>
+        </div>
+        <div class="panel-body">
+            <!--Div wrap and overflow auto for scroll-->
+
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Poster ID</th>
+                    <th>Header</th>
+                    <th>Contents</th>
+                    <th>Time Posted</th>
+                    <% if (session.getAttribute("USER") != null && database.DB.isCustomerRep(Integer.parseInt(userID))) { %>
+                    <th>Action</th>
+                    <% } %>
+                </tr>
+                </thead>
+                <%
+                    while (qRS != null && qRS.next()) {
+                %>
+                <tbody>
+                <tr>
+                    <td> <%=qRS.getInt("QuestionID")%></td>
+                    <td> <%=qRS.getInt("PosterID")%> </td>
+                    <td> <%=qRS.getString("Header")%> </td>
+                    <td> <%=qRS.getString("Contents")%> </td>
+                    <td> <%=qRS.getString("TimePosted")%> </td>
+                    <% if (session.getAttribute("USER") != null && database.DB.isCustomerRep(Integer.parseInt(userID)) && database.DB.isAnswered(qRS.getInt("QuestionID")) == false) { %>
+                    <td>
+                        <form action="answer.jsp" method="POST" class="row">
+                            <div class="input-group">
+                                <input type="hidden" name="qid" value="<%=qRS.getInt("QuestionID")%>">
+                                <input type="text" class="form-control" placeholder="'Answer'" name="answer">
+                                <span class="input-group-btn">
+                                                    <button class="btn btn-success" type="submit">Answer</button>
+                                                </span>
+                            </div>
+                        </form>
+                    </td>
+                    <% } %>
+                </tr>
+                </tbody>
+                <%
+                    }
+                %>
+                <!--Put stuff in here-->
+            </table>
         </div>
 
     </div>

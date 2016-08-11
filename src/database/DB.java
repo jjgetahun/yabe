@@ -801,6 +801,22 @@ public class DB {
         }
     }
 
+    public static ResultSet getAuctionQuestions(int auctionID){
+
+        if (!initialized)
+            init();
+
+        try{
+            String sql = "SELECT * FROM Question WHERE AuctionID = "+auctionID+" ORDER BY QuestionID;";
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            return rs;
+        }catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static ResultSet getAllQuestions(){
 
         if (!initialized)
@@ -813,6 +829,44 @@ public class DB {
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(sql);
 
+            return rs;
+        }catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static boolean isAnswered(int questionID) {
+
+        if (!initialized)
+            init();
+
+        try{
+
+            String sql = "SELECT * FROM Question Q WHERE (SELECT * FROM Answer A WHERE Q.QuestionID = A.QuestionID);";
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+
+            if (rs != null)
+                return true;
+            else
+                return false;
+        }catch(SQLException e){
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+    public static ResultSet getAuctionBids(int auctionID){
+
+        if (!initialized)
+            init();
+
+        try{
+            String sql = "SELECT * FROM Bid WHERE AuctionID = "+auctionID+" AND isAuto = 0 ORDER BY Amount DESC;";
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
             return rs;
         }catch(SQLException e){
             e.printStackTrace();
