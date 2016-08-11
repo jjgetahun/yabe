@@ -46,20 +46,23 @@
     }
 
     if(request.getParameter("search") != null){
+        if(request.getParameter("modelNumber") != null) {
+            modelNumber = request.getParameter("modelNumber");
+        }
         if(request.getParameter("browse") != null){
-            if(request.getParameter("modelNumber") != null){
-                System.out.println("Default keyword: " + modelNumber);
-                rs = DB.searchAuction(modelNumber, null, null, null, true, modelNumber);
-            }
-        }else {
+            System.out.println("Default keyword: " + modelNumber);
+            rs = DB.searchAuction(modelNumber, null, null, null, true, modelNumber);
+        }
+        }else{
             System.out.println("No browse");
 
             if (request.getParameter("category") == null ||
-                    request.getParameter("name") == null ||
-                    request.getParameter("model") == null ||
-                    request.getParameter("end") == null ||
-                    request.getParameter("price") == null) {
-                message = "Name, Model, End date and start price  and description required. Please try again.";
+                    request.getParameter("condition") == null ||
+                    request.getParameter("end") == null) {
+                        message = "Model, End date and start price required. Please try again.";
+            }else{
+
+                rs = DB.searchAuction(, type, null, null, true, modelNumber);
             }
         }
 

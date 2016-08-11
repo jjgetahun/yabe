@@ -465,7 +465,7 @@ public class DB {
         }
     }
 
-    public static ResultSet searchAuction(String keywords, String type, String[] attr, Date endTime, boolean browseMode, String condition) {
+    public static ResultSet searchAuction(String modelNumber, String type, String[] attr, Date endTime, boolean browseMode, String condition) {
 
         if (!initialized)
             init();
@@ -473,16 +473,11 @@ public class DB {
         String query = "";
 
         if (browseMode) {
-            System.out.println("ASDFASDF");
             try {
-
-//                String sql = "SELECT * FROM Auction WHERE Name LIKE '%"+keywords+"%' OR Description LIKE '%"+keywords+"%' OR ItemID = "+Integer.parseInt(keywords)+";";
-
-
-                if(keywords.equals("")){
+                if(modelNumber.equals("")){
                     query = "SELECT * FROM Auction;";
                 }else{
-                    query = "SELECT * FROM Auction WHERE ItemID = "+Integer.parseInt(keywords)+";";
+                    query = "SELECT * FROM Auction WHERE ItemID = "+Integer.parseInt(modelNumber)+";";
                 }
 
                 Statement statement = conn.createStatement();
@@ -495,14 +490,42 @@ public class DB {
             }
 
         }
-
         else {
-
             try {
 
-                String sql = "SELECT * FROM Auction A, Item I WHERE I.Type = '"+type+"' AND A.Cond = '"+condition+"' AND A.ItemID = I.ModelNumber AND ((I.Pockets = '"+attr[0]+"' AND I.Material = '"+attr[1]+"' AND I.Waterproof = '"+attr[2]+"') OR (I.Color = '"+attr[0]+"' AND I.Capacity = '"+attr[1]+"' AND I.SpareParts = '"+attr[2]+"') OR (I.Battery = '"+attr[0]+"' AND I.Rechargeable = '"+attr[1]+"' AND I.LED = '"+attr[2]+"'));";
+                query = "SELECT * FROM Auction A, Item I WHERE I.Type = '"+type+"' AND A.Cond = '"+condition+"' AND A.ItemID = I.ModelNumber AND ";
+
+                if(!endTime.equals("")){
+
+//                    Timestamp time = new Timestamp()
+//
+//                            query += "A."
+                }
+
+                String b = "";
+                String c = "";
+
+                if(type.equals("backpacks")){
+                    if(attr[2] != null) c = "true";
+                    else c = "false";
+
+                    query += "(I.Pockets = '"+attr[0]+"' AND I.Material = '"+attr[1]+"' AND I.Waterproof = '"+c+"');";
+                }else if(type.equals("tents")){
+                    if(attr[2] != null) c = "true";
+                    else c = "false";
+
+                    query += "(I.Color = '"+attr[0]+"' AND I.Capacity = '"+attr[1]+"' AND I.SpareParts = '"+c+"');";
+                }else if(type.equals("flashlights")){
+
+                    if(attr[1] != null) b = "true";
+                    else b = "false";
+                    if(attr[2] != null) c = "true";
+                    else c = "false";
+                    query += "(I.Battery = '"+attr[0]+"' AND I.Rechargeable = '"+b+"' AND I.LED = '"+c+"');";
+                }
+
                 Statement statement = conn.createStatement();
-                ResultSet rs = statement.executeQuery(sql);
+                ResultSet rs = statement.executeQuery(query);
                 return rs;
 
             } catch(SQLException e) {

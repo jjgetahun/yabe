@@ -103,8 +103,13 @@
                 message = "Auction successfully created!";
             }
         }
-        //Setting auction in here
+    }else{
+        if(request.getParameter("auctionID") != null){
+            aID = Integer.parseInt(request.getParameter("auctionID"));
+        }
     }
+
+    //DO AUCITON FETCHING HERE
 
 %>
 <nav class="navbar navbar-success" role="navigation">
