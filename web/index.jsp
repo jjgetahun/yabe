@@ -77,16 +77,24 @@
                     <%
                         if(session.getAttribute("USER") != null){
                     %>
+                    <div class="input-group">
                     <a href="newAuction.jsp">
                         <button class="btn btn-success" type="button">Create Auction</button>
                     </a>
+                    </div>
+                    <h5></h5>
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                        <button class="btn btn-success" type="button">Create Alert</button>
+                        </span>
+                        <input type="text" class="form-control" placeholder="'Model No. (ex. 1234)'">
+                    </div>
                     <%
                         }
                     %>
-                    <h5>Search auctions by user</h5>
                     <div class="input-group">
                         <span class="input-group-btn">
-                        <button class="btn btn-success" type="button">Search</button>
+                        <button class="btn btn-success" type="button">Search User</button>
                         </span>
                         <input type="text" class="form-control" placeholder="'Leaf Erikson'">
                     </div>
