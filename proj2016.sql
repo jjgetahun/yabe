@@ -52,8 +52,7 @@ CREATE TABLE Alert (
   AccountID   INT(11) NOT NULL,
   ModelNumber INT(11) NOT NULL,
   PRIMARY KEY (AccountID, ModelNumber),
-  FOREIGN KEY (AccountID) REFERENCES Account (AccountID),
-  FOREIGN KEY (ModelNumber) REFERENCES Item (ModelNumber)
+  FOREIGN KEY (AccountID) REFERENCES Account (AccountID)
 );
 
 CREATE TABLE Bid (

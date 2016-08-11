@@ -83,12 +83,15 @@
                     </a>
                     </div>
                     <h5></h5>
-                    <div class="input-group">
-                        <span class="input-group-btn">
-                        <button class="btn btn-success" type="button">Create Alert</button>
-                        </span>
-                        <input type="text" class="form-control" placeholder="'Model No. (ex. 1234)'">
-                    </div>
+                    <form action="alert.jsp" method="POST" class="row">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                            <button class="btn btn-success" type="submit">Create Alert</button>
+                            </span>
+                            <input type="text" class="form-control" placeholder="'Model No. (ex. 1234)'" name="modelNumber">
+                        </div>
+                    </form>
+
                     <%
                         }
                     %>
