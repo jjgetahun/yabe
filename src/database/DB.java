@@ -299,13 +299,6 @@ public class DB {
             Auction a = getAuction(auctionID);
             ArrayList<Bid> bidList = a.getBidList();
 
-            for (int i = 0; i < bidList.size(); i++) {
-                if (bidList.get(i).getBidderID() == bidderID && bidList.get(i).amount == amount) {
-                    bidList.remove(bidList.get(i));
-                    break;
-                }
-            }
-
             return true;
         } catch(SQLException e) {
             e.printStackTrace();
@@ -480,6 +473,10 @@ public class DB {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static ResultSet searchAuction(int modelNumber, String type, String[] attr, String keywords, Date startTime, Date endTime, String condition) {
+        return null;
     }
 
     public static boolean removeAuction(int auctionID) {
