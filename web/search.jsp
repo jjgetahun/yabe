@@ -140,9 +140,9 @@
                                         bid = "" + auction.getBidList().get(0).amount;
                                     }
 
-                                    String time = "cool";
+                                    String time = "bad";
                                     if(auction == null) time =  "oops";
-//                                    if(auction auction.endTime.toString();
+                                    if(auction.endTime != null) time = auction.endTime.toString();
 
                         %>
                         <tr>

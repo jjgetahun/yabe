@@ -494,11 +494,8 @@ public class DB {
 
                     DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
                     Date endDate = df.parse(endTime);
-                    Timestamp end = new Timestamp(endDate.getTime());
 
-                    System.out.println(end.toString());
-
-                    query += "A.EndTime < " + end.toString() + " AND ";
+                    query += "A.EndTime < DATE(" + endDate.getTime() + ") AND ";
                 }
 
 
