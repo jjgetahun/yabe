@@ -76,8 +76,8 @@ public class DB {
         //Load database.DB
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            conn = DriverManager.getConnection ("jdbc:mysql://classvm51.cs.rutgers.edu/proj2016","root","DigDagDug55");
-//            conn = DriverManager.getConnection ("jdbc:mysql://localhost/proj2016","root","themysql");
+//            conn = DriverManager.getConnection ("jdbc:mysql://classvm51.cs.rutgers.edu/proj2016","root","DigDagDug55");
+            conn = DriverManager.getConnection ("jdbc:mysql://localhost/proj2016","root","themysql");
             initialized = true;
         } catch (Exception e) { //Generic exception, don't do this.
             e.printStackTrace();
@@ -370,7 +370,38 @@ public class DB {
         }
 
     }
-    //int
+
+    public static ResultSet getMessages(int accountID) {
+        if(!initialized) init();
+
+        try {
+            String sql = "SELECT * FROM Message where accountID = " + accountID + ";";
+            Statement statement = conn.createStatement();
+            return statement.executeQuery(sql);
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private static void resolveAlerts(int modelNumber) {
+        try {
+            String sql = "SELECT * FROM Item where ModelNumber = " + modelNumber + ";";
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            int id = -1;
+            while (rs.next()) {
+                id = rs.getInt("AccountID");
+                sql = "INSERT INTO Message(ReceiverID, Contents) VALUES(" + id + ", 'An auction has been posted for model #"+ modelNumber + "' );";
+                statement.executeUpdate(sql);
+            }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+
     public static int createAuction(int sellerID, int modelNumber, String type, String[] attr, float reserve, Date endTime, String condition) {
         if(!initialized) init();
         int id = -1;
@@ -387,6 +418,7 @@ public class DB {
             }
             if (id != modelNumber)
                 createItem(modelNumber, type, attr);
+
             sql = "INSERT INTO Auction(SellerID, ItemID, Reserve, EndTime, Cond) VALUES(" + sellerID + ", " + modelNumber + ", " + reserve + ", '" + endTime + "', '" + condition + "');";
             statement.executeUpdate(sql);
 
@@ -398,6 +430,7 @@ public class DB {
             }
             if (id != -1)
                 createItem(modelNumber, type, attr);
+            resolveAlerts(modelNumber);
             return auctionID;
         }
         catch(SQLException e) {
@@ -457,8 +490,6 @@ public class DB {
             String sql = "DELETE FROM Auction WHERE AuctionID = " + auctionID + ";";
             Statement statement = conn.createStatement();
             statement.executeUpdate(sql);
-            Auction a = getAuction(auctionID);
-            a = null;
             return true;
         } catch(SQLException e) {
             e.printStackTrace();
@@ -497,6 +528,20 @@ public class DB {
             return null;
         }
 
+    }
+
+    public static boolean setAlert(int accountID, int modelNumber) {
+        if(!initialized) init();
+
+        try {
+            String sql = "INSERT INTO Alert(AccountID, ModelNumber) VALUES("+ accountID+ ", " + modelNumber +");";
+            Statement statement = conn.createStatement();
+            statement.executeUpdate(sql);
+            return true;
+        } catch(SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     /*public static ResultSet salesReportItem(){
