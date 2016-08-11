@@ -311,10 +311,6 @@ public class DB {
             String sql = "DELETE FROM Bid WHERE BidderID = " + bidderID + " AND AuctionID = " + auctionID + " AND Amount = + " + amount + ";";
             Statement statement = conn.createStatement();
             statement.executeUpdate(sql);
-
-            Auction a = getAuction(auctionID);
-            ArrayList<Bid> bidList = a.getBidList();
-
             return true;
         } catch(SQLException e) {
             e.printStackTrace();
