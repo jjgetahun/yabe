@@ -57,8 +57,8 @@
                     attr[0] = request.getParameter("pockets");
                     attr[1] = request.getParameter("material");
 
-                    if (request.getParameter("waterproof") != null) attr[3] = "true";
-                    else attr[3] = "false";
+                    if (request.getParameter("waterproof") != null) attr[2] = "true";
+                    else attr[2] = "false";
                 } else if (request.getParameter("category").equals("tents")) {
                     attr[0] = request.getParameter("color");
                     attr[1] = request.getParameter("capacity");
@@ -132,19 +132,25 @@
                         <%
                             if(rs != null){
                                 while(rs.next()){
+
                                     int aid = rs.getInt("ItemID");
                                     Auction auction = DB.getAuction(aid);
                                     String bid = "No bids placed";
                                     if(auction.getBidList().size() > 0){
                                         bid = "" + auction.getBidList().get(0).amount;
                                     }
+
+                                    String time = "cool";
+                                    if(auction == null) time =  "oops";
+//                                    if(auction auction.endTime.toString();
+
                         %>
                         <tr>
                             <td> <%=auction.name%></td>
                             <td> <%=auction.itemID%> </td>
                             <td> <%=DB.getNameFromID(auction.sellerID)%> </td>
                             <td> <%=bid%> </td>
-                            <td> <%=auction.endTime.toString()%> </td>
+                            <td> <%=time%> </td>
                             <td> <form action="auction.jsp" method="POST">
                                     <input type="hidden" name="auctionID" value="<%=aid%>">
                                     <button class="btn btn-success" type="submit">View</button>

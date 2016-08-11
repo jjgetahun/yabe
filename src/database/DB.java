@@ -476,7 +476,7 @@ public class DB {
 
             if (browseMode) {
 
-                if (modelNumber.equals("")) {
+                if (modelNumber == null||modelNumber.equals("")) {
                     query = "SELECT * FROM Auction;";
                 } else {
                     query = "SELECT * FROM Auction WHERE ItemID = " + Integer.parseInt(modelNumber) + ";";
@@ -501,9 +501,7 @@ public class DB {
                     query += "A.EndTime < " + end.toString() + " AND ";
                 }
 
-                if(modelNumber != null){
-                    query += "I.ModelNumber = " + modelNumber + " AND ";
-                }
+
 
                 if (type.equals("backpacks")) {
                     query += "(I.Pockets = '" + attr[0] + "' AND I.Material = '" + attr[1] + "' AND I.Waterproof = '" + attr[2] + "');";

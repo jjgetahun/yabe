@@ -4,6 +4,7 @@
 <%@ page import="java.text.DateFormat" %>
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.sql.ResultSet" %>
+<%@ page import="database.Auction" %>
 <html>
 <head>
     <title>Login</title>
@@ -34,7 +35,7 @@
     String description = "";
 
     String message = "";
-    int aID;
+    int aID = 0;
 
     ResultSet qRS = null;
     ResultSet bRS = null;
@@ -114,6 +115,8 @@
             bRS = database.DB.getAuctionBids(aID);
         }
     }
+
+    Auction auction = DB.getAuction(aID);
 
     //DO AUCITON FETCHING HERE
 
