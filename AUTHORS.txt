@@ -2,7 +2,7 @@ Elbert Basolis
 --------------
 *Web UI
 *Login/Register
-*
+*Initialization
 
 Arnold Trakhtenberg
 -------------------
@@ -10,6 +10,8 @@ Arnold Trakhtenberg
 *Bidding
 *Messages
 *Alerts
+*History of auctions
+*Auction Similarity
 
 Jonathan J. Getahun
 -------------------
@@ -17,3 +19,4 @@ Jonathan J. Getahun
 *Sorting
 *Sales Reports
 *Questions/Answers
+*Customer Rep Info

@@ -677,7 +677,7 @@ public class DB {
 
     }
 
-    public static boolean answerQuestion(int questionID, String contents){
+    public static boolean answerQuestion(int questionID, int posterID, String contents){
 
         if (!initialized)
             init();
@@ -696,7 +696,7 @@ public class DB {
 
             if (qPosterID != -1) {
                 //Post answer
-                sql = "INSERT INTO Answer(Contents, QuestionID) VALUES('" + contents + "', " + questionID + ");";
+                sql = "INSERT INTO Answer(Contents, QuestionID, PosterID) VALUES('" + contents + "', " + questionID + ", " + posterID + ");";
                 statement.executeUpdate(sql);
                 return true;
             }
