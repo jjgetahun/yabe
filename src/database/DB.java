@@ -105,14 +105,14 @@ public class DB {
         return id;
     }
 
-    private static int getUserID(String username){
+    public static int getUserID(String username){
 
         if(!initialized) init();
 
         int id = -1;
 
         try {
-            String sql = "SELECT * FROM Account where UserName = '" + username + ";";
+            String sql = "SELECT * FROM Account where UserName = '" + username + "';";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(sql);
 
@@ -577,7 +577,7 @@ public class DB {
         if (!initialized)
             init();
         try {
-            String sql = "SELECT DISTINCT A.AuctionID FROM Auction A, Bid B WHERE (A.AuctionID = B.AuctionID and B.UserID = " + userID + ") or A.SellerID = " + userID + ";";
+            String sql = "(SELECT * FROM Auction A WHERE EXISTS(SELECT * FROM Bid B WHERE A.AuctionID = B.AuctionID and B.BidderID = " + userID + ")) UNION (SELECT * FROM Auction WHERE SellerID = " + userID + ");";
             Statement statement = conn.createStatement();
             return statement.executeQuery(sql);
         }

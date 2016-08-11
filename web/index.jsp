@@ -97,10 +97,13 @@
                     %>
                     <form action="search.jsp" method="POST" class="row">
                         <div class="input-group">
+                            <input type="hidden" name="search" value="search">
+                            <input type="hidden" name="searchByUser" value="searchByUser">
                             <span class="input-group-btn">
-                            <button class="btn btn-success" type="button">Search User</button>
+                            <button class="btn btn-success" type="submit">Search User</button>
                             </span>
                             <input type="text" class="form-control" placeholder="'Leaf Erikson'" name="username">
+
                         </div>
                     </div>
                 </form>

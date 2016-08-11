@@ -44,7 +44,11 @@
         if(request.getParameter("browse") != null){
             System.out.println("Default keyword: " + modelNumber);
             rs = DB.searchAuction(modelNumber, null, null, null, true, modelNumber);
-        }else{
+        }
+        else if(request.getParameter("searchByUser") != null){
+            rs = DB.getAuctionsParticipatedIn(DB.getUserID(request.getParameter("username")));
+        }
+        else{
             if (request.getParameter("category") == null ||
                     request.getParameter("condition") == null ||
                     request.getParameter("end") == null) {
