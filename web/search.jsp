@@ -17,7 +17,7 @@
 
 
 
-    String keyword = "";
+    String keywords = "";
     String cond = "";
     String type = "";
     String a = "";
@@ -32,7 +32,7 @@
     String price = "";
 
 
-    ResultSet rs;
+    ResultSet rs = null;
     String message = "";
 
     if(session.getAttribute("USER") != null){
@@ -46,21 +46,22 @@
     }
 
     if(request.getParameter("search") != null){
-
         if(request.getParameter("browse") != null){
-            if(request.getParameter("keyword") != null){
-                System.out.println("Default keyword: " + keyword);
-                rs = DB.searchAuction(keyword, null, null, null, true, null);
+            if(request.getParameter("keywords") != null){
+                System.out.println("Default keyword: " + keywords);
+                rs = DB.searchAuction(keywords, null, null, null, true, keywords);
             }
-        }else{
+        }else {
+            System.out.println("No browse");
 
-            if(request.getParameter("category") == null ||
+            if (request.getParameter("category") == null ||
                     request.getParameter("name") == null ||
                     request.getParameter("model") == null ||
                     request.getParameter("end") == null ||
                     request.getParameter("price") == null) {
                 message = "Name, Model, End date and start price  and description required. Please try again.";
             }
+        }
 
     }
 //    if(request.getParameter(""))

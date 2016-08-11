@@ -470,13 +470,23 @@ public class DB {
         if (!initialized)
             init();
 
-        if (browseMode) {
+        String query = "";
 
+        if (browseMode) {
+            System.out.println("ASDFASDF");
             try {
 
-                String sql = "SELECT * FROM Auction WHERE Name LIKE '%"+keywords+"%' OR Description LIKE '%"+keywords+"%' OR ItemID = "+Integer.parseInt(keywords)+";";
+//                String sql = "SELECT * FROM Auction WHERE Name LIKE '%"+keywords+"%' OR Description LIKE '%"+keywords+"%' OR ItemID = "+Integer.parseInt(keywords)+";";
+
+
+                if(keywords.equals("")){
+                    query = "SELECT * FROM Auction;";
+                }else{
+                    query = "SELECT * FROM Auction WHERE ItemID = "+Integer.parseInt(keywords)+";";
+                }
+
                 Statement statement = conn.createStatement();
-                ResultSet rs = statement.executeQuery(sql);
+                ResultSet rs = statement.executeQuery(query);
                 return rs;
 
             } catch(SQLException e) {

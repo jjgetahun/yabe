@@ -120,7 +120,7 @@
                         <div class="col-md-6">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" id="browse">
+                                    <input type="checkbox" name="browse" value="browse">
                                     Browse Mode (Only searches by keyword)
                                 </label>
                             </div>
