@@ -803,6 +803,10 @@ public class DB {
     }
 
     public static ResultSet generateSalesReport(String type) {
+
+        if (!initialized)
+            init();
+
         switch(type) {
             case "Total Earnings":
                 return getTotalEarningsReport();
