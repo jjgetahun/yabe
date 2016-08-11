@@ -251,7 +251,7 @@ public class DB {
         }
     }
 
-    public static boolean placeBid(String username, int auctionID, float amount, int isAuto){
+    public static boolean placeBid(int bidderID, int auctionID, float amount, int isAuto){
 
         if(!initialized) init();
         float highestBid = 0.01f;
@@ -275,11 +275,27 @@ public class DB {
                     oldBidderID + ");";
             statement.executeUpdate(sql);
 
-            //
-            int newBidderID = getUserID(username);
-            sql = "INSERT INTO Bid(Amount, BidderID, AuctionID, IsAuto) VALUES("+ amount + ", " + newBidderID + ", " +
+            //insert new bid
+            sql = "INSERT INTO Bid(Amount, BidderID, AuctionID, IsAuto) VALUES("+ amount + ", " + bidderID + ", " +
                     auctionID + ", " + isAuto + ");";
             statement.executeUpdate(sql);
+
+            if(isAuto == 1) {
+                sql = "INSERT INTO Bid(Amount, BidderID, AuctionID, IsAuto) VALUES("+ Math.ceil(highestBid+0.01) + ", " + bidderID + ", " +
+                        auctionID + ", 0);";
+                statement.executeUpdate(sql);
+            }
+
+            //recursively insert competing auto bids
+            sql = "SELECT MAX(Amount) as amt, BidderID FROM Bid WHERE IsAuto = 1 and BidderID <> " + bidderID + "GROUP BY BidderID;";
+            rs = statement.executeQuery(sql);
+            float newAmount = 0;
+            int newBidderID = -1;
+            while(rs.next()){
+                newAmount = rs.getFloat("amt");
+                newBidderID = rs.getInt("BidderID");
+            }
+            placeBid(newBidderID, auctionID, newAmount, 0);
             return true;
         }catch(SQLException e){
             e.printStackTrace();
@@ -636,6 +652,10 @@ public class DB {
             String sql = "INSERT INTO Question(Header, Contents, PosterID, AuctionID) VALUES('"+header+"', '"+contents+"', "+posterID+", "+auctionID+");";
             Statement statement = conn.createStatement();
             statement.executeUpdate(sql);
+
+            sql = "SELECT AccountID FROM Account WHERE isCustomerRep = 1";
+
+            sql = "INSERT INTO Message(ReceiverID, Contents) VALUES(, " +"'A new question has been posted');";
             return true;
         }
         catch (SQLException e) {

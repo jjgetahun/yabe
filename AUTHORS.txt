@@ -1,20 +1,19 @@
-Work Split
-----------
-
 Elbert Basolis
 --------------
-*
-*
+*Web UI
+*Login/Register
 *
 
 Arnold Trakhtenberg
 -------------------
-*
-*
-*
+*Auctions
+*Bidding
+*Messages
+*Alerts
 
 Jonathan J. Getahun
 -------------------
-*
-*
-*
+*Search
+*Sorting
+*Sales Reports
+*Questions/Answers

@@ -9,5 +9,4 @@ ITEMS NOT YET IMPLEMENTED ON BACKEND
 
 2. Browsing and advanced search functionality
     [] let people browse on the items and see the status of the current bidding
-    [] sort by different criteria (by type, bidding price etc.) - Possibly done.
     [] search the list of items by various criteria.

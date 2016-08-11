@@ -7,10 +7,10 @@
 	[] manually
 	    [] let the buyer set a new bid
     	    [] alert the buyer that a higher bid has been placed
-	[*] with automatic bidding
-	    [*] set a secret upper limit
-	    [*] put in a higher bid automatically for the user in case someone bids higher
-	    [*] alert the buyer in case someone bids more than your upper limit
+	[] with automatic bidding
+	    [] set a secret upper limit
+	    [] put in a higher bid automatically for the user in case someone bids higher
+	    [] alert the buyer in case someone bids more than your upper limit
     [x] define the winner of the auction
 	[x] when the closing time has come, check if the seller has set a reserve
 	    [x] if yes: if the reserve is higher than the last bid none is the winner.
