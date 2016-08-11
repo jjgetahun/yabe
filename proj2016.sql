@@ -32,6 +32,7 @@ CREATE TABLE Item (
 
 CREATE TABLE Auction (
   AuctionID     INT(11)     NOT NULL AUTO_INCREMENT,
+  Name          VARCHAR(50) NOT NULL,
   SellerID      INT(11)     NOT NULL,
   ItemID        INT(11)     NOT NULL,
   StartTime     TIMESTAMP   NOT NULL DEFAULT '1970-01-01 00:00:01',

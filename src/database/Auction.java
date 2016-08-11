@@ -9,14 +9,16 @@ import java.util.Date;
 public class Auction {
 
     private final int sellerID;
+    private final String name;
     private final int itemID;
     private final float reserve;
     private final Timestamp startTime;
     private final Timestamp endTime;
     private ArrayList<Bid> bidList = new ArrayList<Bid>();
 
-    public Auction(int sellerID, int itemID, float reserve, Timestamp startTime, Timestamp endTime) {
+    public Auction(int sellerID, String name, int itemID, float reserve, Timestamp startTime, Timestamp endTime) {
         this.sellerID = sellerID;
+        this.name = name;
         this.itemID = itemID;
         this.reserve = reserve;
         this.startTime = startTime;

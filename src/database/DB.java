@@ -407,7 +407,7 @@ public class DB {
         }
     }
 
-    public static int createAuction(int sellerID, int modelNumber, String type, String[] attr, float reserve, Date endTime, String condition) {
+    public static int createAuction(int sellerID, String name, int modelNumber, String type, String[] attr, float reserve, Date endTime, String condition) {
         if(!initialized) init();
         int id = -1;
 
@@ -424,7 +424,7 @@ public class DB {
             if (id != modelNumber)
                 createItem(modelNumber, type, attr);
 
-            sql = "INSERT INTO Auction(SellerID, ItemID, Reserve, EndTime, Cond) VALUES(" + sellerID + ", " + modelNumber + ", " + reserve + ", '" + endTime + "', '" + condition + "');";
+            sql = "INSERT INTO Auction(SellerID, Name, ItemID, Reserve, EndTime, Cond) VALUES(" + sellerID + ", " + name + ", " + modelNumber + ", " + reserve + ", '" + endTime + "', '" + condition + "');";
             statement.executeUpdate(sql);
 
             int auctionID = -1;
@@ -452,6 +452,7 @@ public class DB {
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(sql);
             int sellerID = -1;
+            String name = "";
             int itemID = -1;
             float reserve = -1;
             Timestamp startTime = null;
@@ -459,13 +460,14 @@ public class DB {
 
             while (rs.next()) {
                 sellerID = rs.getInt("SellerID");
+                name = rs.getString("Name");
                 itemID = rs.getInt("ItemID");
                 reserve = rs.getFloat("Reserve");
                 startTime = rs.getTimestamp("StartTime");
                 endTime = rs.getTimestamp("EndTime");
             }
 
-            Auction auction = new Auction(sellerID, itemID, reserve, startTime, endTime);
+            Auction auction = new Auction(sellerID, name, itemID, reserve, startTime, endTime);
 
             sql = "SELECT Amount, BidderID, Time FROM Bid WHERE IsAuto = 0 and AuctionID = " + auctionID + " GROUP BY Amount;";
             rs = statement.executeQuery(sql);
@@ -487,7 +489,7 @@ public class DB {
         }
     }
 
-    public static ResultSet searchAuction(String keywords, String type, String[] attr, Date startTime, Date endTime, String browseMode, String condition) {
+    public static ResultSet searchAuction(String keywords, String type, String[] attr, Date endTime, String browseMode, String condition) {
 
         if (browseMode != null) {
 
