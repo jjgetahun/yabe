@@ -467,30 +467,34 @@ public class DB {
 
     }
 
-    public static void sortAuctionSearchByType () {
+    public static ResultSet sortAuctionSearchByType () {
 
         if(!initialized) init();
 
         try {
             String sql = "SELECT * FROM Auction A, Item I WHERE A.AuctionID = I.AuctionID ORDER BY I.Type;";
             Statement statement = conn.createStatement();
-            statement.executeUpdate(sql);
+            ResultSet rs = statement.executeQuery(sql);
+            return rs;
         } catch(SQLException e) {
             e.printStackTrace();
+            return null;
         }
 
     }
 
-    public static void sortAuctionSearchByPrice () {
+    public static ResultSet sortAuctionSearchByPrice () {
 
         if(!initialized) init();
 
         try {
             String sql = "SELECT * FROM Auction A, Bid B WHERE A.AuctionID = B.AuctionID ORDER BY MAX(B.Amount);";
             Statement statement = conn.createStatement();
-            statement.executeUpdate(sql);
+            ResultSet rs = statement.executeQuery(sql);
+            return rs;
         } catch(SQLException e) {
             e.printStackTrace();
+            return null;
         }
 
     }
