@@ -491,11 +491,22 @@ public class DB {
 
     public static ResultSet searchAuction(String keywords, String type, String[] attr, Date endTime, String browseMode, String condition) {
 
+        if (!initialized)
+            init();
+
         if (browseMode != null) {
 
-            //String sql = "SELECT * ";
+            try {
 
-            return null;
+                String sql = "SELECT * FROM Auction WHERE Name LIKE '%"+keywords+"%' OR Description LIKE '%"+keywords+"%' OR ItemID = "+Integer.parseInt(keywords)+";";
+                Statement statement = conn.createStatement();
+                ResultSet rs = statement.executeQuery(sql);
+                return rs;
+
+            } catch(SQLException e) {
+                e.printStackTrace();
+                return null;
+            }
 
         }
 
