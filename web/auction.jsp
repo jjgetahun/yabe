@@ -57,7 +57,7 @@
                 request.getParameter("model") == null ||
                 request.getParameter("end") == null ||
                 request.getParameter("price") == null){
-            message = "Name, Model, End date and start price  and description required. Please try again.";
+            message = "Name, Model, End date and start price and description required. Please try again.";
         }else {
             type = request.getParameter("category");
 

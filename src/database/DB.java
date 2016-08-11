@@ -2,24 +2,20 @@ package database;
 
 import java.sql.*;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Date;
 import java.util.ArrayList;
-/**
- * Created by elby on 7/20/16.
- */
+
 public class DB {
-    Timer timer;
 
     public DB() {
-        timer = new Timer();
+        Timer timer = new Timer();
         timer.scheduleAtFixedRate(new checkAuctionWinners(), 5, 300000);
     }
 
-    class checkAuctionWinners extends TimerTask {
+    private class checkAuctionWinners extends TimerTask {
         public void run() {
             if(!initialized) init();
             try {
@@ -63,7 +59,7 @@ public class DB {
 
                     //mark auction as ended
                     sql = "REPLACE INTO Auction(HasEnded) SELECT 1 FROM Auction WHERE AuctionID = " + aID + ";";
-                    statement.executeUpdate(sql);;
+                    statement.executeUpdate(sql);
                 }
 
             }catch (SQLException e){
@@ -72,10 +68,10 @@ public class DB {
         }
     }
 
-    public static Connection conn;
+    private static Connection conn;
     private static boolean initialized = false;
 
-    public static void init(){
+    private static void init(){
         //Load database.DB
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -169,10 +165,7 @@ public class DB {
                 isAdmin = rs.getInt("isAdmin");
             }
 
-            if (isAdmin == 1)
-                return true;
-            else
-                return false;
+            return isAdmin == 1;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -298,7 +291,7 @@ public class DB {
 
     }
 
-    public static Item getItem(int modelNumber) {
+    private static Item getItem(int modelNumber) {
         if (!initialized) init();
 
         try {
@@ -325,15 +318,15 @@ public class DB {
             String sql = "";
             switch(type) {
                 case "backpacks":
-                    sql = "INSERT INTO Item(ModelNumber, Type, Pockets, Material, Waterproof) VALUES(" + modelNumber + ", 'Backpacks', '" + attr[0] + "', '" + attr[1] + "', '" + attr[2] + "');";
+                    sql = "INSERT INTO Item(ModelNumber, Type, Pockets, Material, Waterproof) VALUES(" + modelNumber + ", 'backpacks', '" + attr[0] + "', '" + attr[1] + "', '" + attr[2] + "');";
                     break;
 
                 case "tents":
-                    sql = "INSERT INTO Item(ModelNumber, Type, Color, Capacity, SpareParts) VALUES(" + modelNumber + ", 'Tents', '" + attr[0] + "', '" + attr[1] + "', '" + attr[2] + "');";
+                    sql = "INSERT INTO Item(ModelNumber, Type, Color, Capacity, SpareParts) VALUES(" + modelNumber + ", 'tents', '" + attr[0] + "', '" + attr[1] + "', '" + attr[2] + "');";
                     break;
 
                 case "flashlights":
-                    sql = "INSERT INTO Item(ModelNumber, Type, Battery, Rechargable, LED) VALUES(" + modelNumber + ", 'Flashlights', '" + attr[0] + "', '" + attr[1] + "', '" + attr[2] + "');";
+                    sql = "INSERT INTO Item(ModelNumber, Type, Battery, Rechargable, LED) VALUES(" + modelNumber + ", 'flashlights', '" + attr[0] + "', '" + attr[1] + "', '" + attr[2] + "');";
                     break;
 
                 default:
@@ -410,8 +403,6 @@ public class DB {
             while (rs.next()) {
                 auctionID = rs.getInt("aid");
             }
-            if (id != -1)
-                createItem(modelNumber, type, attr);
             resolveAlerts(modelNumber);
             return auctionID;
         }
@@ -443,7 +434,6 @@ public class DB {
                 startTime = rs.getTimestamp("StartTime");
                 endTime = rs.getTimestamp("EndTime");
             }
-
             Auction auction = new Auction(sellerID, name, itemID, reserve, startTime, endTime);
 
             sql = "SELECT Amount, BidderID, Time FROM Bid WHERE IsAuto = 0 and AuctionID = " + auctionID + " GROUP BY Amount;";
@@ -500,18 +490,21 @@ public class DB {
 
 
 
-                if (type.equals("backpacks")) {
-                    query += "(I.Pockets = '" + attr[0] + "' AND I.Material = '" + attr[1] + "' AND I.Waterproof = '" + attr[2] + "');";
-                } else if (type.equals("tents")) {
-                    query += "(I.Color = '" + attr[0] + "' AND I.Capacity = '" + attr[1] + "' AND I.SpareParts = '" + attr[2] + "');";
-                } else if (type.equals("flashlights")) {
-                    query += "(I.Battery = '" + attr[0] + "' AND I.Rechargeable = '" + attr[1] + "' AND I.LED = '" + attr[2] + "');";
+                switch (type) {
+                    case "backpacks":
+                        query += "(I.Pockets = '" + attr[0] + "' AND I.Material = '" + attr[1] + "' AND I.Waterproof = '" + attr[2] + "');";
+                        break;
+                    case "tents":
+                        query += "(I.Color = '" + attr[0] + "' AND I.Capacity = '" + attr[1] + "' AND I.SpareParts = '" + attr[2] + "');";
+                        break;
+                    case "flashlights":
+                        query += "(I.Battery = '" + attr[0] + "' AND I.Rechargeable = '" + attr[1] + "' AND I.LED = '" + attr[2] + "');";
+                        break;
                 }
 
                 System.out.println(query);
                 Statement statement = conn.createStatement();
-                ResultSet rs = statement.executeQuery(query);
-                return rs;
+                return statement.executeQuery(query);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -558,8 +551,7 @@ public class DB {
         try {
             String sql = "SELECT * FROM Auction A, Bid B WHERE A.AuctionID = B.AuctionID ORDER BY MAX(B.Amount);";
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery(sql);
-            return rs;
+            return statement.executeQuery(sql);
         } catch(SQLException e) {
             e.printStackTrace();
             return null;
@@ -602,25 +594,27 @@ public class DB {
         try {
             Item item = getItem(modelNumber);
             String attr1, attr2, attr3;
-            if (item.category.equals("backpacks")) {
-                attr1 = "Pockets";
-                attr2 = "Material";
-                attr3 = "Waterproof";
-            }
-            else if (item.category.equals("tents")){
-                attr1 = "Capacity";
-                attr2 = "Color";
-                attr3 = "SpareParts";
-            }
-            else {
-                attr1 = "Battery";
-                attr2 = "Rechargeable";
-                attr3 = "LED";
+            switch (item.category) {
+                case "backpacks":
+                    attr1 = "Pockets";
+                    attr2 = "Material";
+                    attr3 = "Waterproof";
+                    break;
+                case "tents":
+                    attr1 = "Capacity";
+                    attr2 = "Color";
+                    attr3 = "SpareParts";
+                    break;
+                default:
+                    attr1 = "Battery";
+                    attr2 = "Rechargeable";
+                    attr3 = "LED";
+                    break;
             }
             String sql = "SELECT ModelNumber FROM Item WHERE Item.ModelNumber <> " + modelNumber + " and (" +
                     attr1 + " = '" + item.attr1 + "' or " + attr2 + " = '" + item.attr2 + "' or " + attr3 + " = '" + item.attr3 +
                     "');";
-            ArrayList<ResultSet> similarAuctions = new ArrayList();
+            ArrayList<ResultSet> similarAuctions = new ArrayList<>();
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(sql);
             int similarModel = -1;
@@ -648,7 +642,6 @@ public class DB {
             statement.executeUpdate(sql);
 
             sql = "SELECT AccountID FROM Account WHERE isCustomerRep = 1";
-
             sql = "INSERT INTO Message(ReceiverID, Contents) VALUES(, " +"'A new question has been posted');";
             return true;
         }
@@ -676,7 +669,7 @@ public class DB {
                 qPosterID = rs.getInt("QuestionID");
             }
 
-            if (qPosterID != -1) {
+            if (qPosterID != 0) {
                 //Post answer
                 sql = "INSERT INTO Answer(Contents, QuestionID, PosterID) VALUES('" + contents + "', " + questionID + ", " + posterID + ");";
                 statement.executeUpdate(sql);
@@ -802,8 +795,7 @@ public class DB {
         try{
             String sql = "SELECT * FROM Question WHERE AuctionID = "+auctionID+" ORDER BY QuestionID;";
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery(sql);
-            return rs;
+            return statement.executeQuery(sql);
         }catch(SQLException e){
             e.printStackTrace();
             return null;
@@ -820,9 +812,7 @@ public class DB {
             //Find the given question
             String sql = "SELECT * FROM Question Q WHERE NOT EXISTS (SELECT * FROM Answer A WHERE Q.QuestionID = A.QuestionID);";
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery(sql);
-
-            return rs;
+            return statement.executeQuery(sql);
         }catch(SQLException e){
             e.printStackTrace();
             return null;
@@ -830,20 +820,16 @@ public class DB {
     }
 
     public static boolean isAnswered(int questionID) {
-
         if (!initialized)
             init();
 
         try{
 
-            String sql = "SELECT * FROM Question Q WHERE (SELECT * FROM Answer A WHERE Q.QuestionID = A.QuestionID);";
+            String sql = "SELECT * FROM Question Q WHERE Q.QuestionID = " + questionID + "(SELECT * FROM Answer A WHERE Q.QuestionID = A.QuestionID);";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(sql);
 
-            if (rs != null)
-                return true;
-            else
-                return false;
+            return rs != null;
         }catch(SQLException e){
             e.printStackTrace();
             return false;
@@ -859,8 +845,7 @@ public class DB {
         try{
             String sql = "SELECT * FROM Bid WHERE AuctionID = "+auctionID+" AND isAuto = 0 ORDER BY Amount DESC;";
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery(sql);
-            return rs;
+            return statement.executeQuery(sql);
         }catch(SQLException e){
             e.printStackTrace();
             return null;
@@ -901,7 +886,7 @@ public class DB {
             init();
 
         try {
-            String sql = "SELECT SUM(MAX(B.Amount)) FROM Auction A, Bid B WHERE A.AuctionID = B.AuctionID;";
+            String sql = "SELECT SUM(MAX(B.Amount)) FROM Bid B, Auction A WHERE A.AuctionID = B.AuctionID;";
             Statement statement = conn.createStatement();
             return statement.executeQuery(sql);
         }

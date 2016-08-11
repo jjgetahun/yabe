@@ -133,7 +133,7 @@
                             if(rs != null){
                                 while(rs.next()){
 
-                                    int aid = rs.getInt("ItemID");
+                                    int aid = rs.getInt("AuctionID");
                                     Auction auction = DB.getAuction(aid);
                                     String bid = "No bids placed";
                                     if(auction.getBidList().size() > 0){
