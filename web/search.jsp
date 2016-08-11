@@ -1,4 +1,6 @@
 <%@ page import="java.sql.*" %>
+<%@ page import="database.DB" %>
+<%@ page import="database.Auction" %>
 
 <html>
 <head>
@@ -12,6 +14,7 @@
 <%
     String user = "";
     String userID = "";
+
 
 
     String keyword = "";
@@ -29,6 +32,7 @@
     String price = "";
 
 
+    ResultSet rs;
     String message = "";
 
     if(session.getAttribute("USER") != null){
@@ -46,17 +50,17 @@
         if(request.getParameter("browse") != null){
             if(request.getParameter("keyword") != null){
                 System.out.println("Default keyword: " + keyword);
-//                DB.searchAuction()
+                rs = DB.searchAuction(keyword, null, null, null, true, null);
             }
+        }else{
 
-        }
-
-        if(request.getParameter("category") == null ||
-                request.getParameter("name") == null ||
-                request.getParameter("model") == null ||
-                request.getParameter("end") == null ||
-                request.getParameter("price") == null){
-            message = "Name, Model, End date and start price  and description required. Please try again.";
+            if(request.getParameter("category") == null ||
+                    request.getParameter("name") == null ||
+                    request.getParameter("model") == null ||
+                    request.getParameter("end") == null ||
+                    request.getParameter("price") == null) {
+                message = "Name, Model, End date and start price  and description required. Please try again.";
+            }
 
     }
 //    if(request.getParameter(""))
@@ -98,7 +102,6 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>#</th>
                                 <th>Name</th>
                                 <th>Model Number</th>
                                 <th>Seller</th>
@@ -108,6 +111,33 @@
                             </tr>
                         </thead>
                         <tbody>
+                        <%
+                            if(rs != null){
+                                while(rs.next()){
+                                    int aid = rs.getInt("ItemID");
+                                    Auction auction = DB.getAuction(aid);
+                                    String bid = "No bids placed";
+                                    if(auction.getBidList().size() > 0){
+                                        bid = "" + auction.getBidList().get(0).amount;
+                                    }
+                        %>
+                        <tr>
+                            <td> <%=auction.name%></td>
+                            <td> <%=auction.itemID%> </td>
+                            <td> <%=DB.getNameFromID(auction.sellerID)%> </td>
+                            <td> <%=bid%> </td>
+                            <td> <%=auction.endTime.toString()%> </td>
+                            <td> <form action="auction.jsp" method="POST">
+                                    <input type="hidden" name="auctionID" value="<%=aid%>">
+                                    <button class="btn btn-success" type="submit">View</button>
+                                 </form>
+                            </td>
+                            <td> <button class="btn btn-success" type="button">Answer</button> </td>
+                        </tr>
+                        <%
+                                }
+                            }
+                        %>
 
                         </tbody>
                         <!--Put stuff in here-->

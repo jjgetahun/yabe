@@ -90,11 +90,11 @@
                 else c = "false";
             }
 
-            DateFormat df = new SimpleDateFormat("yyyy/mm/dd");
+            DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
             Date endDate = df.parse(endDates);
             Timestamp endTime = new Timestamp(endDate.getTime());
 
-            aID = DB.createAuction(Integer.parseInt(userID), modelNo, type, new String[]{a, b, c}, Float.parseFloat(reserve), endTime, cond);
+            aID = DB.createAuction(Integer.parseInt(userID), auctionName, modelNo, type, new String[]{a, b, c}, Float.parseFloat(reserve), endTime, cond);
 
             if (aID != -1) {
                 message = "Could not create auction. Please try again.";

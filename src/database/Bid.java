@@ -5,8 +5,8 @@ import java.util.Date;
 public class Bid {
 
     private final int bidderID;
-    float amount;
-    Date time;
+    public float amount;
+    public Date time;
 
     public Bid(int bidderID, float amount, Date time) {
         this.bidderID = bidderID;

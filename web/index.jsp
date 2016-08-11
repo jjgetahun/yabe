@@ -106,7 +106,7 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">Search - Filter by class attributes</h3>
                 </div>
-                <form class="panel-body">
+                <form class="panel-body" action="search.jsp" method="POST">
                     <input type="hidden" name="search" value="search">
                     <div class="input-group">
                         <span class="input-group-btn">
