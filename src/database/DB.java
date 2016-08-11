@@ -323,16 +323,16 @@ public class DB {
             System.out.println("STEP 1");
             switch(type) {
                 case "backpacks":
-                    sql = "INSERT INTO Item(ModelNumber, Type, Pockets, Material, Waterproof) VALUES(" + modelNumber + ", 'Backpack', '" + attr[0] + "', '" + attr[1] + "', '" + attr[2] + "');";
+                    sql = "INSERT INTO Item(ModelNumber, Type, Pockets, Material, Waterproof) VALUES(" + modelNumber + ", 'Backpacks', '" + attr[0] + "', '" + attr[1] + "', '" + attr[2] + "');";
                     System.out.println("STEP 2");
                     break;
 
                 case "tents":
-                    sql = "INSERT INTO Item(ModelNumber, Type, Color, Capacity, SpareParts) VALUES(" + modelNumber + ", 'Tent', '" + attr[0] + "', '" + attr[1] + "', '" + attr[2] + "');";
+                    sql = "INSERT INTO Item(ModelNumber, Type, Color, Capacity, SpareParts) VALUES(" + modelNumber + ", 'Tents', '" + attr[0] + "', '" + attr[1] + "', '" + attr[2] + "');";
                     break;
 
                 case "flashlights":
-                    sql = "INSERT INTO Item(ModelNumber, Type, Battery, Rechargable, LED) VALUES(" + modelNumber + ", 'Flashlight', '" + attr[0] + "', '" + attr[1] + "', '" + attr[2] + "');";
+                    sql = "INSERT INTO Item(ModelNumber, Type, Battery, Rechargable, LED) VALUES(" + modelNumber + ", 'Flashlights', '" + attr[0] + "', '" + attr[1] + "', '" + attr[2] + "');";
                     break;
 
                 default:
@@ -488,7 +488,17 @@ public class DB {
 
         else {
 
-            return null;
+            try {
+
+                String sql = "SELECT * FROM Auction A, Item I WHERE I.Type = '"+type+"' AND A.Cond = '"+condition+"' AND A.ItemID = I.ModelNumber AND ((I.Pockets = '"+attr[0]+"' AND I.Material = '"+attr[1]+"' AND I.Waterproof = '"+attr[2]+"') OR (I.Color = '"+attr[0]+"' AND I.Capacity = '"+attr[1]+"' AND I.SpareParts = '"+attr[2]+"') OR (I.Battery = '"+attr[0]+"' AND I.Rechargeable = '"+attr[1]+"' AND I.LED = '"+attr[2]+"'));";
+                Statement statement = conn.createStatement();
+                ResultSet rs = statement.executeQuery(sql);
+                return rs;
+
+            } catch(SQLException e) {
+                e.printStackTrace();
+                return null;
+            }
 
         }
 
