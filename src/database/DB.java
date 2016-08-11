@@ -76,8 +76,8 @@ public class DB {
         //Load database.DB
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-//            conn = DriverManager.getConnection ("jdbc:mysql://classvm51.cs.rutgers.edu/proj2016","root","DigDagDug55");
-            conn = DriverManager.getConnection ("jdbc:mysql://localhost/proj2016","root","themysql");
+            conn = DriverManager.getConnection ("jdbc:mysql://classvm51.cs.rutgers.edu/proj2016","root","DigDagDug55");
+//            conn = DriverManager.getConnection ("jdbc:mysql://localhost/proj2016","root","themysql");
             initialized = true;
         } catch (Exception e) { //Generic exception, don't do this.
             e.printStackTrace();
