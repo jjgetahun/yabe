@@ -64,10 +64,14 @@
                         </select>
                     </div>
                     <h4>Auction End Date</h4>
-                    <input class="datepicker form-control" name="end" type="date"/>
+                    <input class="datepicker form-control" name="end"/>
+                    <div class="form-group label-floating">
+                        <label class="control-label">Start Price</label>
+                        <input type="number" class="form-control" name="price">
+                    </div>
                     <div class="form-group label-floating">
                         <label class="control-label">Reserve</label>
-                        <input type="number" class="form-control" name="price">
+                        <input type="number" class="form-control" name="reserve">
                     </div>
                 </div>
                 <div class="col-md-4">

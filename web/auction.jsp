@@ -29,8 +29,11 @@
     String highestBid = "";
     String highestBidder = "";
     String reserve = "";
+    String price = "";
     String description = "";
 
+    String message = "";
+    int aID;
 
     if(session.getAttribute("USER") != null){
         //CAN't Access this page!
@@ -44,54 +47,62 @@
     }
 
     if(request.getParameter("newAuction") != null && request.getParameter("newAuction").equals("newAuction")){
-        type = request.getParameter("category");
+        if(request.getParameter("category") == null ||
+                request.getParameter("name") == null ||
+                request.getParameter("model") == null ||
+                request.getParameter("end") == null ||
+                request.getParameter("price") == null){
+            message = "Name, Model, End date and start price  and description required. Please try again.";
+        }else {
+            type = request.getParameter("category");
 
-        //Not protected
-        auctionName = request.getParameter("name");
-        modelNumber = request.getParameter("model");
+            //Not protected
+            auctionName = request.getParameter("name");
+            modelNumber = request.getParameter("model");
 
-        endDates = request.getParameter("end");
-        reserve = request.getParameter("price");
-        cond = request.getParameter("condition");
-        description = request.getParameter("description");
+            endDates = request.getParameter("end");
+            reserve = request.getParameter("price");
+            cond = request.getParameter("condition");
+            description = request.getParameter("description");
 
-        int modelNo = Integer.parseInt(modelNumber);
+            int modelNo = Integer.parseInt(modelNumber);
 
 
-        if(request.getParameter("category").equals("backpacks")){
-            a = request.getParameter("pockets");
-            b = request.getParameter("material");
+            if (request.getParameter("category").equals("backpacks")) {
+                a = request.getParameter("pockets");
+                b = request.getParameter("material");
 
-            if(request.getParameter("waterproof") != null) c = "true";
-            else c = "false";
-        }else if(request.getParameter("category").equals("tents")){
-            a = request.getParameter("color");
-            b = request.getParameter("capacity");
+                if (request.getParameter("waterproof") != null) c = "true";
+                else c = "false";
+            } else if (request.getParameter("category").equals("tents")) {
+                a = request.getParameter("color");
+                b = request.getParameter("capacity");
 
-            if(request.getParameter("spare") != null) c = "true";
-            else c = "false";
-        }else{
-            a = request.getParameter("battery");
+                if (request.getParameter("spare") != null) c = "true";
+                else c = "false";
+            } else {
+                a = request.getParameter("battery");
 
-            if(request.getParameter("rechargeable") != null) b = "true";
-            else b = "false";
+                if (request.getParameter("rechargeable") != null) b = "true";
+                else b = "false";
 
-            if(request.getParameter("led") != null) c = "true";
-            else c = "false";
+                if (request.getParameter("led") != null) c = "true";
+                else c = "false";
+            }
+
+            DateFormat df = new SimpleDateFormat("yyyy/mm/dd");
+            Date endDate = df.parse(endDates);
+            Timestamp endTime = new Timestamp(endDate.getTime());
+
+            aID = DB.createAuction(Integer.parseInt(userID), modelNo, type, new String[]{a, b, c}, Float.parseFloat(reserve), endTime, cond);
+
+            if (aID != -1) {
+                message = "Could not create auction. Please try again.";
+            } else {
+                message = "Auction successfully created!";
+            }
         }
-
-        DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
-        Date endDate = df.parse(endDates);
-        Timestamp endTime = new Timestamp(endDate.getTime());
-
-        int aID = DB.createAuction(Integer.parseInt(userID), modelNo, type, new String[] {a, b, c}, Float.parseFloat(reserve), endTime, cond);
-
-        if(aID != -1){
-            //Successful
-            System.out.println(aID);
-        }else{
-        }
-
+        //Setting auction in here
     }
 
 %>
@@ -120,6 +131,7 @@
     </div>
 </nav>
 <div class="container centered">
+    <h2><%=message%></h2>
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title"><%=auctionName%> Details</h3>
