@@ -234,7 +234,6 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>#</th>
                     <th>Time</th>
                     <th>Bidder</th>
                     <th>Amount</th>
@@ -251,12 +250,10 @@
                     <td> <%=bRS.getTimestamp("Time")%></td>
                     <td> <%=bRS.getInt("BidderID")%> </td>
                     <td> <%=bRS.getFloat("Amount")%> </td>
-                    <td> <%=bRS.getString("Header")%> </td>
                     <% if (session.getAttribute("USER") != null && database.DB.isCustomerRep(Integer.parseInt(userID))) { %>
                     <td>
-                        <form action="index.jsp" method="POST" class="row">
+                        <form action="auction.jsp" method="POST" class="row">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="'Remove'" name="remove">
                                 <span class="input-group-btn">
                                                     <button class="btn btn-success" type="submit">Remove</button>
                                                 </span>
