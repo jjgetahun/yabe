@@ -112,7 +112,7 @@
         <div class="col-md-8">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Search - Filter by class attributes</h3>
+                    <h3 class="panel-title">Search - Filter by type attributes</h3>
                 </div>
                 <form class="panel-body" action="search.jsp" method="POST">
                     <input type="hidden" name="search" value="search">
@@ -129,8 +129,15 @@
                                     Browse Mode (Only searches by keyword)
                                 </label>
                             </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="noCategories" value="noCategories">
+                                    Exclude Type Filters
+                                </label>
+                            </div>
                             <label for="condition">Condition:</label>
                             <select class="form-control" name="condition" id="condition">
+                                <option></option>
                                 <option>New</option>
                                 <option>Used</option>
                             </select>

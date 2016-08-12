@@ -496,7 +496,7 @@ public class DB {
                 if (modelNumber == null || modelNumber.equals("")) {
                     query = "SELECT DISTINCT A.AuctionID FROM Auction A, Bid B WHERE A.AuctionID = A.AuctionID;"; //Redundency for inclusion of a where clause
                 } else {
-                    query = "SELECT DISTINCT A.AuctionID FROM Auction A, Bid B WHERE ItemID = " + Integer.parseInt(modelNumber) + ";";
+                    query = "SELECT DISTINCT A.AuctionID FROM Auction A, Bid B WHERE A.ItemID = " + Integer.parseInt(modelNumber) + ";";
                 }
 
                 Statement statement = conn.createStatement();
@@ -506,26 +506,38 @@ public class DB {
 
             } else {
 
-                query = "SELECT DISTINCT A.AuctionID FROM Auction A, Item I, Bid B WHERE A.ItemID = I.ModelNumber AND I.Type = '" + type + "' AND A.Cond = '" + condition + "' AND ";
+                query = "SELECT DISTINCT A.AuctionID FROM Auction A, Item I, Bid B WHERE A.AuctionID = A.AuctionID"; //REdundency for inclusion of where clause
+
+                if(!type.equals(""))
+                    query += " AND I.Type = '" + type + "'";
+                if(!modelNumber.equals(""))
+                    query += " AND A.ItemID = " + Integer.parseInt(modelNumber);
+                if(!condition.equals(""))
+                    query += " AND A.Cond = '" + condition + "'";
+
+
 
                 if (endTime != null && !endTime.equals("")) {
 
                     DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
                     Date endDate = df.parse(endTime);
+                    Timestamp t = new Timestamp(endDate.getTime());
 
-                    query += "A.EndTime <= " + endDate.getTime() + " AND ";
+                    query += " AND DATE(A.EndTime) <= '" + t.toString() + "'";
                 }
 
                 switch (type) {
                     case "backpacks":
-                        query += "(I.Pockets = '" + attr[0] + "' AND I.Material = '" + attr[1] + "' AND I.Waterproof = '" + attr[2] + "');";
+                        query += " AND (I.Pockets = '" + attr[0] + "' AND I.Material = '" + attr[1] + "' AND I.Waterproof = '" + attr[2] + "');";
                         break;
                     case "tents":
-                        query += "(I.Color = '" + attr[0] + "' AND I.Capacity = '" + attr[1] + "' AND I.SpareParts = '" + attr[2] + "');";
+                        query += " AND (I.Color = '" + attr[0] + "' AND I.Capacity = '" + attr[1] + "' AND I.SpareParts = '" + attr[2] + "');";
                         break;
                     case "flashlights":
-                        query += "(I.Battery = '" + attr[0] + "' AND I.Rechargeable = '" + attr[1] + "' AND I.LED = '" + attr[2] + "');";
+                        query += " AND (I.Battery = '" + attr[0] + "' AND I.Rechargeable = '" + attr[1] + "' AND I.LED = '" + attr[2] + "');";
                         break;
+                    default:
+                        query += ";";
                 }
 
                 System.out.println(query);

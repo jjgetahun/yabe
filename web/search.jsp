@@ -18,7 +18,7 @@
     String user = "";
     String userID = "";
 
-
+    String category = "";
 
     String modelNumber = "";
     String type = "";
@@ -64,31 +64,34 @@
         }else {
 
             String[] attr = new String[3];
+            if(request.getParameter("noCategories") == null) {
+                category = request.getParameter("category");
+                if (request.getParameter("category").equals("backpacks")) {
+                    attr[0] = request.getParameter("pockets");
+                    attr[1] = request.getParameter("material");
 
-            if (request.getParameter("category").equals("backpacks")) {
-                attr[0] = request.getParameter("pockets");
-                attr[1] = request.getParameter("material");
+                    if (request.getParameter("waterproof") != null) attr[2] = "true";
+                    else attr[2] = "false";
+                } else if (request.getParameter("category").equals("tents")) {
+                    attr[0] = request.getParameter("color");
+                    attr[1] = request.getParameter("capacity");
 
-                if (request.getParameter("waterproof") != null) attr[2] = "true";
-                else attr[2] = "false";
-            } else if (request.getParameter("category").equals("tents")) {
-                attr[0] = request.getParameter("color");
-                attr[1] = request.getParameter("capacity");
+                    if (request.getParameter("spare") != null) attr[2] = "true";
+                    else attr[2] = "false";
+                } else {
+                    attr[0] = request.getParameter("battery");
 
-                if (request.getParameter("spare") != null) attr[2] = "true";
-                else attr[2] = "false";
-            } else {
-                attr[0] = request.getParameter("battery");
+                    if (request.getParameter("rechargeable") != null) attr[1] = "true";
+                    else attr[1] = "false";
 
-                if (request.getParameter("rechargeable") != null) attr[1] = "true";
-                else attr[1] = "false";
-
-                if (request.getParameter("led") != null) attr[2] = "true";
-                else attr[2] = "false";
+                    if (request.getParameter("led") != null) attr[2] = "true";
+                    else attr[2] = "false";
+                }
             }
+
             String date = request.getParameter("end");
 
-            qrs = DB.searchAuction(modelNumber, request.getParameter("category"), attr, date, false, request.getParameter("condition"));
+            qrs = DB.searchAuction(modelNumber, category, attr, date, false, request.getParameter("condition"));
             query = (String) qrs.getKey();
             rs = (ResultSet) qrs.getValue();
             session.setAttribute("baseQuery", query);
