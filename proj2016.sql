@@ -74,7 +74,6 @@ CREATE TABLE Message (
   ReadStatus TINYINT(1)   NOT NULL DEFAULT 0,
   TimeSent   TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (MessageID),
-  FOREIGN KEY (SenderID) REFERENCES Account (AccountID),
   FOREIGN KEY (ReceiverID) REFERENCES Account (AccountID)
 );
 

@@ -109,7 +109,14 @@
     }else{
         if(request.getParameter("auctionID") != null){
             aID = Integer.parseInt(request.getParameter("auctionID"));
-
+            if(request.getParameter("bid") != null){
+                int bID = Integer.parseInt(request.getParameter("userID"));
+                float amount = Float.parseFloat(request.getParameter("amount"));
+                int autobid = 0;
+                if(request.getParameter("autobid") != null)
+                    autobid = 1;
+                DB.placeBid(bID, aID, amount, autobid);
+            }
             qRS = database.DB.getAuctionQuestions(aID);
             bRS = database.DB.getAuctionBids(aID);
         }
@@ -204,6 +211,23 @@
 
             %>
                 <%--Form goes here--%>
+            <form action="auction.jsp" method="POST" class="row">
+                <div class="input-group">
+                            <span class="input-group-btn">
+                            <button class="btn btn-success" type="submit">Place Bid</button>
+                            </span>
+                    <input type="text" class="form-control" placeholder="'Amount'" name="amount">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="autobid" value="autobid">
+                            Autobid
+                        </label>
+                    </div>
+                    <input type="hidden" name="bid" value="bid">
+                    <input type="hidden" name="userID" value="<%=userID%>">
+                    <input type="hidden" name="auctionID" value="<%=aID%>">
+                </div>
+            </form>
             <%
                 }
             %>

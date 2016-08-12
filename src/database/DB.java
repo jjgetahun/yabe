@@ -239,7 +239,7 @@ public class DB {
                 oldBidderID = rs.getInt("BidderID");
             }
 
-            if (amount <= highestBid)
+            if (amount <= highestBid || oldBidderID == bidderID)
                 return false;
 
             //notify outbid
