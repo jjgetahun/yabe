@@ -109,7 +109,11 @@
     }else{
         if(request.getParameter("auctionID") != null){
             aID = Integer.parseInt(request.getParameter("auctionID"));
-            if(request.getParameter("bid") != null){
+            if(request.getParameter("remove") != null){
+                float amount = Float.parseFloat(request.getParameter("amount"));
+                DB.removeBid(aID, amount);
+            }
+            else if(request.getParameter("bid") != null){
                 int bID = Integer.parseInt(request.getParameter("userID"));
                 float amount = Float.parseFloat(request.getParameter("amount"));
                 int autobid = 0;
@@ -252,12 +256,11 @@
                     <td> <%=bRS.getFloat("Amount")%> </td>
                     <% if (session.getAttribute("USER") != null && database.DB.isCustomerRep(Integer.parseInt(userID))) { %>
                     <td>
-                        <form action="auction.jsp" method="POST" class="row">
-                            <div class="input-group">
-                                <span class="input-group-btn">
-                                                    <button class="btn btn-success" type="submit">Remove</button>
-                                                </span>
-                            </div>
+                        <form action="auction.jsp" method="POST">
+                            <input type="hidden" name="remove" value="remove">
+                            <input type="hidden" name="auctionID" value="<%=aID%>">
+                            <input type="hidden" name="amount" value="<%=bRS.getFloat("Amount")%>">
+                            <button class="btn btn-success" type="submit">Remove</button>
                         </form>
                     </td>
                     <% } %>

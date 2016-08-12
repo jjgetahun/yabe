@@ -273,12 +273,12 @@ public class DB {
         }
     }
 
-    public static boolean removeBid(int bidderID, int auctionID, float amount) {
+    public static boolean removeBid(int auctionID, float amount) {
 
         if(!initialized) init();
 
         try {
-            String sql = "DELETE FROM Bid WHERE BidderID = " + bidderID + " AND AuctionID = " + auctionID + " AND Amount = + " + amount + ";";
+            String sql = "DELETE FROM Bid WHERE AuctionID = " + auctionID + " AND Amount = + " + amount + ";";
             Statement statement = conn.createStatement();
             statement.executeUpdate(sql);
             return true;
@@ -842,7 +842,7 @@ public class DB {
 
         try{
 
-            String sql = "SELECT * FROM Question Q WHERE Q.QuestionID = " + questionID + "(SELECT * FROM Answer A WHERE Q.QuestionID = A.QuestionID);";
+            String sql = "SELECT * FROM Question Q, Answer A WHERE Q.QuestionID = " + questionID + " AND Q.QuestionID = A.QuestionID;";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(sql);
 
