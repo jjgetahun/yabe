@@ -150,52 +150,48 @@
                                 <h3 class="panel-title">Reports</h3>
                             </div>
                             <div class="panel-body">
-                                <!--Div wrap and overflow auto for scroll-->
-                                <h5>Total Earnings: </h5>
-                                <h5>Earnings per item</h5>
-                                <table class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Item</th>
-                                        <th>Earnings</th>
-
-                                    </tr>
-                                    </thead>
-                                    <tbody></tbody>
-
-                                    <!--Put stuff in here-->
-                                </table>
-
-                                <h5>Earnings per category: </h5>
-                                <table class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Category</th>
-                                        <th>Earnings</th>
-
-                                    </tr>
-                                    </thead>
-                                    <tbody></tbody>
-
-                                    <!--Put stuff in here-->
-                                </table>
-
-                                <h5>Earnings per user: </h5>
-                                <table class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>User</th>
-                                        <th>Earnings</th>
-
-                                    </tr>
-                                    </thead>
-                                    <tbody></tbody>
-
-                                    <!--Put stuff in here-->
-                                </table>
+                                <div class="col-md-6 ">
+                                    <div class="input-group">
+                                        <a href="totalEarnings.jsp">
+                                            <button class="btn btn-success" type="submit">Total Earnings</button>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 ">
+                                    <div class="input-group">
+                                        <a href="earningsPerItem.jsp">
+                                            <button class="btn btn-success" type="submit">Earnings per Item</button>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 ">
+                                    <div class="input-group">
+                                        <a href="earningsPerItemType.jsp">
+                                            <button class="btn btn-success" type="submit">Earnings per Item Type</button>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 ">
+                                    <div class="input-group">
+                                        <a href="earningsPerEndUser.jsp">
+                                            <button class="btn btn-success" type="submit">Earnings per End-User</button>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 ">
+                                    <div class="input-group">
+                                        <a href="bestSellingItems.jsp">
+                                            <button class="btn btn-success" type="submit">Best-Selling Items</button>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 ">
+                                    <div class="input-group">
+                                        <a href="bestBuyers.jsp">
+                                            <button class="btn btn-success" type="submit">Best Buyers</button>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 

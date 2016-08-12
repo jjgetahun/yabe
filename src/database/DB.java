@@ -132,13 +132,13 @@ public class DB {
         String name = "";
 
         try {
-            String sql = "SELECT Name FROM Account where AccountID = " + id + ";";
+            String sql = "SELECT UserName FROM Account where AccountID = " + id + ";";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(sql);
 
             //Assuming only one or zero users comes back
             while (rs.next()) {
-                name = rs.getString("Name");
+                name = rs.getString("UserName");
             }
         }catch (SQLException e){
             e.printStackTrace();
@@ -840,6 +840,23 @@ public class DB {
 
     }
 
+    public static ResultSet getAnswer(int questionID){
+
+        if (!initialized)
+            init();
+
+        try{
+
+            //Find the given question
+            String sql = "SELECT * FROM Answer WHERE QuestionID = "+questionID+";";
+            Statement statement = conn.createStatement();
+            return statement.executeQuery(sql);
+        }catch(SQLException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static ResultSet getAuctionBids(int auctionID){
 
         if (!initialized)
@@ -855,7 +872,7 @@ public class DB {
         }
     }
 
-    public static ResultSet generateSalesReport(String type) {
+    /*public static ResultSet generateSalesReport(String type) {
 
         if (!initialized)
             init();
@@ -882,14 +899,14 @@ public class DB {
             default:
                 return null;
         }
-    }
+    }*/
 
-    private static ResultSet getTotalEarningsReport() {
+    public static ResultSet getTotalEarningsReport() {
         if (!initialized)
             init();
 
         try {
-            String sql = "SELECT SUM(MAX(B.Amount)) FROM Bid B, Auction A WHERE A.AuctionID = B.AuctionID;";
+            String sql = "SELECT SUM(maxBids) AS Amount FROM (SELECT MAX(B.Amount) maxBids FROM Auction A, Bid B WHERE A.AuctionID = B.AuctionID AND A.HasEnded = 1 GROUP BY A.AuctionID) a;";
             Statement statement = conn.createStatement();
             return statement.executeQuery(sql);
         }
@@ -900,12 +917,12 @@ public class DB {
 
     }
 
-    private static ResultSet getEarningsPerItemReport() {
+    public static ResultSet getEarningsPerItemReport() {
         if (!initialized)
             init();
 
         try {
-            String sql = "SELECT A.ItemID, SUM(MAX(B.Amount)) FROM Auction A, Bid B WHERE A.AuctionID = B.AuctionID GROUP BY A.ItemID;";
+            String sql = "SELECT A.ItemID, B.Amount FROM Auction A, Bid B WHERE A.AuctionID = B.AuctionID AND A.HasEnded = 1 AND B.Amount = (SELECT MAX(B2.AMOUNT) FROM Bid B2 WHERE B2.AuctionID = B.AuctionID) GROUP BY A.ItemID;";
             Statement statement = conn.createStatement();
             return statement.executeQuery(sql);
         }
@@ -916,12 +933,12 @@ public class DB {
 
     }
 
-    private static ResultSet getEarningsPerItemTypeReport() {
+    public static ResultSet getEarningsPerItemTypeReport() {
         if (!initialized)
             init();
 
         try {
-            String sql = "SELECT I.Type, SUM(MAX(B.Amount)) FROM Auction A, Bid B, Item I WHERE A.AuctionID = B.AuctionID AND A.ItemID = I.ModelNumber GROUP BY I.Type;";
+            String sql = "SELECT I.Type, SUM(B.Amount) AS Amount FROM Auction A, Bid B, Item I WHERE A.AuctionID = B.AuctionID AND A.HasEnded = 1 AND A.ItemID = I.ModelNumber AND B.Amount = (SELECT MAX(B2.AMOUNT) FROM Bid B2 WHERE B2.AuctionID = B.AuctionID) GROUP BY I.Type;";
             Statement statement = conn.createStatement();
             return statement.executeQuery(sql);
         }
@@ -932,12 +949,12 @@ public class DB {
 
     }
 
-    private static ResultSet getEarningsPerEndUserReport() {
+    public static ResultSet getEarningsPerEndUserReport() {
         if (!initialized)
             init();
 
         try {
-            String sql = "SELECT A.SellerID, SUM(MAX(B.Amount)) FROM Auction A, Bid B WHERE A.AuctionID = B.AuctionID GROUP BY A.SellerID;";
+            String sql = "SELECT A.SellerID, SUM(B.Amount) AS Amount FROM Auction A, Bid B WHERE A.AuctionID = B.AuctionID AND A.HasEnded = 1 AND B.Amount = (SELECT MAX(B2.AMOUNT) FROM Bid B2 WHERE B2.AuctionID = B.AuctionID) GROUP BY A.SellerID ASC;";
             Statement statement = conn.createStatement();
             return statement.executeQuery(sql);
         }
@@ -948,12 +965,12 @@ public class DB {
 
     }
 
-    private static ResultSet getBestSellingItemsReport() {
+    public static ResultSet getBestSellingItemsReport() {
         if (!initialized)
             init();
 
         try {
-            String sql = "SELECT A.ItemID, MAX(B.Amount) FROM Auction A, Bid B WHERE A.AuctionID = B.AuctionID GROUP BY A.ItemID DESC LIMIT 5;";
+            String sql = "SELECT A.ItemID, B.Amount AS Amount FROM Auction A, Bid B WHERE A.AuctionID = B.AuctionID AND A.HasEnded = 1 AND B.Amount = (SELECT MAX(B2.AMOUNT) FROM Bid B2 WHERE B2.AuctionID = B.AuctionID GROUP BY A.ItemID) ORDER BY B.Amount DESC LIMIT 5;";
             Statement statement = conn.createStatement();
             return statement.executeQuery(sql);
         }
@@ -964,12 +981,12 @@ public class DB {
 
     }
 
-    private static ResultSet getBestBuyersReport() {
+    public static ResultSet getBestBuyersReport() {
         if (!initialized)
             init();
 
         try {
-            String sql = "SELECT B.BidderID, MAX(B.Amount) FROM Auction A, Bid B WHERE A.AuctionID = B.AuctionID GROUP BY B.BidderID DESC LIMIT 5;";
+            String sql = "SELECT B.BidderID, SUM(B.Amount) AS Amount FROM Auction A, Bid B WHERE A.AuctionID = B.AuctionID AND A.HasEnded = 1 AND B.Amount = (SELECT MAX(B2.AMOUNT) FROM Bid B2 WHERE B2.AuctionID = B.AuctionID) GROUP BY B.Amount DESC LIMIT 5;";
             Statement statement = conn.createStatement();
             return statement.executeQuery(sql);
         }
