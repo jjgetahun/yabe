@@ -37,8 +37,8 @@ CREATE TABLE Auction (
   ItemID        INT(11)     NOT NULL,
   StartTime     TIMESTAMP   NOT NULL DEFAULT '1970-01-01 00:00:01',
   EndTime       TIMESTAMP   NOT NULL DEFAULT '2037-01-19 03:14:07',
-  StartingPrice FLOAT(7, 2) NOT NULL DEFAULT 0.01,
-  Reserve       FLOAT(7, 2),
+  StartingPrice FLOAT(100, 2) NOT NULL DEFAULT 0.01,
+  Reserve       FLOAT(100, 2),
   Description   VARCHAR(255),
   HasEnded      TINYINT(1)           DEFAULT 0,
   Cond          VARCHAR(255),
@@ -57,7 +57,7 @@ CREATE TABLE Alert (
 
 CREATE TABLE Bid (
   Time      TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  Amount    FLOAT(7, 2) NOT NULL,
+  Amount    FLOAT(100, 2) NOT NULL,
   BidderID  INT(11)     NOT NULL,
   AuctionID INT(11)     NOT NULL,
   IsAuto    TINYINT(1)  NOT NULL,

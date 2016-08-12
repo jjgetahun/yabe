@@ -228,12 +228,12 @@ public class DB {
         int oldBidderID = -1;
         try{
             //find current highest bidder
-            String sql = "SELECT MAX(B.Amount) as bid, B.BidderID FROM Auction A, Bid B WHERE A.AuctionID = B.AuctionID and A.AuctionID" +
-                    " = " + auctionID +";";
+            String sql = "SELECT * FROM Auction A, Bid B WHERE A.AuctionID = B.AuctionID and A.AuctionID" +
+                    " = " + auctionID +" HAVING MAX(B.Amount);";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
-                highestBid = rs.getFloat("bid");
+                highestBid = rs.getFloat("Amount");
                 oldBidderID = rs.getInt("BidderID");
             }
             System.out.println(highestBid);
