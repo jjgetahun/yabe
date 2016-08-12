@@ -52,7 +52,7 @@
             rs = DB.getSimilarAuctions(Integer.parseInt(modelNumber));
         }
 
-        if(request.getParameter("browse") != null){
+        else if(request.getParameter("browse") != null){
             System.out.println("Default keyword: " + modelNumber);
             qrs = DB.searchAuction(modelNumber, null, null, null, true, modelNumber);
             query = (String)qrs.getKey();

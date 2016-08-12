@@ -235,9 +235,11 @@ public class DB {
                     " = " + auctionID +" GROUP BY Amount DESC;";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(sql);
-            highestBid = rs.getFloat("Amount");
-            oldBidderID = rs.getInt("BidderID");
-
+            while(rs.next()) {
+                highestBid = rs.getFloat("Amount");
+                oldBidderID = rs.getInt("BidderID");
+                break;
+            }
             System.out.println(highestBid);
             System.out.println(oldBidderID);
             if (amount <= highestBid || oldBidderID == bidderID)
