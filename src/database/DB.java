@@ -230,15 +230,13 @@ public class DB {
         int oldBidderID = -1;
         try{
             //find current highest bidder
-            String sql = "SELECT MAX(B.Amount) as bid, B.BidderID FROM Auction A, Bid B WHERE A.AuctionID = B.AuctionID " +
-                    "GROUP BY B.BidderID;";
+            String sql = "SELECT MAX(B.Amount) as bid, B.BidderID FROM Auction A, Bid B WHERE A.AuctionID = B.AuctionID;";
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
                 highestBid = rs.getFloat("bid");
                 oldBidderID = rs.getInt("BidderID");
             }
-
             if (amount <= highestBid || oldBidderID == bidderID)
                 return false;
 
@@ -252,22 +250,22 @@ public class DB {
                     auctionID + ", " + isAuto + ");";
             statement.executeUpdate(sql);
 
-            if(isAuto == 1) {
-                sql = "INSERT INTO Bid(Amount, BidderID, AuctionID, IsAuto) VALUES("+ Math.ceil(highestBid+0.01) + ", " + bidderID + ", " +
-                        auctionID + ", 0);";
-                statement.executeUpdate(sql);
-            }
+//            if(isAuto == 1) {
+//                sql = "INSERT INTO Bid(Amount, BidderID, AuctionID, IsAuto) VALUES("+ Math.ceil(highestBid+0.01) + ", " + bidderID + ", " +
+//                        auctionID + ", 0);";
+//                statement.executeUpdate(sql);
+//            }
 
-            //recursively insert competing auto bids
-            sql = "SELECT MAX(Amount) as amt, BidderID FROM Bid WHERE IsAuto = 1 and BidderID <> " + bidderID + "GROUP BY BidderID;";
-            rs = statement.executeQuery(sql);
-            float newAmount = 0;
-            int newBidderID = -1;
-            while(rs.next()){
-                newAmount = rs.getFloat("amt");
-                newBidderID = rs.getInt("BidderID");
-            }
-            placeBid(newBidderID, auctionID, newAmount, 0);
+//            //recursively insert competing auto bids
+//            sql = "SELECT MAX(Amount) as amt, BidderID FROM Bid WHERE IsAuto = 1 and BidderID <> " + bidderID + "GROUP BY BidderID;";
+//            rs = statement.executeQuery(sql);
+//            float newAmount = 0;
+//            int newBidderID = -1;
+//            while(rs.next()){
+//                newAmount = rs.getFloat("amt");
+//                newBidderID = rs.getInt("BidderID");
+//            }
+//            placeBid(newBidderID, auctionID, newAmount, 0);
             return true;
         }catch(SQLException e){
             e.printStackTrace();
