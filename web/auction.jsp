@@ -37,6 +37,7 @@
 
     ResultSet qRS = null;
     ResultSet bRS = null;
+    ResultSet aRS = null;
 
     if(session.getAttribute("USER") != null){
         //CAN't Access this page!
@@ -323,9 +324,9 @@
                     <th>Header</th>
                     <th>Contents</th>
                     <th>Time Posted</th>
-                    <% if (session.getAttribute("USER") != null && database.DB.isCustomerRep(Integer.parseInt(userID))) { %>
-                    <th>Action</th>
-                    <% } %>
+                    <th>Rep ID</th>
+                    <th>Answer</th>
+                    <th>Time Posted</th>
                 </tr>
                 </thead>
                 <%
@@ -337,20 +338,14 @@
                     <td> <%=qRS.getInt("PosterID")%> </td>
                     <td> <%=qRS.getString("Header")%> </td>
                     <td> <%=qRS.getString("Contents")%> </td>
-                    <td> <%=qRS.getString("TimePosted")%> </td>
-                    <% if (session.getAttribute("USER") != null && database.DB.isCustomerRep(Integer.parseInt(userID)) && database.DB.isAnswered(qRS.getInt("QuestionID")) == false) { %>
-                    <td>
-                        <form action="answer.jsp" method="POST" class="row">
-                            <div class="input-group">
-                                <input type="hidden" name="qid" value="<%=qRS.getInt("QuestionID")%>">
-                                <input type="text" class="form-control" placeholder="'Answer'" name="answer">
-                                <span class="input-group-btn">
-                                                    <button class="btn btn-success" type="submit">Answer</button>
-                                                </span>
-                            </div>
-                        </form>
-                    </td>
-                    <% } %>
+                    <td> <%=qRS.getTimestamp("TimePosted")%> </td>
+                    <% if (database.DB.isAnswered(qRS.getInt("QuestionID")) == true) { %>
+                    <% aRS = database.DB.getAnswer(qRS.getInt("QuestionID")); %>
+                    <% while (aRS != null && aRS.next()) { %>
+                    <td> <%=aRS.getInt("PosterID")%> </td>
+                    <td> <%=aRS.getString("Contents")%> </td>
+                    <td> <%=aRS.getTimestamp("TimePosted")%> </td>
+                    <% } } %>
                 </tr>
                 </tbody>
                 <%
