@@ -121,6 +121,11 @@
                     autobid = 1;
                 DB.placeBid(bID, aID, amount, autobid);
             }
+            else if(request.getParameter("ask") != null){
+                int pID = Integer.parseInt(request.getParameter("userID"));
+                String contents = request.getParameter("question");
+                DB.postQuestion(pID, aID, "QUESTION", contents);
+            }
             qRS = database.DB.getAuctionQuestions(aID);
             bRS = database.DB.getAuctionBids(aID);
         }
@@ -231,10 +236,10 @@
                             <span class="input-group-btn">
                             <button class="btn btn-success" type="submit">Place Bid</button>
                             </span>
-                    <input type="text" class="form-control" placeholder="'Amount'" name="amount">
+                    <input type="number" class="form-control" placeholder="'Amount'" name="amount">
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" name="autobid" value="autobid">
+                            <input type="checkbox" name="autobid" value="autobid" disabled="disabled">
                             Autobid
                         </label>
                     </div>
@@ -291,7 +296,17 @@
         </div>
         <div class="panel-body">
             <!--Div wrap and overflow auto for scroll-->
-
+            <form action="auction.jsp" method="POST" class="row">
+                <div class="input-group">
+                            <span class="input-group-btn">
+                            <button class="btn btn-success" type="submit">Ask Question</button>
+                            </span>
+                    <input type="text" class="form-control" placeholder="'Question'" name="question">
+                    <input type="hidden" name="ask" value="ask">
+                    <input type="hidden" name="userID" value="<%=userID%>">
+                    <input type="hidden" name="auctionID" value="<%=aID%>">
+                </div>
+            </form>
             <table class="table table-striped">
                 <thead>
                 <tr>
