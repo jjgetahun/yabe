@@ -514,8 +514,6 @@ public class DB {
                     query += "A.EndTime <= " + endDate.getTime() + " AND ";
                 }
 
-
-
                 switch (type) {
                     case "backpacks":
                         query += "(I.Pockets = '" + attr[0] + "' AND I.Material = '" + attr[1] + "' AND I.Waterproof = '" + attr[2] + "');";
@@ -537,22 +535,6 @@ public class DB {
             e.printStackTrace();
         }
         return null;
-    }
-
-    public static boolean removeAuction(int auctionID) {
-
-        if(!initialized) init();
-
-        try {
-            String sql = "DELETE FROM Auction WHERE AuctionID = " + auctionID + ";";
-            Statement statement = conn.createStatement();
-            statement.executeUpdate(sql);
-            return true;
-        } catch(SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-
     }
 
     public static ResultSet sortAuctionSearchByTime (String baseQuery, boolean asc) {
@@ -691,110 +673,6 @@ public class DB {
         }
     }
 
-    public static Question searchAuctionQuestions(int auctionID){
-
-        if (!initialized)
-            init();
-
-        try{
-
-            //Find the given question
-            String sql = "SELECT * FROM Question WHERE AuctionID = "+auctionID+";";
-            Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery(sql);
-
-            int posterID = -1;
-            int questionID = -1;
-            String header = "";
-            String contents = "";
-            Timestamp timePosted = null;
-
-            while (rs.next()) {
-                posterID = rs.getInt("PosterID");
-                questionID = rs.getInt("QuestionID");
-                header = rs.getString("Header");
-                contents = rs.getString("Contents");
-                timePosted = rs.getTimestamp("TimePosted");
-            }
-
-            Question question = new Question(posterID, auctionID, header, contents, timePosted);
-
-            sql = "SELECT PosterID, Header, Contents FROM Answer WHERE QuestionID = " + questionID + ";";
-            rs = statement.executeQuery(sql);
-
-            int ansPosterID = -1;
-            int id = -1;
-            String ansContents = "";
-            Timestamp ansTimePosted = null;
-
-            while (rs.next()) {
-                ansPosterID = rs.getInt("PosterID");
-                id = rs.getInt("QuestionID");
-                ansContents = rs.getString("Contents");
-                ansTimePosted = rs.getTimestamp("TimePosted");
-                question.addAnswer(new Answer(ansPosterID, id, ansContents, ansTimePosted));
-            }
-
-            return question;
-        }catch(SQLException e){
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public static Question searchAllQuestions(String questionHeader){
-
-        if (!initialized)
-            init();
-
-        try{
-
-            //Find the given question
-            String sql = "SELECT * FROM Question WHERE Header LIKE '%"+questionHeader+"%';";
-            Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery(sql);
-
-            int posterID = -1;
-            int questionID = -1;
-            int auctionID = -1;
-            String header = "";
-            String contents = "";
-            Timestamp timePosted = null;
-
-            while (rs.next()) {
-                posterID = rs.getInt("PosterID");
-                questionID = rs.getInt("QuestionID");
-                auctionID = rs.getInt("AuctionID");
-                header = rs.getString("Header");
-                contents = rs.getString("Contents");
-                timePosted = rs.getTimestamp("TimePosted");
-            }
-
-            Question question = new Question(posterID, auctionID, header, contents, timePosted);
-
-            sql = "SELECT PosterID, Header, Contents FROM Answer WHERE QuestionID = " + questionID + ";";
-            rs = statement.executeQuery(sql);
-
-            int ansPosterID = -1;
-            int id = -1;
-            String ansContents = "";
-            Timestamp ansTimePosted = null;
-
-            while (rs.next()) {
-                ansPosterID = rs.getInt("PosterID");
-                id = rs.getInt("QuestionID");
-                ansContents = rs.getString("Contents");
-                ansTimePosted = rs.getTimestamp("TimePosted");
-                question.addAnswer(new Answer(ansPosterID, id, ansContents, ansTimePosted));
-            }
-
-            return question;
-        }catch(SQLException e){
-            e.printStackTrace();
-            return null;
-        }
-    }
-
     public static ResultSet getAuctionQuestions(int auctionID){
 
         if (!initialized)
@@ -875,35 +753,6 @@ public class DB {
             return null;
         }
     }
-
-    /*public static ResultSet generateSalesReport(String type) {
-
-        if (!initialized)
-            init();
-
-        switch(type) {
-            case "Total Earnings":
-                return getTotalEarningsReport();
-
-            case "Earnings per Item":
-                return getEarningsPerItemReport();
-
-            case "Earnings per Item Type":
-                return getEarningsPerItemTypeReport();
-
-            case "Earnings per End-User":
-                return getEarningsPerEndUserReport();
-
-            case "Best-Selling Items":
-                return getBestSellingItemsReport();
-
-            case "Best Buyers":
-                return getBestBuyersReport();
-
-            default:
-                return null;
-        }
-    }*/
 
     public static ResultSet getTotalEarningsReport() {
         if (!initialized)

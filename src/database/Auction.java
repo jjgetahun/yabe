@@ -35,9 +35,4 @@ public class Auction {
         bidList.add(bid);
     }
 
-    public boolean hasEnded() {
-        Date date = new Date();
-        Timestamp currentTime = new Timestamp(date.getTime());
-        return currentTime.after(endTime);
-    }
 }

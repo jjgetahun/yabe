@@ -23,12 +23,4 @@ public class Question {
         this.timePosted = timePosted;
     }
 
-    public ArrayList<Answer> getAnswerList() {
-        return answerList;
-    }
-
-    public void addAnswer(Answer answer) {
-        answerList.add(answer);
-    }
-
 }
