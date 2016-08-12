@@ -102,7 +102,7 @@
                             <span class="input-group-btn">
                             <button class="btn btn-success" type="submit">Search User</button>
                             </span>
-                            <input type="text" class="form-control" placeholder="'Leaf Erikson'" name="username">
+                            <input type="text" class="form-control" placeholder="username" name="username">
 
                         </div>
                     </div>

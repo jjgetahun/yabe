@@ -14,15 +14,17 @@ public class Auction {
     public final float reserve;
     public final Timestamp startTime;
     public final Timestamp endTime;
+    public final String condition;
     private ArrayList<Bid> bidList = new ArrayList<Bid>();
 
-    public Auction(int sellerID, String name, int itemID, float reserve, Timestamp startTime, Timestamp endTime) {
+    public Auction(int sellerID, String name, int itemID, float reserve, Timestamp startTime, Timestamp endTime, String condition) {
         this.sellerID = sellerID;
         this.name = name;
         this.itemID = itemID;
         this.reserve = reserve;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.condition = condition;
     }
 
     public ArrayList<Bid> getBidList() {

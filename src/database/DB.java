@@ -441,6 +441,7 @@ public class DB {
             float reserve = -1;
             Timestamp startTime = null;
             Timestamp endTime = null;
+            String condition = "";
 
             while (rs.next()) {
                 sellerID = rs.getInt("SellerID");
@@ -449,8 +450,9 @@ public class DB {
                 reserve = rs.getFloat("Reserve");
                 startTime = rs.getTimestamp("StartTime");
                 endTime = rs.getTimestamp("EndTime");
+                condition = rs.getString("Cond");
             }
-            Auction auction = new Auction(sellerID, name, itemID, reserve, startTime, endTime);
+            Auction auction = new Auction(sellerID, name, itemID, reserve, startTime, endTime, condition);
 
             sql = "SELECT Amount, BidderID, Time FROM Bid WHERE IsAuto = 0 and AuctionID = " + auctionID + " GROUP BY Amount;";
             rs = statement.executeQuery(sql);

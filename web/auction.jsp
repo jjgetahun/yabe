@@ -183,14 +183,14 @@
             <div class="col-md-6">
                 <h3>Auction Name: <%=auction.name%></h3>
                 <h3>Model Number: <%=auction.itemID%></h3>
-                <h3>Condition: <%="asdfasdf"%></h3>
+                <h3>Condition: <%=auction.condition%></h3>
                 <h4>Type: <%=item.category%></h4>
                 <h4><%=a + item.attr1%></h4>
                 <h4><%=b + item.attr2%></h4>
                 <h4><%=c + item.attr3%></h4>
             </div>
             <div class="col-md-6">
-                <h3>Seller: <%=DB.getNameFromID(auction.sellerID)%>></h3>
+                <h3>Seller: <%=DB.getNameFromID(auction.sellerID)%></h3>
                 <h3>End Date: <%=auction.endTime%></h3>
                 <h3>Reserve: <%=auction.reserve%></h3>
 
