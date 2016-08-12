@@ -61,45 +61,39 @@
         }
         else if(request.getParameter("searchByUser") != null){
             rs = DB.getAuctionsParticipatedIn(DB.getUserID(request.getParameter("username")));
-        }else{
-            if (request.getParameter("category") == null ||
-                    request.getParameter("condition") == null ||
-                    request.getParameter("end") == null) {
-                        message = "End date and condition required. Please try again.";
-            }else{
+        }else {
 
-                String[] attr = new String[3];
+            String[] attr = new String[3];
 
-                if (request.getParameter("category").equals("backpacks")) {
-                    attr[0] = request.getParameter("pockets");
-                    attr[1] = request.getParameter("material");
+            if (request.getParameter("category").equals("backpacks")) {
+                attr[0] = request.getParameter("pockets");
+                attr[1] = request.getParameter("material");
 
-                    if (request.getParameter("waterproof") != null) attr[2] = "true";
-                    else attr[2] = "false";
-                } else if (request.getParameter("category").equals("tents")) {
-                    attr[0] = request.getParameter("color");
-                    attr[1] = request.getParameter("capacity");
+                if (request.getParameter("waterproof") != null) attr[2] = "true";
+                else attr[2] = "false";
+            } else if (request.getParameter("category").equals("tents")) {
+                attr[0] = request.getParameter("color");
+                attr[1] = request.getParameter("capacity");
 
-                    if (request.getParameter("spare") != null) attr[2] = "true";
-                    else attr[2] = "false";
-                } else {
-                    attr[0] = request.getParameter("battery");
+                if (request.getParameter("spare") != null) attr[2] = "true";
+                else attr[2] = "false";
+            } else {
+                attr[0] = request.getParameter("battery");
 
-                    if (request.getParameter("rechargeable") != null) attr[1] = "true";
-                    else attr[1] = "false";
+                if (request.getParameter("rechargeable") != null) attr[1] = "true";
+                else attr[1] = "false";
 
-                    if (request.getParameter("led") != null) attr[2] = "true";
-                    else attr[2] = "false";
-                }
-                String date = request.getParameter("end");
-
-                qrs = DB.searchAuction(modelNumber, request.getParameter("category"), attr, date, false, request.getParameter("condition"));
-                query = (String)qrs.getKey();
-                rs = (ResultSet)qrs.getValue();
-                session.setAttribute("baseQuery", query);
+                if (request.getParameter("led") != null) attr[2] = "true";
+                else attr[2] = "false";
             }
-        }
+            String date = request.getParameter("end");
 
+            qrs = DB.searchAuction(modelNumber, request.getParameter("category"), attr, date, false, request.getParameter("condition"));
+            query = (String) qrs.getKey();
+            rs = (ResultSet) qrs.getValue();
+            session.setAttribute("baseQuery", query);
+
+        }
     }else{
         query = (String)session.getAttribute("baseQuery");
         if(request.getParameter("sortPriceA") != null){
@@ -205,10 +199,9 @@
                                     int aid = rs.getInt("AuctionID");
                                     Auction auction = DB.getAuction(aid);
                                     String bid = "No bids placed";
-                                    if(auction.getBidList().size() > 0){
-                                        bid = "" + auction.getBidList().get(0).amount;
+                                    if(auction.getBidList().size() > 0) {
+                                        bid = "$" + auction.getBidList().get(auction.getBidList().size() - 1).amount;
                                     }
-
                                     String time = "bad";
                                     if(auction == null) time =  "oops";
                                     if(auction.endTime != null) time = auction.endTime.toString();
