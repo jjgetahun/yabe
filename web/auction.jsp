@@ -8,7 +8,7 @@
 <%@ page import="database.Item" %>
 <html>
 <head>
-    <title>Login</title>
+    <title>Auction</title>
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/material-kit.css" rel="stylesheet">
     <link href="assets/css/yabe.css" rel="stylesheet">

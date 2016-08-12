@@ -6,7 +6,7 @@
 
 <html>
 <head>
-    <title>User Page</title>
+    <title>Search Results</title>
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/material-kit.css" rel="stylesheet">
     <link href="assets/css/yabe.css" rel="stylesheet">
@@ -65,7 +65,7 @@
             if (request.getParameter("category") == null ||
                     request.getParameter("condition") == null ||
                     request.getParameter("end") == null) {
-                        message = "End date and start price required. Please try again.";
+                        message = "End date and condition required. Please try again.";
             }else{
 
                 String[] attr = new String[3];
@@ -141,6 +141,7 @@
     </div>
 </nav>
 <div class="container centered">
+    <h3><%=message%></h3>
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
