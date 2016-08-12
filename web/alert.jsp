@@ -12,12 +12,11 @@
 </head>
 <body>
 <%
-    if(session.getAttribute("USER") != null) {
+    if(session.getAttribute("USER") != null && request.getParameter("modelNumber") != "") {
         int modelNumber = Integer.parseInt(request.getParameter("modelNumber"));
         database.DB.setAlert(Integer.parseInt((String) session.getAttribute("USER")), modelNumber);
-        response.sendRedirect ("index.jsp");
-        return;
     }
+    response.sendRedirect("index.jsp");
 %>
 </body>
 </html>

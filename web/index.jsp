@@ -88,7 +88,7 @@
                             <span class="input-group-btn">
                             <button class="btn btn-success" type="submit">Create Alert</button>
                             </span>
-                            <input type="text" class="form-control" placeholder="'Model No. (ex. 1234)'" name="modelNumber">
+                            <input type="number" class="form-control" placeholder="'Model No. (ex. 1234)'" name="modelNumber">
                         </div>
                     </form>
 
