@@ -294,6 +294,10 @@
         <div class="panel-heading">
             <h3 class="panel-title">Questions</h3>
         </div>
+        <%
+            if(!userID.equals("") && !userID.equals(auction.sellerID)){
+
+        %>
         <div class="panel-body">
             <!--Div wrap and overflow auto for scroll-->
             <form action="auction.jsp" method="POST" class="row">
@@ -307,6 +311,10 @@
                     <input type="hidden" name="auctionID" value="<%=aID%>">
                 </div>
             </form>
+            <%
+                }
+
+            %>
             <table class="table table-striped">
                 <thead>
                 <tr>
