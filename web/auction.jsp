@@ -5,6 +5,7 @@
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="database.Auction" %>
+<%@ page import="database.Item" %>
 <html>
 <head>
     <title>Login</title>
@@ -26,10 +27,7 @@
     String b = "";
     String c = "";
 
-    String sellerName = "";
     String endDates = "";
-    String highestBid = "";
-    String highestBidder = "";
     String reserve = "";
     String price = "";
     String description = "";
@@ -111,12 +109,35 @@
     }else{
         if(request.getParameter("auctionID") != null){
             aID = Integer.parseInt(request.getParameter("auctionID"));
+
             qRS = database.DB.getAuctionQuestions(aID);
             bRS = database.DB.getAuctionBids(aID);
         }
     }
 
     Auction auction = DB.getAuction(aID);
+    Item item = DB.getItem(auction.itemID);
+    System.out.println(item);
+    if("backpacks".equals(item.category)){
+        a = "Pockets: ";
+        b = "Material: ";
+        c = "Waterproof: ";
+    }else if("tents".equals(item.category)){
+        a = "Color: ";
+        b = "Capacity: ";
+        c = "Spare Parts: ";
+    }else{
+        a = "Batteries: ";
+        b = "Rechargable: ";
+        c = "LED: ";
+    }
+    String highestBid = "None";
+    String highestBidder = "None";
+    if(auction.getBidList().size() > 0){
+        highestBid = "$" + auction.getBidList().get(auction.getBidList().size() - 1).amount;
+        int bidID = auction.getBidList().get(auction.getBidList().size() - 1).getBidderID();
+        highestBidder = DB.getNameFromID(bidID);
+    }
 
     //DO AUCITON FETCHING HERE
 
@@ -153,17 +174,19 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                <h3>Auction Name: <%=auctionName%></h3>
-                <h3>Model Number: <%=modelNumber%></h3>
-                <h3>Condition: <%=cond%></h3>
-                <h4>Type: <%=type%></h4>
-                <h4><%=a%></h4>
-                <h4><%=b%></h4>
-                <h4><%=c%></h4>
+                <h3>Auction Name: <%=auction.name%></h3>
+                <h3>Model Number: <%=auction.itemID%></h3>
+                <h3>Condition: <%="asdfasdf"%></h3>
+                <h4>Type: <%=item.category%></h4>
+                <h4><%=a + item.attr1%></h4>
+                <h4><%=b + item.attr2%></h4>
+                <h4><%=c + item.attr3%></h4>
             </div>
             <div class="col-md-6">
-                <h3>End Date: <%=endDates%></h3>
-                <h3>Reserve: <%=reserve%></h3>
+                <h3>Seller: <%=DB.getNameFromID(auction.sellerID)%>></h3>
+                <h3>End Date: <%=auction.endTime%></h3>
+                <h3>Reserve: <%=auction.reserve%></h3>
+
                 <h4>Highest Bid: <%=highestBid%></h4>
                 <h4>Highest Bidder: <%=highestBidder%></h4>
             </div>
@@ -175,8 +198,15 @@
             <h3 class="panel-title">Bids</h3>
         </div>
         <div class="panel-body">
-            <!--Div wrap and overflow auto for scroll-->
+            <%
+                String sellerID = "" + auction.sellerID;
+                if(!userID.equals("") && !userID.equals(auction.sellerID)){
 
+            %>
+                <%--Form goes here--%>
+            <%
+                }
+            %>
             <table class="table table-striped">
                 <thead>
                 <tr>

@@ -291,17 +291,35 @@ public class DB {
 
     }
 
-    private static Item getItem(int modelNumber) {
+    public static Item getItem(int modelNumber) {
         if (!initialized) init();
-
+        System.out.println(modelNumber);
         try {
-            String sql = "SELECT * FROM Item WHERE ModelNumber = ModelNumber";
+            String sql = "SELECT * FROM Item WHERE ModelNumber = " + modelNumber;
             Statement statement = conn.createStatement();
             ResultSet rs = statement.executeQuery(sql);
-            while (rs.next()) {
 
+            String type, a, b, c;
+
+            type = a = b = c = "oops";
+
+            while (rs.next()) {
+                type = rs.getString("Type");
+                if(type.equals("backpacks")){
+                    a = rs.getString("Pockets");
+                    b = rs.getString("Material");
+                    c = rs.getString("Waterproof");
+                }else if(type.equals("tents")){
+                    a = rs.getString("Color");
+                    b = rs.getString("Capacity");
+                    c = rs.getString("SpareParts");
+                }else{
+                    a = rs.getString("Battery");
+                    b = rs.getString("Rechargeable");
+                    c = rs.getString("LED");
+                }
             }
-            return null;
+            return new Item(modelNumber, type, a, b, c);
         }
         catch (SQLException e){
             e.printStackTrace();
