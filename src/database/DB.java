@@ -606,43 +606,14 @@ public class DB {
 
     }
 
-    public static ArrayList<ResultSet> getSimilarAuctions(int modelNumber){
+    public static ResultSet getSimilarAuctions(int modelNumber){
         if (!initialized)
             init();
         try {
             Item item = getItem(modelNumber);
-            String attr1, attr2, attr3;
-            switch (item.category) {
-                case "backpacks":
-                    attr1 = "Pockets";
-                    attr2 = "Material";
-                    attr3 = "Waterproof";
-                    break;
-                case "tents":
-                    attr1 = "Capacity";
-                    attr2 = "Color";
-                    attr3 = "SpareParts";
-                    break;
-                default:
-                    attr1 = "Battery";
-                    attr2 = "Rechargeable";
-                    attr3 = "LED";
-                    break;
-            }
-            String sql = "SELECT ModelNumber FROM Item WHERE Item.ModelNumber <> " + modelNumber + " and (" +
-                    attr1 + " = '" + item.attr1 + "' or " + attr2 + " = '" + item.attr2 + "' or " + attr3 + " = '" + item.attr3 +
-                    "');";
-            ArrayList<ResultSet> similarAuctions = new ArrayList<>();
+            String sql = "SELECT * FROM Auction A WHERE EXISTS (SELECT * FROM Item I WHERE A.ItemID = I.ModelNumber AND I.Type = '" + item.category + "');";
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery(sql);
-            int similarModel = -1;
-            while(rs.next()){
-                similarModel = rs.getInt("ModelNumber");
-                sql = "SELECT AuctionID FROM Auction WHERE ItemID = " + similarModel + ";";
-                ResultSet newRS = statement.executeQuery(sql);
-                similarAuctions.add(newRS);
-            }
-            return similarAuctions;
+            return statement.executeQuery(sql);
         }
         catch(SQLException e){
             e.printStackTrace();

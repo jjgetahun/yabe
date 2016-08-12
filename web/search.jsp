@@ -38,8 +38,13 @@
     if(request.getParameter("search") != null){
         if(request.getParameter("modelNumber") != null)
             modelNumber = request.getParameter("modelNumber");
+
         else
             modelNumber = null;
+
+        if(request.getParameter("similar") != null) {
+            rs = DB.getSimilarAuctions(Integer.parseInt(modelNumber));
+        }
 
         if(request.getParameter("browse") != null){
             System.out.println("Default keyword: " + modelNumber);

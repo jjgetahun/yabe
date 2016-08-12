@@ -201,6 +201,18 @@
                 <h4>Highest Bid: <%=highestBid%></h4>
                 <h4>Highest Bidder: <%=highestBidder%></h4>
             </div>
+            <form action="search.jsp" method="POST" class="row">
+                <div class="input-group">
+                    <input type="hidden" name="search" value="search">
+                    <input type="hidden" name="similar" value="similar">
+                    <input type="hidden" name="modelNumber" value="<%=auction.itemID%>";
+                    <span class="input-group-btn">
+                            <button class="btn btn-success" type="submit">Search Similar</button>
+                            </span>
+
+                </div>
+                </div>
+            </form>
         </div>
     </div>
 
