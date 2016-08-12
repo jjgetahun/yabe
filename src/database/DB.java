@@ -3,10 +3,8 @@ package database;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 import java.util.Date;
-import java.util.ArrayList;
 
 public class DB {
 
@@ -342,7 +340,7 @@ public class DB {
                     break;
 
                 case "flashlights":
-                    sql = "INSERT INTO Item(ModelNumber, Type, Battery, Rechargable, LED) VALUES(" + modelNumber + ", 'flashlights', '" + attr[0] + "', '" + attr[1] + "', '" + attr[2] + "');";
+                    sql = "INSERT INTO Item(ModelNumber, Type, Battery, Rechargeable, LED) VALUES(" + modelNumber + ", 'flashlights', '" + attr[0] + "', '" + attr[1] + "', '" + attr[2] + "');";
                     break;
 
                 default:
@@ -474,7 +472,7 @@ public class DB {
         }
     }
 
-    public static ResultSet searchAuction(String modelNumber, String type, String[] attr, String endTime, boolean browseMode, String condition) {
+    public static AbstractMap.SimpleEntry searchAuction(String modelNumber, String type, String[] attr, String endTime, boolean browseMode, String condition) {
 
         if (!initialized)
             init();
@@ -484,19 +482,20 @@ public class DB {
 
             if (browseMode) {
 
-                if (modelNumber == null||modelNumber.equals("")) {
-                    query = "SELECT * FROM Auction;";
+                if (modelNumber == null || modelNumber.equals("")) {
+                    query = "SELECT DISTINCT A.AuctionID FROM Auction A, Bid B WHERE A.AuctionID = A.AuctionID;"; //Redundency for inclusion of a where clause
                 } else {
-                    query = "SELECT * FROM Auction WHERE ItemID = " + Integer.parseInt(modelNumber) + ";";
+                    query = "SELECT DISTINCT A.AuctionID FROM Auction A, Bid B WHERE ItemID = " + Integer.parseInt(modelNumber) + ";";
                 }
 
                 Statement statement = conn.createStatement();
                 ResultSet rs = statement.executeQuery(query);
-                return rs;
+
+                return new AbstractMap.SimpleEntry(query, rs);
 
             } else {
 
-                query = "SELECT * FROM Auction A, Item I WHERE A.ItemID = I.ModelNumber AND I.Type = '" + type + "' AND A.Cond = '" + condition + "' AND ";
+                query = "SELECT DISTINCT A.AuctionID FROM Auction A, Item I, Bid B WHERE A.ItemID = I.ModelNumber AND I.Type = '" + type + "' AND A.Cond = '" + condition + "' AND ";
 
                 if (endTime != null && !endTime.equals("")) {
 
@@ -522,7 +521,8 @@ public class DB {
 
                 System.out.println(query);
                 Statement statement = conn.createStatement();
-                return statement.executeQuery(query);
+                ResultSet rs = statement.executeQuery(query);
+                return new AbstractMap.SimpleEntry(query, rs);
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -546,15 +546,20 @@ public class DB {
 
     }
 
-    public static ResultSet sortAuctionSearchByType () {
+    public static ResultSet sortAuctionSearchByTime (String baseQuery, boolean asc) {
 
         if(!initialized) init();
 
         try {
-            String sql = "SELECT * FROM Auction A, Item I WHERE A.AuctionID = I.AuctionID ORDER BY I.Type;";
+            String query = baseQuery.substring(0, baseQuery.indexOf(';')); //remove ;
+
+            if(!asc) query += " ORDER BY A.EndTime DESC;";
+            else  query += " ORDER BY A.EndTime;";
+
+            System.out.println(query);
             Statement statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery(sql);
-            return rs;
+            return statement.executeQuery(query);
+
         } catch(SQLException e) {
             e.printStackTrace();
             return null;
@@ -562,14 +567,19 @@ public class DB {
 
     }
 
-    public static ResultSet sortAuctionSearchByPrice () {
+    public static ResultSet sortAuctionSearchByPrice (String baseQuery, boolean asc) {
 
         if(!initialized) init();
 
         try {
-            String sql = "SELECT * FROM Auction A, Bid B WHERE A.AuctionID = B.AuctionID ORDER BY MAX(B.Amount);";
+            String query = baseQuery.substring(0, baseQuery.indexOf(';')); //remove ;
+
+            if(!asc) query += " AND A.AuctionID = B.AuctionID ORDER BY B.Amount DESC;";
+            else  query += " AND A.AuctionID = B.AuctionID ORDER BY B.Amount;";
+
+            System.out.println(query);
             Statement statement = conn.createStatement();
-            return statement.executeQuery(sql);
+            return statement.executeQuery(query);
         } catch(SQLException e) {
             e.printStackTrace();
             return null;

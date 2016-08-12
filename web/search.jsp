@@ -1,6 +1,8 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="database.DB" %>
 <%@ page import="database.Auction" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.AbstractMap" %>
 
 <html>
 <head>
@@ -21,9 +23,13 @@
     String modelNumber = "";
     String type = "";
 
+    String query = "";
 
     ResultSet rs = null;
     String message = "";
+
+    //Query and results key = query, value = rs
+    AbstractMap.SimpleEntry qrs;
 
     if(session.getAttribute("USER") != null){
         userID = (String)session.getAttribute("USER");
@@ -48,12 +54,14 @@
 
         if(request.getParameter("browse") != null){
             System.out.println("Default keyword: " + modelNumber);
-            rs = DB.searchAuction(modelNumber, null, null, null, true, modelNumber);
+            qrs = DB.searchAuction(modelNumber, null, null, null, true, modelNumber);
+            query = (String)qrs.getKey();
+            rs = (ResultSet)qrs.getValue();
+            session.setAttribute("baseQuery", query);
         }
         else if(request.getParameter("searchByUser") != null){
             rs = DB.getAuctionsParticipatedIn(DB.getUserID(request.getParameter("username")));
-        }
-        else{
+        }else{
             if (request.getParameter("category") == null ||
                     request.getParameter("condition") == null ||
                     request.getParameter("end") == null) {
@@ -85,12 +93,25 @@
                 }
                 String date = request.getParameter("end");
 
-                rs = DB.searchAuction(modelNumber, request.getParameter("category"), attr, date, false, request.getParameter("condition"));
+                qrs = DB.searchAuction(modelNumber, request.getParameter("category"), attr, date, false, request.getParameter("condition"));
+                query = (String)qrs.getKey();
+                rs = (ResultSet)qrs.getValue();
+                session.setAttribute("baseQuery", query);
             }
         }
 
+    }else{
+        query = (String)session.getAttribute("baseQuery");
+        if(request.getParameter("sortPriceA") != null){
+            rs = DB.sortAuctionSearchByPrice(query, true);
+        }else if(request.getParameter("sortPriceD") != null){
+            rs = DB.sortAuctionSearchByPrice(query, false);
+        }else if(request.getParameter("sortTimeA") != null){
+            rs = DB.sortAuctionSearchByTime(query, true);
+        }else if(request.getParameter("sortTimeD") != null){
+            rs = DB.sortAuctionSearchByTime(query, false);
+        }
     }
-//    if(request.getParameter(""))
 
 %>
 
@@ -127,6 +148,43 @@
                     <h3 class="panel-title">Search Results</h3>
                 </div>
                 <div class="panel-body">
+                    <%--SORTS--%>
+                    <% if(request.getParameter("searchByUser") == null && request.getParameter("similar") == null){ %>
+                        <form action="search.jsp" method="POST" class="col-md-3">
+                            <div class="input-group">
+                                <input type="hidden" name="sortPriceA">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-success" type="submit">Sort by Price Ascending</button>
+                                </span>
+                            </div>
+                        </form>
+                        <form action="search.jsp" method="POST" class="col-md-3">
+                            <div class="input-group">
+                                <input type="hidden" name="sortPriceD">
+                                <span class="input-group-btn">
+                                <button class="btn btn-success" type="submit">Sort by Price Descending</button>
+                            </span>
+                            </div>
+                        </form>
+                        <form action="search.jsp" method="POST" class="col-md-3">
+                            <div class="input-group">
+                                <input type="hidden" name="sortTimeA">
+                                <span class="input-group-btn">
+                                <button class="btn btn-success" type="submit">Sort by End Time Ascending</button>
+                            </span>
+                            </div>
+                        </form>
+                        <form action="search.jsp" method="POST" class="col-md-3">
+                            <div class="input-group">
+                                <input type="hidden" name="sortTimeD">
+                                <span class="input-group-btn">
+                            <button class="btn btn-success" type="submit">Sort by End Time Descending</button>
+                        </span>
+                            </div>
+                        </form>
+                    <%}%>
+
+
                     <table class="table table-striped">
                         <thead>
                             <tr>
