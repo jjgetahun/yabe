@@ -12,7 +12,7 @@
 <%
     String user = "";
     String userID = "";
-
+    ResultSet rs = null;
     if(session.getAttribute("USER") != null){
         userID = (String)session.getAttribute("USER");
         user =  "<li><a>Logged in as " + database.DB.getNameFromID(Integer.parseInt(userID)) + "</a></li>";
@@ -46,6 +46,44 @@
 
 <div class="container centered">
     <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">User Messages</h3>
+                </div>
+                <div class="panel-body">
+
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>MessageID</th>
+                            <th>Contents</th>
+                            <th>Time Sent</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <%
+                            rs = database.DB.getMessages(Integer.parseInt(userID));
+                            while (rs.next()) {
+                        %>
+                        <tr>
+                            <td> <%=rs.getInt("MessageID")%></td>
+                            <td> <%=rs.getString("Contents")%> </td>
+                            <td> <%=rs.getDate("TimeSent")%> </td>
+                        </tr>
+                        <%
+                            }
+                        %>
+                        </tbody>
+
+                        <!--Put stuff in here-->
+                    </table>
+
+
+                </div>
+            </div>
+        </div>
         <%
 
             if(database.DB.isAdmin(Integer.parseInt(userID))){
@@ -197,7 +235,7 @@
                                 </tr>
                                 </thead>
                                 <%
-                                    ResultSet rs = database.DB.getAllQuestions();
+                                    rs = database.DB.getAllQuestions();
                                     while (rs.next()) {
                                 %>
                                 <tbody>

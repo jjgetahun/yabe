@@ -367,7 +367,7 @@ public class DB {
         if(!initialized) init();
 
         try {
-            String sql = "SELECT * FROM Message where accountID = " + accountID + ";";
+            String sql = "SELECT * FROM Message where ReceiverID = " + accountID + ";";
             Statement statement = conn.createStatement();
             return statement.executeQuery(sql);
         }
