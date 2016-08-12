@@ -478,7 +478,7 @@ public class DB {
 
             } else {
 
-                query = "SELECT * FROM Auction A, Item I WHERE I.Type = '" + type + "' AND A.Cond = '" + condition + "' AND ";
+                query = "SELECT * FROM Auction A, Item I WHERE A.ItemID = I.ModelNumber AND I.Type = '" + type + "' AND A.Cond = '" + condition + "' AND ";
 
                 if (endTime != null && !endTime.equals("")) {
 
@@ -801,7 +801,6 @@ public class DB {
             return null;
         }
     }
-
     public static ResultSet getAllQuestions(){
 
         if (!initialized)
